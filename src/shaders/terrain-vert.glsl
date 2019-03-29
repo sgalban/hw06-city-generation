@@ -1,6 +1,5 @@
 #version 300 es
 
-
 uniform mat4 u_Model;
 uniform mat4 u_ModelInvTr;
 uniform mat4 u_ViewProj;

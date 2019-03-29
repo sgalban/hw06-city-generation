@@ -3,6 +3,7 @@ import * as Stats from 'stats-js';
 import * as DAT from 'dat-gui';
 import Square from './geometry/Square';
 import Plane from './geometry/Plane';
+import Cube from './geometry/Cube';
 import OpenGLRenderer from './rendering/gl/OpenGLRenderer';
 import Camera from './Camera';
 import {setGL} from './globals';
@@ -16,6 +17,8 @@ const controls = {
 
 let square: Square;
 let plane : Plane;
+let cube: Cube;
+
 let wPressed: boolean;
 let aPressed: boolean;
 let sPressed: boolean;
@@ -28,6 +31,8 @@ function loadScene() {
   square.create();
   plane = new Plane(vec3.fromValues(0,0,0), vec2.fromValues(100,100), 20);
   plane.create();
+  cube = new Cube(vec3.fromValues(0, 0, 0));
+  cube.create();
 
   wPressed = false;
   aPressed = false;
@@ -53,7 +58,7 @@ function main() {
             break;
             case 'd':
             dPressed = true;
-          b reak;
+            break;
         }
     }, false);
   
@@ -114,6 +119,11 @@ function main() {
         new Shader(gl.VERTEX_SHADER, require('./shaders/flat-vert.glsl')),
         new Shader(gl.FRAGMENT_SHADER, require('./shaders/flat-frag.glsl')),
     ]);
+
+    const road = new ShaderProgram([
+        new Shader(gl.VERTEX_SHADER, require('./shaders/road-vert.glsl')),
+        new Shader(gl.FRAGMENT_SHADER, require('./shaders/road-frag.glsl')),
+    ]);
   
     function processKeyPresses() {
         let velocity: vec2 = vec2.fromValues(0,0);
@@ -132,6 +142,7 @@ function main() {
         let newPos: vec2 = vec2.fromValues(0,0);
         vec2.add(newPos, velocity, planePos);
         lambert.setPlanePos(newPos);
+        road.setPlanePos(newPos);
         planePos = newPos;
     }
   
@@ -143,18 +154,23 @@ function main() {
     
         flat.setTime(time);
         lambert.setTime(time);
+        road.setTime
         lambert.setWaterRatio(controls["Land-Water Ratio"]);
     
         time += 1.0
     
         renderer.clear();
         processKeyPresses();
+
         renderer.render(camera, lambert, [
             plane,
         ]);
         renderer.render(camera, flat, [
             square,
         ]);
+        renderer.render(camera, road, [
+            cube,
+        ])
         stats.end();
     
         // Tell the browser to call `tick` again whenever it renders a new frame
