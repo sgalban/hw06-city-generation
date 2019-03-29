@@ -125,13 +125,13 @@ function equals(a, b) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(10);
 /* unused harmony reexport glMatrix */
 /* unused harmony reexport mat2 */
 /* unused harmony reexport mat2d */
@@ -230,6 +230,66 @@ function invert(out, a) {
 
 /***/ }),
 /* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
+
+class Drawable {
+    constructor() {
+        this.count = 0;
+        this.idxBound = false;
+        this.posBound = false;
+        this.norBound = false;
+    }
+    destory() {
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
+    }
+    generateIdx() {
+        this.idxBound = true;
+        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generatePos() {
+        this.posBound = true;
+        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateNor() {
+        this.norBound = true;
+        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    bindIdx() {
+        if (this.idxBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        }
+        return this.idxBound;
+    }
+    bindPos() {
+        if (this.posBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        }
+        return this.posBound;
+    }
+    bindNor() {
+        if (this.norBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        }
+        return this.norBound;
+    }
+    elemCount() {
+        return this.count;
+    }
+    drawMode() {
+        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Drawable);
+
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports) {
 
 module.exports = normalize;
@@ -257,7 +317,7 @@ function normalize(out, a) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1106,7 +1166,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3002,7 +3062,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3042,9 +3102,9 @@ var sub = subtract;
 /* unused harmony export sqlerp */
 /* unused harmony export setAxes */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(10);
 
 
 
@@ -3708,7 +3768,7 @@ var setAxes = function () {
 }();
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4550,7 +4610,7 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5211,66 +5271,6 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 10 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
-
-class Drawable {
-    constructor() {
-        this.count = 0;
-        this.idxBound = false;
-        this.posBound = false;
-        this.norBound = false;
-    }
-    destory() {
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
-    }
-    generateIdx() {
-        this.idxBound = true;
-        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generatePos() {
-        this.posBound = true;
-        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateNor() {
-        this.norBound = true;
-        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    bindIdx() {
-        if (this.idxBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
-        }
-        return this.idxBound;
-    }
-    bindPos() {
-        if (this.posBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
-        }
-        return this.posBound;
-    }
-    bindNor() {
-        if (this.norBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
-        }
-        return this.norBound;
-    }
-    elemCount() {
-        return this.count;
-    }
-    drawMode() {
-        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
-    }
-}
-;
-/* harmony default export */ __webpack_exports__["a"] = (Drawable);
-
-
-/***/ }),
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5279,7 +5279,7 @@ class Drawable {
 
 module.exports = createFilteredVector
 
-var cubicHermite = __webpack_require__(39)
+var cubicHermite = __webpack_require__(40)
 var bsearch = __webpack_require__(12)
 
 function clamp(lo, hi, x) {
@@ -5962,10 +5962,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dat_gui__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geometry_Square__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__geometry_Plane__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Camera__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__globals__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geometry_Cube__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rendering_gl_OpenGLRenderer__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Camera__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__globals__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__ = __webpack_require__(69);
+
 
 
 
@@ -5978,12 +5980,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
-    "Biome Size": 1.0,
-    "Lighting": false,
-    "Time Multiplier": 1.0
+    "Land-Water Ratio": 0.5
 };
 let square;
 let plane;
+let cube;
 let wPressed;
 let aPressed;
 let sPressed;
@@ -5995,6 +5996,8 @@ function loadScene() {
     square.create();
     plane = new __WEBPACK_IMPORTED_MODULE_4__geometry_Plane__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(100, 100), 20);
     plane.create();
+    cube = new __WEBPACK_IMPORTED_MODULE_5__geometry_Cube__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
+    cube.create();
     wPressed = false;
     aPressed = false;
     sPressed = false;
@@ -6045,9 +6048,7 @@ function main() {
     document.body.appendChild(stats.domElement);
     // Add controls to the gui
     const gui = new __WEBPACK_IMPORTED_MODULE_2_dat_gui__["GUI"]();
-    gui.add(controls, "Biome Size", 0.5, 5.0);
-    gui.add(controls, "Lighting");
-    gui.add(controls, "Time Multiplier", -25.0, 25.0);
+    gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
     // get canvas and webgl context
     const canvas = document.getElementById('canvas');
     const gl = canvas.getContext('webgl2');
@@ -6056,20 +6057,20 @@ function main() {
     }
     // `setGL` is a function imported above which sets the value of `gl` in the `globals.ts` module.
     // Later, we can import `gl` from `globals.ts` to access it
-    Object(__WEBPACK_IMPORTED_MODULE_7__globals__["b" /* setGL */])(gl);
+    Object(__WEBPACK_IMPORTED_MODULE_8__globals__["b" /* setGL */])(gl);
     // Initial call to load scene
     loadScene();
-    const camera = new __WEBPACK_IMPORTED_MODULE_6__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 10, -20), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
-    const renderer = new __WEBPACK_IMPORTED_MODULE_5__rendering_gl_OpenGLRenderer__["a" /* default */](canvas);
+    const camera = new __WEBPACK_IMPORTED_MODULE_7__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 10, -20), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
+    const renderer = new __WEBPACK_IMPORTED_MODULE_6__rendering_gl_OpenGLRenderer__["a" /* default */](canvas);
     renderer.setClearColor(164.0 / 255.0, 233.0 / 255.0, 1.0, 1);
     gl.enable(gl.DEPTH_TEST);
-    const lambert = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(69)),
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(70)),
+    const lambert = new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(70)),
+        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(71)),
     ]);
-    const flat = new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(71)),
-        new __WEBPACK_IMPORTED_MODULE_8__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(72)),
+    const flat = new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(72)),
+        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(73)),
     ]);
     function processKeyPresses() {
         let velocity = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0, 0);
@@ -6095,18 +6096,17 @@ function main() {
         camera.update();
         stats.begin();
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
-        lambert.setTime(time);
-        lambert.setBiomeSize(controls["Biome Size"]);
         flat.setTime(time);
-        lambert.setLightingOn(controls["Lighting"]);
-        time += controls["Time Multiplier"];
+        lambert.setTime(time);
+        lambert.setWaterRatio(controls["Land-Water Ratio"]);
+        time += 1.0;
         renderer.clear();
         processKeyPresses();
         renderer.render(camera, lambert, [
             plane,
         ]);
         renderer.render(camera, flat, [
-            square,
+            square, cube
         ]);
         stats.end();
         // Tell the browser to call `tick` again whenever it renders a new frame
@@ -7154,8 +7154,8 @@ var sub = subtract;
 /* unused harmony export exactEquals */
 /* unused harmony export equals */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(7);
 
 
 
@@ -13123,7 +13123,7 @@ dat.utils.common);
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
 
@@ -13167,7 +13167,7 @@ class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /*
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
 
@@ -13234,6 +13234,100 @@ class Plane extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* 
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
+
+
+
+class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
+    constructor(center) {
+        super(); // Call the constructor of the super class. This is required.
+        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
+    }
+    create() {
+        this.indices = new Uint32Array([
+            0, 1, 2, 0, 2, 3,
+            4, 5, 6, 4, 6, 7,
+            8, 9, 10, 8, 10, 11,
+            12, 13, 14, 12, 14, 15,
+            16, 17, 18, 16, 18, 19,
+            20, 21, 22, 20, 22, 23
+        ]);
+        this.normals = new Float32Array([
+            0, 1, 0, 0,
+            0, 1, 0, 0,
+            0, 1, 0, 0,
+            0, 1, 0, 0,
+            0, -1, 0, 0,
+            0, -1, 0, 0,
+            0, -1, 0, 0,
+            0, -1, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0,
+            1, 0, 0, 0,
+            -1, 0, 0, 0,
+            -1, 0, 0, 0,
+            -1, 0, 0, 0,
+            -1, 0, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0,
+            0, 0, 1, 0,
+            0, 0, -1, 0,
+            0, 0, -1, 0,
+            0, 0, -1, 0,
+            0, 0, -1, 0,
+        ]);
+        this.positions = new Float32Array([
+            -0.5, +0.5, -0.5, 1,
+            -0.5, +0.5, +0.5, 1,
+            +0.5, +0.5, -0.5, 1,
+            +0.5, +0.5, +0.5, 1,
+            -0.5, -0.5, -0.5, 1,
+            -0.5, -0.5, +0.5, 1,
+            +0.5, -0.5, -0.5, 1,
+            +0.5, -0.5, +0.5, 1,
+            +0.5, -0.5, -0.5, 1,
+            +0.5, -0.5, +0.5, 1,
+            +0.5, +0.5, -0.5, 1,
+            +0.5, +0.5, +0.5, 1,
+            -0.5, -0.5, -0.5, 1,
+            -0.5, -0.5, +0.5, 1,
+            -0.5, +0.5, -0.5, 1,
+            -0.5, +0.5, +0.5, 1,
+            -0.5, -0.5, +0.5, 1,
+            -0.5, +0.5, +0.5, 1,
+            +0.5, -0.5, +0.5, 1,
+            +0.5, +0.5, +0.5, 1,
+            -0.5, -0.5, -0.5, 1,
+            -0.5, +0.5, -0.5, 1,
+            +0.5, -0.5, -0.5, 1,
+            +0.5, +0.5, -0.5, 1,
+        ]);
+        this.generateIdx();
+        this.generatePos();
+        this.generateNor();
+        this.count = this.indices.length;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.normals, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.positions, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        console.log(`Created cube`);
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Square);
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -13270,12 +13364,12 @@ class OpenGLRenderer {
 
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-var CameraControls = __webpack_require__(34);
+var CameraControls = __webpack_require__(35);
 
 class Camera {
     constructor(position, target) {
@@ -13313,7 +13407,7 @@ class Camera {
 
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13321,12 +13415,12 @@ class Camera {
 
 module.exports = createCamera
 
-var now         = __webpack_require__(35)
-var createView  = __webpack_require__(37)
-var mouseChange = __webpack_require__(60)
-var mouseWheel  = __webpack_require__(62)
-var mouseOffset = __webpack_require__(65)
-var hasPassive  = __webpack_require__(66)
+var now         = __webpack_require__(36)
+var createView  = __webpack_require__(38)
+var mouseChange = __webpack_require__(61)
+var mouseWheel  = __webpack_require__(63)
+var mouseOffset = __webpack_require__(66)
+var hasPassive  = __webpack_require__(67)
 
 function createCamera(element, options) {
   element = element || document.body
@@ -13556,7 +13650,7 @@ function createCamera(element, options) {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports =
@@ -13567,10 +13661,10 @@ function createCamera(element, options) {
     return +new Date
   }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13597,7 +13691,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13605,9 +13699,9 @@ module.exports = g;
 
 module.exports = createViewController
 
-var createTurntable = __webpack_require__(38)
-var createOrbit     = __webpack_require__(41)
-var createMatrix    = __webpack_require__(44)
+var createTurntable = __webpack_require__(39)
+var createOrbit     = __webpack_require__(42)
+var createMatrix    = __webpack_require__(45)
 
 function ViewController(controllers, mode) {
   this._controllerNames = Object.keys(controllers)
@@ -13725,7 +13819,7 @@ function createViewController(options) {
 }
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13735,9 +13829,9 @@ module.exports = createTurntableController
 
 var filterVector = __webpack_require__(11)
 var invert44     = __webpack_require__(3)
-var rotateM      = __webpack_require__(40)
+var rotateM      = __webpack_require__(41)
 var cross        = __webpack_require__(13)
-var normalize3   = __webpack_require__(4)
+var normalize3   = __webpack_require__(5)
 var dot3         = __webpack_require__(14)
 
 function len3(x, y, z) {
@@ -14303,7 +14397,7 @@ function createTurntableController(options) {
 }
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14348,7 +14442,7 @@ module.exports = cubicHermite
 module.exports.derivative = dcubicHermite
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports) {
 
 module.exports = rotate;
@@ -14417,7 +14511,7 @@ function rotate(out, a, rad, axis) {
 };
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14427,9 +14521,9 @@ module.exports = createOrbitController
 
 var filterVector  = __webpack_require__(11)
 var lookAt        = __webpack_require__(15)
-var mat4FromQuat  = __webpack_require__(42)
+var mat4FromQuat  = __webpack_require__(43)
 var invert44      = __webpack_require__(3)
-var quatFromFrame = __webpack_require__(43)
+var quatFromFrame = __webpack_require__(44)
 
 function len3(x,y,z) {
   return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2))
@@ -14816,7 +14910,7 @@ function createOrbitController(options) {
 }
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = fromQuat;
@@ -14868,7 +14962,7 @@ function fromQuat(out, q) {
 };
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14915,22 +15009,22 @@ function quatFromFrame(
 }
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var bsearch   = __webpack_require__(12)
-var m4interp  = __webpack_require__(45)
+var m4interp  = __webpack_require__(46)
 var invert44  = __webpack_require__(3)
-var rotateX   = __webpack_require__(57)
-var rotateY   = __webpack_require__(58)
-var rotateZ   = __webpack_require__(59)
+var rotateX   = __webpack_require__(58)
+var rotateY   = __webpack_require__(59)
+var rotateZ   = __webpack_require__(60)
 var lookAt    = __webpack_require__(15)
 var translate = __webpack_require__(17)
 var scale     = __webpack_require__(19)
-var normalize = __webpack_require__(4)
+var normalize = __webpack_require__(5)
 
 var DEFAULT_CENTER = [0,0,0]
 
@@ -15120,15 +15214,15 @@ function createMatrixCameraController(options) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var lerp = __webpack_require__(46)
+var lerp = __webpack_require__(47)
 
-var recompose = __webpack_require__(47)
-var decompose = __webpack_require__(50)
+var recompose = __webpack_require__(48)
+var decompose = __webpack_require__(51)
 var determinant = __webpack_require__(20)
-var slerp = __webpack_require__(55)
+var slerp = __webpack_require__(56)
 
 var state0 = state()
 var state1 = state()
@@ -15177,7 +15271,7 @@ function vec4() {
 }
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = lerp;
@@ -15202,7 +15296,7 @@ function lerp(out, a, b, t) {
 }
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -15219,10 +15313,10 @@ From: http://www.w3.org/TR/css3-transforms/#recomposing-to-a-3d-matrix
 var mat4 = {
     identity: __webpack_require__(16),
     translate: __webpack_require__(17),
-    multiply: __webpack_require__(48),
+    multiply: __webpack_require__(49),
     create: __webpack_require__(18),
     scale: __webpack_require__(19),
-    fromRotationTranslation: __webpack_require__(49)
+    fromRotationTranslation: __webpack_require__(50)
 }
 
 var rotationMatrix = mat4.create()
@@ -15267,7 +15361,7 @@ module.exports = function recomposeMat4(matrix, translation, scale, skew, perspe
 }
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports) {
 
 module.exports = multiply;
@@ -15314,7 +15408,7 @@ function multiply(out, a, b) {
 };
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = fromRotationTranslation;
@@ -15372,7 +15466,7 @@ function fromRotationTranslation(out, q, v) {
 };
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*jshint unused:true*/
@@ -15392,16 +15486,16 @@ https://github.com/ChromiumWebApps/chromium/blob/master/ui/gfx/transform_util.cc
 http://www.w3.org/TR/css3-transforms/#decomposing-a-3d-matrix
 */
 
-var normalize = __webpack_require__(51)
+var normalize = __webpack_require__(52)
 
 var create = __webpack_require__(18)
-var clone = __webpack_require__(52)
+var clone = __webpack_require__(53)
 var determinant = __webpack_require__(20)
 var invert = __webpack_require__(3)
-var transpose = __webpack_require__(53)
+var transpose = __webpack_require__(54)
 var vec3 = {
-    length: __webpack_require__(54),
-    normalize: __webpack_require__(4),
+    length: __webpack_require__(55),
+    normalize: __webpack_require__(5),
     dot: __webpack_require__(14),
     cross: __webpack_require__(13)
 }
@@ -15556,7 +15650,7 @@ function combine(out, a, b, scale1, scale2) {
 }
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports) {
 
 module.exports = function normalize(out, mat) {
@@ -15571,7 +15665,7 @@ module.exports = function normalize(out, mat) {
 }
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = clone;
@@ -15604,7 +15698,7 @@ function clone(a) {
 };
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = transpose;
@@ -15658,7 +15752,7 @@ function transpose(out, a) {
 };
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = length;
@@ -15677,13 +15771,13 @@ function length(a) {
 }
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(56)
+module.exports = __webpack_require__(57)
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = slerp
@@ -15740,7 +15834,7 @@ function slerp (out, a, b, t) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = rotateX;
@@ -15789,7 +15883,7 @@ function rotateX(out, a, rad) {
 };
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = rotateY;
@@ -15838,7 +15932,7 @@ function rotateY(out, a, rad) {
 };
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = rotateZ;
@@ -15887,7 +15981,7 @@ function rotateZ(out, a, rad) {
 };
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15895,7 +15989,7 @@ function rotateZ(out, a, rad) {
 
 module.exports = mouseListen
 
-var mouse = __webpack_require__(61)
+var mouse = __webpack_require__(62)
 
 function mouseListen (element, callback) {
   if (!callback) {
@@ -16099,7 +16193,7 @@ function mouseListen (element, callback) {
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16166,13 +16260,13 @@ exports.y = mouseRelativeY
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPX = __webpack_require__(63)
+var toPX = __webpack_require__(64)
 
 module.exports = mouseWheelListen
 
@@ -16213,13 +16307,13 @@ function mouseWheelListen(element, callback, noScroll) {
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var parseUnit = __webpack_require__(64)
+var parseUnit = __webpack_require__(65)
 
 module.exports = toPX
 
@@ -16294,7 +16388,7 @@ function toPX(str, element) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = function parseUnit(str, out) {
@@ -16309,7 +16403,7 @@ module.exports = function parseUnit(str, out) {
 }
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 var rootPosition = { left: 0, top: 0 }
@@ -16340,13 +16434,13 @@ function getBoundingClientOffset (element) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isBrowser = __webpack_require__(67)
+var isBrowser = __webpack_require__(68)
 
 function detect() {
 	var supported = false
@@ -16371,13 +16465,13 @@ module.exports = isBrowser && detect()
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16418,7 +16512,7 @@ class ShaderProgram {
         this.unifPlanePos = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_PlanePos");
         this.unifTime = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Time");
         this.unifLighting = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_UseLight");
-        this.unifBiomeSize = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_BiomeSize");
+        this.unifRatio = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_LandRatio");
     }
     use() {
         if (activeProgram !== this.prog) {
@@ -16456,10 +16550,10 @@ class ShaderProgram {
             __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1i(this.unifTime, time);
         }
     }
-    setBiomeSize(size) {
+    setWaterRatio(ratio) {
         this.use();
-        if (this.unifBiomeSize !== -1) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifBiomeSize, size);
+        if (this.unifRatio !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifRatio, ratio);
         }
     }
     setLightingOn(lighting) {
@@ -16492,28 +16586,28 @@ class ShaderProgram {
 
 
 /***/ }),
-/* 69 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n\n\nuniform mat4 u_Model;\nuniform mat4 u_ModelInvTr;\nuniform mat4 u_ViewProj;\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform float u_BiomeSize;\nuniform highp int u_UseLight;\nuniform highp int u_Time;\n\nin vec4 vs_Pos;\nin vec4 vs_Nor;\nin vec4 vs_Col;\n\nout vec3 fs_Pos;\nout vec4 fs_Nor;\nout vec4 fs_Col;\n\nout float fs_Sine;\nout float fs_Moisture;\n\nconst vec2 SEED2 = vec2(0.1234, 0.5678);\n\nconst float PI = 3.1415926;\n\nfloat random1( vec2 p , vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat quinticFalloff(float t) {\n    return t * t * t * (t * (6.0 * t - 15.0) + 10.0);\n}\n\nfloat cubicFalloff(float t) {\n    return t * t * (3.0 - 2.0 * t);\n}\n\nfloat steepFalloff(float t, float falloffStart, float falloffLength) {\n    float adjusted = clamp((t - falloffStart) / falloffLength, 0.0, 1.0);\n    return quinticFalloff(adjusted);\n}\n\nfloat cosineSmooth(float t) {\n    float a = (cos(2.0 * PI * t + PI) + 1.0) * 0.5;\n    return a * a;\n}\n\nfloat perlin (vec2 noisePos, float frequency, vec2 seed) {\n    vec2 pos = noisePos * frequency;\n    vec2 cellPos = vec2(floor(pos.x), floor(pos.y));\n\n    vec2 corner0 = cellPos + vec2(0.0, 0.0);\n    vec2 corner1 = cellPos + vec2(1.0, 0.0);\n    vec2 corner2 = cellPos + vec2(0.0, 1.0);\n    vec2 corner3 = cellPos + vec2(1.0, 1.0);\n\n    vec2 posVec0 = pos - corner0;\n    vec2 posVec1 = pos - corner1;\n    vec2 posVec2 = pos - corner2;\n    vec2 posVec3 = pos - corner3; \n\n    vec2 gradient0 = normalize(random2(corner0, seed) * 2.0 - vec2(1.0));\n    vec2 gradient1 = normalize(random2(corner1, seed) * 2.0 - vec2(1.0));\n    vec2 gradient2 = normalize(random2(corner2, seed) * 2.0 - vec2(1.0));\n    vec2 gradient3 = normalize(random2(corner3, seed) * 2.0 - vec2(1.0));\n    float val0 = dot(posVec0, gradient0);\n    float val1 = dot(posVec1, gradient1);\n    float val2 = dot(posVec2, gradient2);\n    float val3 = dot(posVec3, gradient3);\n\n    float tx = cubicFalloff(fract(pos.x));\n    float ty = cubicFalloff(fract(pos.y));\n    float lerpedCol = mix(mix(val0, val1, tx), mix(val2, val3, tx), ty);\n\n    return (lerpedCol + 1.0) / 2.0;\n}\n\nfloat recursivePerlin(vec2 noisePos, int octaves, float frequency) {\n    const float PERSISTENCE = 0.5;\n    const float FREQUENCY_FACTOR = 2.0;\n\n    float total = 0.0;\n    float curAmplitude = 1.0;\n    float curFrequency = frequency;\n    for (int curOctave = 0; curOctave < octaves; curOctave++) {\n        curAmplitude *= PERSISTENCE;\n        total += perlin(noisePos, curFrequency, SEED2) * curAmplitude;\n        curFrequency *= FREQUENCY_FACTOR;\n    }\n    return total;\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 cellPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(cellPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(cellPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(cellPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(cellPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, SEED2) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\nfloat worley(vec2 noisePos, float frequency) {\n    vec2 point = noisePos * frequency;\n    vec2 cell = floor(point);\n\n    // Check the neighboring cells for the closest cell point\n    float closestDistance = 2.0;\n    for (int i = 0; i < 9; i++) {\n        vec2 curCell = cell + vec2(i % 3 - 1, floor(float(i / 3) - 1.0));\n        vec2 cellPoint = vec2(curCell) + random2(vec2(curCell), SEED2);\n        closestDistance = min(closestDistance, distance(cellPoint, point));\n    }\n    return clamp(0.0, 1.0, closestDistance);\n}\n\nfloat getBiome(float temperature, float moisture) {\n    return moisture;\n}\n\nfloat getMountainHeight(vec2 pos) {\n    const float MAX_AMPLITUDE = 12.0;\n    const float EXTRA_JAGGINESS = 2.0;\n    float fmbVal = fbm(pos, 8, 0.08);\n    float perlin = recursivePerlin(pos, 2, 0.08);\n\n    float height = (fmbVal * fmbVal * fmbVal * 0.8 + perlin * perlin * perlin * 0.2) * MAX_AMPLITUDE;\n    height = height + (mix(0.0, brownianNoise(pos, SEED2), height / MAX_AMPLITUDE)) * EXTRA_JAGGINESS;\n    return height * MAX_AMPLITUDE / (MAX_AMPLITUDE + EXTRA_JAGGINESS);\n}\n\nfloat getDesertHeight(vec2 pos) {\n    const float MAX_AMPLITUDE = 12.0;\n    float mesaFbm = fbm(pos, 5, 0.03);\n    float dunes = recursivePerlin(pos, 2, 0.1) * MAX_AMPLITUDE * 0.25;\n    float mesas = steepFalloff(mesaFbm, 0.65, 0.1) * MAX_AMPLITUDE * 0.75;\n    return max(dunes, mesas);\n}\n\nfloat getOceanHeight(vec2 pos) {\n    const float MAX_AMPLITUDE = 12.0;\n    float largePerlin = recursivePerlin(pos, 2, 0.08);\n    float islands = (1.0 - steepFalloff(largePerlin, 0.35, 0.2)) * MAX_AMPLITUDE * 0.2;\n    float height = MAX_AMPLITUDE * 0.09 - islands; \n    float waves = 0.0;\n    if (height < -0.5) {\n        float time = float(u_Time) * 0.01;\n        vec2 perturbenceOffset = vec2(5.4 + time, 1.3 + time);\n        vec2 perlinOffset = vec2(time);\n\n        vec2 perturbence = vec2(fbm(pos, 2, 0.3), fbm(pos + perturbenceOffset, 2, 0.3));\n        waves = smoothstep(0.0, perlin(pos - perlinOffset - perturbence, 0.3, SEED2), 1.0 - (height + 1.5)) * 0.3;\n    }\n    return height + waves;\n}\n\nfloat getSnowyHeight(vec2 pos) {\n    const float MAX_AMPLITUDE = 12.0;\n    float perlin = recursivePerlin(pos, 2, 0.1);\n    float worley = 1.0 - (worley(pos, 0.05) + 0.5 * worley(pos, 0.1));\n    return MAX_AMPLITUDE * (worley * worley * 0.4 + perlin * 0.6);\n}\n\nfloat getHeight(vec2 pos, float biome) {\n    //return getDesertHeight(pos);\n    if (biome < 0.25) {\n        return getDesertHeight(pos);\n    }\n    else if (biome >= 0.25 && biome < 0.30) {\n        return mix(getDesertHeight(pos), getMountainHeight(pos), (biome - 0.25) / 0.05);\n    }\n    else if (biome >= 0.30 && biome < 0.65) {\n        return getMountainHeight(pos);\n    }\n    else if (biome >= 0.65 && biome < 0.75) {\n        return mix(getMountainHeight(pos), getOceanHeight(pos), (biome - 0.65) / 0.1);\n    }\n    else {\n        return getOceanHeight(pos);\n    }\n}\n\nvoid main() {\n    fs_Moisture = quinticFalloff(perlin(vs_Pos.xz + u_PlanePos, 0.005 / u_BiomeSize, SEED2 + vec2(0.4)));\n    vec2 noisePos = vs_Pos.xz + u_PlanePos;\n\n    float vertHeight = getHeight(noisePos, fs_Moisture);\n    vec4 modelposition = vec4(vs_Pos.x, vertHeight, vs_Pos.z, 1);\n    fs_Pos = modelposition.xyz;\n\n    modelposition = u_Model * modelposition;\n    gl_Position = u_ViewProj * modelposition;\n\n    if (u_UseLight > 0) {\n        const float DPOS = 0.01;\n        vec3 p1 = vec3(vs_Pos.x, vertHeight, vs_Pos.z);\n        vec3 p2 = vec3(vs_Pos.x + DPOS, getHeight(noisePos + vec2(DPOS, 0.0), fs_Moisture), vs_Pos.z);\n        vec3 p3 = vec3(vs_Pos.x, getHeight(noisePos + vec2(0.0, DPOS), fs_Moisture), vs_Pos.z + DPOS);\n        fs_Nor = vec4(normalize(cross(p3 - p1, p2 - p1)), 0.0);\n    }\n}\n"
-
-/***/ }),
 /* 70 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform highp int u_Time;\nuniform highp int u_UseLight;\n\nin vec3 fs_Pos;\nin vec4 fs_Nor;\nin vec4 fs_Col;\n\nin float fs_Sine;\n\nin float fs_Moisture;\n\nout vec4 out_Col; // This is the final output color that you will see on your\n                  // screen for the pixel that is currently being processed.\n\nconst vec2 SEED2 = vec2(0.31415, 0.6456);\nconst vec3 SEED3 = vec3(0.1, 0.22, 0.31);\n\nconst float PI = 3.1415926;\n\nfloat random1( vec2 p , vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1( vec3 p , vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2( vec2 p , vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat quinticFalloff(float t) {\n    return t * t * t * (t * (6.0 * t - 15.0) + 10.0);\n}\n\nfloat cubicFalloff(float t) {\n    return t * t * (3.0 - 2.0 * t);\n}\n\nfloat steepFalloff(float t, float falloffStart, float falloffLength) {\n    if (t < falloffStart) {\n        return 0.0;\n    }\n    else if (t > falloffStart + falloffLength){\n        return 1.0;\n    }\n    float adjusted = (t - falloffStart) / falloffLength;\n    return quinticFalloff(adjusted);\n}\n\nfloat perlin (vec2 noisePos, float frequency) {\n    vec2 pos = noisePos * frequency;\n    vec2 cellPos = vec2(floor(pos.x), floor(pos.y));\n\n    vec2 corner0 = cellPos + vec2(0.0, 0.0);\n    vec2 corner1 = cellPos + vec2(1.0, 0.0);\n    vec2 corner2 = cellPos + vec2(0.0, 1.0);\n    vec2 corner3 = cellPos + vec2(1.0, 1.0);\n\n    vec2 posVec0 = pos - corner0;\n    vec2 posVec1 = pos - corner1;\n    vec2 posVec2 = pos - corner2;\n    vec2 posVec3 = pos - corner3; \n\n    vec2 gradient0 = normalize(random2(corner0, SEED2) * 2.0 - vec2(1.0));\n    vec2 gradient1 = normalize(random2(corner1, SEED2) * 2.0 - vec2(1.0));\n    vec2 gradient2 = normalize(random2(corner2, SEED2) * 2.0 - vec2(1.0));\n    vec2 gradient3 = normalize(random2(corner3, SEED2) * 2.0 - vec2(1.0));\n    float val0 = dot(posVec0, gradient0);\n    float val1 = dot(posVec1, gradient1);\n    float val2 = dot(posVec2, gradient2);\n    float val3 = dot(posVec3, gradient3);\n\n    float tx = cubicFalloff(fract(pos.x));\n    float ty = cubicFalloff(fract(pos.y));\n    float lerpedCol = mix(mix(val0, val1, tx), mix(val2, val3, tx), ty);\n\n    return (lerpedCol + 1.0) / 2.0;\n}\n\nfloat recursivePerlin(vec2 noisePos, int octaves, float frequency) {\n    const float PERSISTENCE = 0.5;\n    const float FREQUENCY_FACTOR = 2.0;\n\n    float total = 0.0;\n    float curAmplitude = 1.0;\n    float curFrequency = frequency;\n    for (int curOctave = 0; curOctave < octaves; curOctave++) {\n        curAmplitude *= PERSISTENCE;\n        total += perlin(noisePos, curFrequency) * curAmplitude;\n        curFrequency *= FREQUENCY_FACTOR;\n    }\n    return total;\n}\n\n// I tried to make this 3D, but it cut my framerate in half, so I'm not doing that now\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, SEED2) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\nfloat worley(vec2 noisePos, float frequency) {\n    vec2 point = noisePos * frequency;\n    vec2 cell = floor(point);\n\n    // Check the neighboring cells for the closest cell point\n    float closestDistance = 2.0;\n    for (int i = 0; i < 9; i++) {\n        vec2 curCell = cell + vec2(i % 3 - 1, floor(float(i / 3) - 1.0));\n        vec2 cellPoint = vec2(curCell) + random2(vec2(curCell), SEED2);\n        closestDistance = min(closestDistance, distance(cellPoint, point));\n    }\n    return clamp(0.0, 1.0, closestDistance);\n}\n\nvec3 getMountainsColor(vec3 pos) {\n    float t = min(pos.y * 0.15 + ((fbm(pos.xz, 3, 0.5)) - 0.5) * 0.4, 1.0);\n\n    float largeFbm = fbm(fs_Pos.xz + u_PlanePos, 3, 0.075);\n    float smallPerlin = recursivePerlin(pos.xz, 2, 5.0);\n    float mediumPerlin = recursivePerlin(fs_Pos.xz + u_PlanePos, 2, 1.0);\n\n    const vec3 COL0 = vec3(0.1, 0.4, 0.07);\n    const vec3 COL1 = vec3(0.3, 0.5, 0.1);\n    const vec3 COL2 = vec3(0.48, 0.35, 0.27);\n    const vec3 COL3 = vec3(0.5, 0.5, 0.4);\n    const vec3 COL4 = vec3(0.95, 0.97, 1.0);\n    const vec3 COL5 = vec3(0.7, 0.6, 0.5);\n    const vec3 COL6 = vec3(0.3, 0.3, 0.2);\n    const vec3 COL7 = vec3(0.4, 0.25, 0.15) * 0.5;\n\n\n    vec3 grassCol = mix(mix(COL0, COL1, smallPerlin), COL5, largeFbm);\n    vec3 mudCol = mix(COL2, COL7, mediumPerlin);\n    vec3 rockCol = mix(COL3, COL6, mediumPerlin);\n\n    if (t < 0.2) {\n        return grassCol;\n    }\n    else if (t >= 0.2 && t < 0.3) {\n        return mix(grassCol, mudCol, quinticFalloff((t - 0.2) / 0.1));\n    }\n    else if (t >= 0.3 && t < 0.5) {\n        return mix(mudCol, rockCol, quinticFalloff((t - 0.3) / 0.2));\n    }\n    else if (t >= 0.5 && t < 0.8) {\n        return mix(rockCol, COL4, quinticFalloff((t - 0.5) / 0.3));\n    }\n    else {\n        return COL4;\n    }\n}\n\nvec3 getDesertColor(vec3 pos) {\n    float mediumPerlin = recursivePerlin(pos.xz, 2, 1.0);\n    float smallPerlin = recursivePerlin(pos.xy + vec2(pos.z), 2, 2.0);\n    float heightPerturbance = fbm(pos.xz, 3, 0.5) * 0.1;\n    float y = pos.y + heightPerturbance * 20.0;\n\n    const vec3 COL1 = vec3(1.0, 0.86, 0.3);\n    const vec3 COL2 = vec3(0.92, 0.70, 0.43);\n    const vec3 COL3 = vec3(0.77, 0.48, 0.24);\n    const vec3 COL4 = vec3(0.70, 0.61, 0.34) * 1.2;\n    float heightSine = sin(y * PI) * 0.03;\n    vec3 sandCol = mix(COL1, COL2, mediumPerlin) * (pos.y * 0.3 / 3.0 + 0.7);\n    vec3 rockCol = mix(COL3, COL4, smallPerlin) + vec3(y * 0.02, heightSine, heightSine - y * 0.02);\n    vec3 topCol = mix(COL1, COL2, smallPerlin);\n\n    float t = pos.y / 9.0;\n    if (t < 0.15) {\n        return sandCol;\n    }\n    else if (t >= 0.15 && t < 0.25) {\n        return mix(sandCol, rockCol, quinticFalloff((t - 0.15) / 0.1));\n    }\n    else if (t >= 0.25 && t < 0.9 - heightPerturbance) {\n        return rockCol;\n    }\n    else {\n        return mix(rockCol, topCol, quinticFalloff((t - 0.9 + heightPerturbance) / (0.1 + heightPerturbance)));\n    }\n}\n\nvec3 getOceanColor(vec3 pos) {\n    float time = float(u_Time) * 0.01;\n    vec2 perturbenceOffset = vec2(5.4 + time, 1.3 + time);\n    vec2 worleyOffset = vec2(time);\n\n    vec2 perturbence = vec2(fbm(pos.xz, 2, 0.3), fbm(pos.xz + perturbenceOffset, 2, 0.3));\n    float worley1 = worley(pos.xz - worleyOffset - perturbence * 4.0, 0.3);\n    //float worley2 = worley(pos.xz - worleyOffset - perturbence * 6.0, 0.3); Too slow\n    float totalWorley = worley1;//(worley1 + worley2) * 0.5;\n\n    float smallPerlin = recursivePerlin(pos.xz * (pos.y + 1.0), 2, 1.0);\n    float smallFbm = fbm(pos.xz, 2, 1.0);\n\n    const vec3 COL1 = vec3(0.1, 0.3, 0.9);\n    const vec3 COL2 = vec3(0.4, 0.55, 0.95);\n    const vec3 COL3 = vec3(0.9, 0.9, 0.4);\n    const vec3 COL4 = vec3(0.85, 0.6, 0.4);\n    const vec3 COL5 = vec3(0.0, 1.0, 0.2);\n    const vec3 COL6 = vec3(0.0, 0.6, 0.1);\n\n    vec3 waterCol = mix(COL1, COL2, worley1);\n    vec3 sandCol = mix(COL3, COL4, smallPerlin);\n    vec3 grassCol = mix(COL5, COL6, smallFbm);\n\n    float tideFactor = 0.25 * (sin(time) + 1.0);\n\n    if (pos.y < - 1.0 + tideFactor) {\n        return waterCol;\n    }\n    if (pos.y >= -1.0 + tideFactor && pos.y < 0.0) {\n        return mix(waterCol, sandCol, quinticFalloff(pos.y + 1.0));\n    }\n    else if (pos.y >= 0.0 && pos.y < 0.5) {\n        return sandCol;\n    }\n    else if (pos.y >= 0.5 && pos.y < 1.5) {\n        return mix(sandCol, grassCol, cubicFalloff(pos.y - 0.5));\n    }\n    else {\n        return grassCol;\n    }\n}\n\nvec3 getSnowyColor(vec3 pos) {\n    return vec3(worley(pos.xz, 0.2));\n    //return vec3(1.0) * mix(0.7, 1.0, pos.y / 6.0);\n}\n\n\nvec3 getBiomeColor(float biome, vec3 pos) {\n    //return getDesertColor(pos);\n    if (biome < 0.25) {\n        return getDesertColor(pos);\n    }\n    else if (biome >= 0.25 && biome < 0.30) {\n        return mix(getDesertColor(pos), getMountainsColor(pos), (biome - 0.25) / 0.05);\n    }\n    else if (biome >= 0.30 && biome < 0.65) {\n        return getMountainsColor(pos);\n    }\n    else if (biome >= 0.65 && biome < 0.75) {\n        return mix(getMountainsColor(pos), getOceanColor(pos), (biome - 0.65) / 0.1);\n    }\n    else {\n        return getOceanColor(pos);\n    }\n}\n\nfloat getLambertianFactor(float sunAngle) {\n    const float AMBIENT = 0.3;\n    vec3 lightDir = vec3(cos(radians(sunAngle)), sin(radians(sunAngle)), 0.0);\n    float lamberianFactor = dot(fs_Nor.xyz, lightDir);\n    return max(AMBIENT, lamberianFactor);\n}\n\nvec3 cubicInterp(vec3 v1, vec3 v2, float t) {\n    return mix(v1, v2, smoothstep(0.0, 1.0, t));\n}\n\nvec3 getSkyColor(float sunAngle) {\n    vec3 COL1 = vec3(0.08, 0.02, 0.16);\n    vec3 COL2 = vec3(1.00, 0.68, 0.59);\n    vec3 COL3 = vec3(0.21, 0.77, 1.00);\n\n    if (sunAngle < 5.0) {\n        return COL2;\n    }\n    else if (sunAngle >= 5.0 && sunAngle < 30.0) {\n        return cubicInterp(COL2, COL3, (sunAngle - 5.0) / 25.0);\n    }\n    else if (sunAngle >= 30.0 && sunAngle < 150.0) {\n        return COL3;\n    }\n    else if (sunAngle >= 150.0 && sunAngle < 175.0) {\n        return cubicInterp(COL3, COL2, (sunAngle - 150.0) / 25.0);\n    }\n    else if (sunAngle >= 175.0 && sunAngle < 185.0) {\n        return COL2;\n    }\n    else if (sunAngle >= 185.0 && sunAngle < 210.0) {\n        return cubicInterp(COL2, COL1, (sunAngle - 185.0) / 25.0);\n    }\n    else if (sunAngle >= 210.0 && sunAngle < 330.0) {\n        return COL1;\n    }\n    else if (sunAngle >= 330.0 && sunAngle < 355.0) {\n        return cubicInterp(COL1, COL2, (sunAngle - 330.0) / 25.0);\n    }\n    else {\n        return COL2;\n    }\n}\n\nvoid main() {\n    float t = clamp(smoothstep(40.0, 50.0, length(fs_Pos)), 0.0, 1.0); // Distance fog\n    vec3 noisePos = fs_Pos + vec3(u_PlanePos.x, 0, u_PlanePos.y);\n\n    vec3 terrainCol = getBiomeColor(fs_Moisture, noisePos);\n    float sunAngle = mod(float(u_Time) * 0.1 + 90.0, 360.0);\n\n    if (u_UseLight > 0) {\n        float lambert = getLambertianFactor(sunAngle);\n        terrainCol *= lambert;\n    }\n\n    out_Col = vec4(mix(terrainCol, getSkyColor(sunAngle), t), 1.0);\n}\n"
+module.exports = "#version 300 es\n\n\nuniform mat4 u_Model;\nuniform mat4 u_ModelInvTr;\nuniform mat4 u_ViewProj;\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform float u_LandRatio;\nuniform highp int u_UseLight;\nuniform highp int u_Time;\n\nin vec4 vs_Pos;\nin vec4 vs_Nor;\nin vec4 vs_Col;\n\nout vec3 fs_Pos;\nout vec4 fs_Nor;\nout vec4 fs_Col;\n\nconst vec2 SEED2 = vec2(0.1234, 0.5678);\n\nconst float PI = 3.1415926;\n\n/* ----------------------------------------------------------------------------------------- *\n *     Util Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat cubicFalloff(float t) {\n    return t * t * (3.0 - 2.0 * t);\n}\n\n/* ----------------------------------------------------------------------------------------- *\n *     Noise Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat random1(vec2 p, vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1(vec3 p, vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2(vec2 p, vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, seed) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\nvoid main() {\n    vec2 noisePos = vs_Pos.xz + u_PlanePos;\n\n    const float COAST_SIZE = 0.075;\n    float isLand = fbm(noisePos, 3, 0.05, SEED2);\n    float vertHeight =\n        isLand > u_LandRatio - 0.00000000 ? -0.5:\n        isLand > u_LandRatio - COAST_SIZE ? mix(-0.5, 0.5, cubicFalloff((u_LandRatio - isLand) / COAST_SIZE)):\n        0.5;\n\n    /*\n        isLand > u_LandRatio -0.5 : \n        isLand > u_LandRatio ? mix(-0.5, 0.5, cubicFalloff((isLand - u_LandRatio - COAST_SIZE) / COAST_SIZE)) :\n        0.5;*/\n\n    vec4 modelposition = vec4(vs_Pos.x, vertHeight, vs_Pos.z, 1);\n    fs_Pos = vec3(noisePos.x, vertHeight, noisePos.y);\n\n    modelposition = u_Model * modelposition;\n    gl_Position = u_ViewProj * modelposition;\n}\n"
 
 /***/ }),
 /* 71 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\n\nvoid main() {\n  gl_Position = vs_Pos;\n}\n"
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform highp int u_Time;\nuniform highp int u_UseLight;\n\nin vec3 fs_Pos;\nin vec4 fs_Nor;\nin vec4 fs_Col;\n\n\nout vec4 out_Col; // This is the final output color that you will see on your\n                  // screen for the pixel that is currently being processed.\n\nconst vec2 SEED1 = vec2(0.31415, 0.6456);\nconst vec2 SEED2 = vec2(0.41123, 0.9382);\n\nconst float PI = 3.1415926;\n\n/* ----------------------------------------------------------------------------------------- *\n *     Noise Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat random1(vec2 p, vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1(vec3 p, vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2(vec2 p, vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, seed) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\n\n\nvoid main() {\n\n    const vec3 WATER = vec3(0.2, 0.3, 1);\n    const vec3 TIDE  = vec3(0.6, 0.7, 1);\n    const vec3 SAND  = vec3(1, 1, 0.6);\n    const vec3 LAND  = vec3(0.0, 0.8, 0.0);\n\n    float height = fs_Pos.y;\n\n    vec3 terrainColor =\n        height < -0.49 ? WATER:\n        height < -0.25 ? mix(WATER, TIDE, smoothstep(0.0, 1.0, height * 4.0 + 2.0)):\n        height < +0.00 ? mix(TIDE, SAND, smoothstep(0.0, 1.0, height * 4.0 + 1.0)):\n        height < +0.49 ? mix(SAND, LAND, smoothstep(0.0, 1.0, height * 2.0)):\n        LAND;\n\n    float populationDensity = height < 0.4 ? 0.0 : pow(fbm(fs_Pos.xz, 2, 0.15, SEED2), 2.0);\n\n    const vec3 POP_COLOR = vec3(1, 0, 0);\n    vec3 color = mix(terrainColor, POP_COLOR, populationDensity);\n\n    out_Col = vec4(color, 1.0);\n}\n"
 
 /***/ }),
 /* 72 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\nuniform int u_Time;\n\n// The fragment shader used to render the background of the scene\n// Modify this to make your background more interesting\n\nout vec4 out_Col;\n\nvec3 cubicInterp(vec3 v1, vec3 v2, float t) {\n    return mix(v1, v2, smoothstep(0.0, 1.0, t));\n}\n\nvec3 getSkyColor(float sunAngle) {\n    vec3 COL1 = vec3(0.08, 0.02, 0.16);\n    vec3 COL2 = vec3(1.00, 0.68, 0.59);\n    vec3 COL3 = vec3(0.21, 0.77, 1.00);\n\n    if (sunAngle < 5.0) {\n        return COL2;\n    }\n    else if (sunAngle >= 5.0 && sunAngle < 30.0) {\n        return cubicInterp(COL2, COL3, (sunAngle - 5.0) / 25.0);\n    }\n    else if (sunAngle >= 30.0 && sunAngle < 150.0) {\n        return COL3;\n    }\n    else if (sunAngle >= 150.0 && sunAngle < 175.0) {\n        return cubicInterp(COL3, COL2, (sunAngle - 150.0) / 25.0);\n    }\n    else if (sunAngle >= 175.0 && sunAngle < 185.0) {\n        return COL2;\n    }\n    else if (sunAngle >= 185.0 && sunAngle < 210.0) {\n        return cubicInterp(COL2, COL1, (sunAngle - 185.0) / 25.0);\n    }\n    else if (sunAngle >= 210.0 && sunAngle < 330.0) {\n        return COL1;\n    }\n    else if (sunAngle >= 330.0 && sunAngle < 355.0) {\n        return cubicInterp(COL1, COL2, (sunAngle - 330.0) / 25.0);\n    }\n    else {\n        return COL2;\n    }\n}\n\nvoid main() {\n    float sunAngle = mod(float(u_Time) * 0.1 + 90.0, 360.0);\n    out_Col = vec4(getSkyColor(sunAngle), 1.0);\n}\n"
+module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\n\nvoid main() {\n  gl_Position = vs_Pos;\n}\n"
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\nuniform int u_Time;\n\n// The fragment shader used to render the background of the scene\n// Modify this to make your background more interesting\n\nout vec4 out_Col;\n\n\nvoid main() {\n    vec3 color = vec3(0.5, 0.6, 1.0);\n    out_Col = vec4(color, 1.0);\n}\n"
 
 /***/ })
 /******/ ]);
