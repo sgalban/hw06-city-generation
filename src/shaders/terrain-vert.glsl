@@ -33,7 +33,7 @@ float cubicFalloff(float t) {
  * ----------------------------------------------------------------------------------------- */
 
 float random1(vec2 p, vec2 seed) {
-    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);
+    return fract(sin(dot(p + seed, vec2(127.1, 311.7))));
 }
 
 float random1(vec3 p, vec3 seed) {
@@ -87,11 +87,6 @@ void main() {
         isLand > u_LandRatio - 0.00000000 ? -0.5:
         isLand > u_LandRatio - COAST_SIZE ? mix(-0.5, 0.5, cubicFalloff((u_LandRatio - isLand) / COAST_SIZE)):
         0.5;
-
-    /*
-        isLand > u_LandRatio -0.5 : 
-        isLand > u_LandRatio ? mix(-0.5, 0.5, cubicFalloff((isLand - u_LandRatio - COAST_SIZE) / COAST_SIZE)) :
-        0.5;*/
 
     vec4 modelposition = vec4(vs_Pos.x, vertHeight, vs_Pos.z, 1);
     fs_Pos = vec3(noisePos.x, vertHeight, noisePos.y);

@@ -8,6 +8,7 @@ import OpenGLRenderer from './rendering/gl/OpenGLRenderer';
 import Camera from './Camera';
 import {setGL} from './globals';
 import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
+import GeoData from './CityGenerator/GeoData';
 
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
@@ -15,9 +16,14 @@ const controls = {
     "Land-Water Ratio": 0.5
 };
 
+const TSEED: vec2 = vec2.fromValues(0.1234, 0.5678);
+const PSEED: vec2 = vec2.fromValues(0.4112, 0.9382);
+
 let square: Square;
 let plane : Plane;
 let cube: Cube;
+
+let geoData: GeoData;
 
 let wPressed: boolean;
 let aPressed: boolean;
@@ -33,6 +39,8 @@ function loadScene() {
   plane.create();
   cube = new Cube(vec3.fromValues(0, 0, 0));
   cube.create();
+
+  geoData = new GeoData(TSEED, PSEED, controls["Land-Water Ratio"]);
 
   wPressed = false;
   aPressed = false;
@@ -151,6 +159,11 @@ function main() {
         camera.update();
         stats.begin();
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
+
+        geoData.setLandRatio(controls["Land-Water Ratio"]);
+        let height = geoData.isLand(planePos) ? 1.0 : 0.0;
+        cube = new Cube(vec3.fromValues(0, height, 0));
+        cube.create();
     
         flat.setTime(time);
         lambert.setTime(time);

@@ -13,8 +13,8 @@ in vec4 fs_Col;
 out vec4 out_Col; // This is the final output color that you will see on your
                   // screen for the pixel that is currently being processed.
 
-const vec2 SEED1 = vec2(0.31415, 0.6456);
-const vec2 SEED2 = vec2(0.41123, 0.9382);
+const vec2 SEED1 = vec2(0.3141, 0.6456);
+const vec2 SEED2 = vec2(0.4112, 0.9382);
 
 const float PI = 3.1415926;
 
