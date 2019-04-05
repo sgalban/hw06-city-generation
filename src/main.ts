@@ -20,7 +20,7 @@ import RoadGenerator from './CityGenerator/RoadGenerator';
 const controls = {
     "Show Population": false,
     "Land-Water Ratio": 0.6,
-    "Road Count": 10,
+    "Road Count": 275,
 };
 
 const TSEED: vec2 = vec2.fromValues(0.1234, 0.5678);
