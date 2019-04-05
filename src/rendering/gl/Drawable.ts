@@ -9,12 +9,16 @@ abstract class Drawable {
     bufNor: WebGLBuffer;
     bufEnd: WebGLBuffer;
     bufThic: WebGLBuffer;
+    bufOff: WebGLBuffer;
+    bufHgt: WebGLBuffer;
   
     idxBound: boolean = false;
     posBound: boolean = false;
     norBound: boolean = false;
     endBound: boolean = false;
     thicBound: boolean = false;
+    offBound: boolean = false;
+    hgtBound: boolean = false;
 
     numInstances: number = 0;
   
@@ -26,6 +30,8 @@ abstract class Drawable {
         gl.deleteBuffer(this.bufNor);
         gl.deleteBuffer(this.bufEnd);
         gl.deleteBuffer(this.bufThic);
+        gl.deleteBuffer(this.bufOff);
+        gl.deleteBuffer(this.bufHgt);
     }
   
     generateIdx() {
@@ -51,6 +57,16 @@ abstract class Drawable {
     generateThickness() {
         this.thicBound = true;
         this.bufThic = gl.createBuffer();
+    }
+
+    generateOff() {
+        this.offBound = true;
+        this.bufOff = gl.createBuffer();
+    }
+
+    generateHgt() {
+        this.hgtBound = true;
+        this.bufHgt = gl.createBuffer();
     }
   
     bindIdx(): boolean {
@@ -88,6 +104,20 @@ abstract class Drawable {
         return this.thicBound;
     }
 
+    bindOff(): boolean {
+        if (this.offBound) {
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.bufOff);
+        }
+        return this.offBound;
+    }
+
+    bindHgt(): boolean {
+        if (this.hgtBound) {
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.bufHgt);
+        }
+        return this.hgtBound;
+    }
+
     setNumInstances(num: number): void {
         this.numInstances = num;
     }
@@ -96,7 +126,6 @@ abstract class Drawable {
         throw new Error("Must be implemented in instanced geometry subclass")
     }
 
-  
     elemCount(): number {
         return this.count;
     }

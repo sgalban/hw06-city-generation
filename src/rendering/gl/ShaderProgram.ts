@@ -27,6 +27,8 @@ class ShaderProgram {
 
     attrEnd: number;
     attrThic: number;
+    attrOff: number;
+    attrHgt: number;
   
     unifModel: WebGLUniformLocation;
     unifModelInvTr: WebGLUniformLocation;
@@ -54,6 +56,9 @@ class ShaderProgram {
         this.attrCol = gl.getAttribLocation(this.prog, "vs_Col");
         this.attrEnd = gl.getAttribLocation(this.prog, "vs_Endpoints");
         this.attrThic = gl.getAttribLocation(this.prog, "vs_Thickness");
+        this.attrOff = gl.getAttribLocation(this.prog, "vs_Offset");
+        this.attrHgt = gl.getAttribLocation(this.prog, "vs_Height");
+
         this.unifModel      = gl.getUniformLocation(this.prog, "u_Model");
         this.unifModelInvTr = gl.getUniformLocation(this.prog, "u_ModelInvTr");
         this.unifViewProj   = gl.getUniformLocation(this.prog, "u_ViewProj");
@@ -154,6 +159,18 @@ class ShaderProgram {
             gl.vertexAttribPointer(this.attrThic, 1, gl.FLOAT, false, 0, 0);
             gl.vertexAttribDivisor(this.attrThic, 1);
         }
+
+        if (this.attrOff != -1 && d.bindOff()) {
+            gl.enableVertexAttribArray(this.attrOff);
+            gl.vertexAttribPointer(this.attrOff, 4, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribDivisor(this.attrOff, 1);
+        }
+
+        if (this.attrHgt != -1 && d.bindHgt()) {
+            gl.enableVertexAttribArray(this.attrHgt);
+            gl.vertexAttribPointer(this.attrHgt, 1, gl.FLOAT, false, 0, 0);
+            gl.vertexAttribDivisor(this.attrHgt, 1);
+        }
     
         d.bindIdx();
         gl.drawElementsInstanced(d.drawMode(), d.elemCount(), gl.UNSIGNED_INT, 0, d.numInstances);
@@ -169,6 +186,12 @@ class ShaderProgram {
         };
         if (this.attrThic != -1) {
             gl.disableVertexAttribArray(this.attrThic)
+        };
+        if (this.attrOff != -1) {
+            gl.disableVertexAttribArray(this.attrOff)
+        };
+        if (this.attrHgt != -1) {
+            gl.disableVertexAttribArray(this.attrHgt)
         };
     }
 };

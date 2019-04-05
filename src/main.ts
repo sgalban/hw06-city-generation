@@ -5,6 +5,7 @@ import * as DAT from 'dat-gui';
 import Square from './geometry/Square';
 import Plane from './geometry/Plane';
 import Cube from './geometry/Cube';
+import Prism from './geometry/Prism';
 import OpenGLRenderer from './rendering/gl/OpenGLRenderer';
 import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 
@@ -13,6 +14,7 @@ import {setGL} from './globals';
 
 import GeoData from './CityGenerator/GeoData';
 import RoadGenerator from './CityGenerator/RoadGenerator';
+import BuildingGenerator from './CityGenerator/BuildingGenerator';
 
 
 // Define an object with application parameters and button callbacks
@@ -20,7 +22,7 @@ import RoadGenerator from './CityGenerator/RoadGenerator';
 const controls = {
     "Show Population": false,
     "Land-Water Ratio": 0.6,
-    "Road Count": 100,
+    "Road Count": 2000,
 };
 
 const TSEED: vec2 = vec2.fromValues(0.1234, 0.5678);
@@ -32,6 +34,7 @@ const MAP_SIZE: number = 50;
 let square: Square;
 let plane : Plane;
 let cube: Cube;
+let pentagon: Prism;
 
 let geoData: GeoData;
 let roadGenerator: RoadGenerator;
@@ -54,12 +57,16 @@ function loadScene() {
     plane.create();
     cube = new Cube(vec3.fromValues(0, 0, 0));
     cube.create();
+    pentagon = new Prism(vec3.fromValues(0, 0, 0), 5);
+    pentagon.create();
   
     geoData = new GeoData(TSEED, PSEED, controls["Land-Water Ratio"], MAP_SIZE);
     roadGenerator = new RoadGenerator(geoData, MAP_SIZE);
-  
+
     roadGenerator.generateHighways(controls["Road Count"]);
     roadGenerator.drawRoadNetwork(cube, ROAD_THICKNESS);
+    let buildings: BuildingGenerator = new BuildingGenerator(roadGenerator, geoData, MAP_SIZE * 2.0);
+    buildings.placeBuildings(100, pentagon);
   
     wPressed = false;
     aPressed = false;
@@ -74,16 +81,16 @@ function main() {
     window.addEventListener('keypress', function (e) {
       // console.log(e.key);
         switch(e.key) {
-            case 'w':
+            case 'w': case 'W':
             wPressed = true;
             break;
-            case 'a':
+            case 'a': case 'A':
             aPressed = true;
             break;
-            case 's':
+            case 's': case 'S':
             sPressed = true;
             break;
-            case 'd':
+            case 'd': case 'D':
             dPressed = true;
             break;
         }
@@ -91,16 +98,16 @@ function main() {
   
     window.addEventListener('keyup', function (e) {
         switch(e.key) {
-            case 'w':
+            case 'w': case 'W':
             wPressed = false;
             break;
-            case 'a':
+            case 'a': case 'A':
             aPressed = false;
             break;
-            case 's':
+            case 's': case 'S':
             sPressed = false;
             break;
-            case 'd':
+            case 'd': case 'D':
             dPressed = false;
             break;
         }
@@ -116,9 +123,9 @@ function main() {
   
     // Add controls to the gui
     const gui = new DAT.GUI();
-    gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
+    //gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
     gui.add(controls, "Show Population");
-    gui.add(controls, "Road Count", 0, 10000);
+    //gui.add(controls, "Road Count", 0, 10000);
   
     // get canvas and webgl context
     const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -153,7 +160,12 @@ function main() {
         new Shader(gl.VERTEX_SHADER, require('./shaders/road-vert.glsl')),
         new Shader(gl.FRAGMENT_SHADER, require('./shaders/road-frag.glsl')),
     ]);
-  
+
+    const building = new ShaderProgram([
+        new Shader(gl.VERTEX_SHADER, require('./shaders/building-vert.glsl')),
+        new Shader(gl.FRAGMENT_SHADER, require('./shaders/building-frag.glsl')),
+    ]);
+
     function processKeyPresses() {
         let velocity: vec2 = vec2.fromValues(0,0);
         if(wPressed) {
@@ -176,6 +188,7 @@ function main() {
         );
         lambert.setPlanePos(newPos);
         road.setPlanePos(newPos);
+        building.setPlanePos(newPos);
         planePos = newPos;
     }
 
@@ -217,6 +230,9 @@ function main() {
         ]);
         renderer.render(camera, road, [
             cube,
+        ]);
+        renderer.render(camera, building, [
+            pentagon,
         ])
         stats.end();
     
