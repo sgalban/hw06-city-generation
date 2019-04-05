@@ -93,6 +93,9 @@ void main() {
     const vec3 POP_COLOR = vec3(1, 0, 0);
     vec3 color = u_ShowPop == 0 ? terrainColor : mix(terrainColor, POP_COLOR, populationDensity);
     color = mix(color, SKY, smoothstep(0.0, 1.0, clamp((length(fs_Pos.xz) - 45.0) / 5.0, 0.0, 1.0)));
+    if (distance(noisePos, vec2(-57.22773361206055, -30.307640075683594)) < 1.0) {
+        color = vec3(1, 1, 0);
+    }
 
     out_Col = vec4(color, 1.0);
 }

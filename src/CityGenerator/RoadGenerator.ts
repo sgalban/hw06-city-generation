@@ -4,6 +4,9 @@ import GeoData from './GeoData';
 import SpatialGraph, {Node} from './SpatialGraph';
 import Turtle from './Turtle';
 
+const ROAD_HIGHWAY = 0;
+const ROAD_STREET = 1;
+
 function fract(x: number) : number {
     return x - Math.floor(x);
 }
@@ -87,7 +90,7 @@ function getIntersection(
 
 export default class RoadGenerator {
     geoData: GeoData;
-    highwayNetwork: SpatialGraph;
+    roadNetwork: SpatialGraph;
     turtle: Turtle;
     snapRadius: number;
     currentSeed: vec2;
@@ -96,8 +99,7 @@ export default class RoadGenerator {
 
     constructor(_geoData: GeoData, _mapSize: number) {
         this.geoData = _geoData;
-        this.highwayNetwork = new SpatialGraph();
-        this.turtle = new Turtle();
+        this.roadNetwork = new SpatialGraph();
         this.snapRadius = 3.0;
         this.currentSeed = vec2.fromValues(0.46123, 0.93452);
         this.mapSize = _mapSize;
@@ -152,274 +154,307 @@ export default class RoadGenerator {
         this.currentSeed = vec2.fromValues(0.46123, 0.93452)
     }
 
-    generateHighways(maxRoads: number): void {
+    private findBestAngle(turtle: Turtle) {
+        // Non-highways always go straight (unless they branch)
+        if (turtle.type === ROAD_STREET) {
+            return 0;
+        }
+        const SPREAD_ANGLE = 60; // The max spread of angles at which we will sample
+        const ANGLE_SAMPLES = 7; // The total number of angles sampled
+        const SAMPLE_LENGTH = 50; // The distance traveled per angle
+        let curBestAngle = 0;
+        let highestDirectionWeight = -1000;
+        for (let i = 0; i < ANGLE_SAMPLES; i++) {
+            let angle = this.generateRandomNumber(-SPREAD_ANGLE / 2, SPREAD_ANGLE / 2);
+            let directionWeight = 0;
+            for (let distance = 1; distance <= SAMPLE_LENGTH; distance++) {
+                let samplePos: vec2 = turtle.dryMove(angle, distance);
+                directionWeight += this.geoData.getPopulationDensity(samplePos) / distance;
+            }
+            if (directionWeight > highestDirectionWeight) {
+                curBestAngle = angle;
+                highestDirectionWeight = directionWeight;
+            }
+        }
+        return curBestAngle;
+    }
+
+    generateHighways(maxIterations: number): void {
         this.resetSeeds();
-        this.highwayNetwork = new SpatialGraph();
-        let turtle: Turtle = new Turtle();
+        this.roadNetwork = new SpatialGraph();
 
         let startingPoint: vec2 = this.getStartingPoint();
-        turtle.setPosition(startingPoint);
-        this.highwayNetwork.addNode(turtle.makeNode());
+        let startingNode: Node = new Node(startingPoint, ROAD_HIGHWAY);
+        let highwayTurtles: Turtle[] = [
+            Turtle.turtleFrom(startingNode, 0),
+            Turtle.turtleFrom(startingNode, 90),
+            Turtle.turtleFrom(startingNode, 180),
+            Turtle.turtleFrom(startingNode, 270)
+        ];
+        let streetTurtles: Turtle[] = [];
+        this.roadNetwork.addNode(startingNode);
 
         let numRoadsGenerated = 0;
 
-        const POP_SAMPLES = 7;
-        const SPREAD_ANGLE = 90;
-        const SAMPLE_LENGTH = 50;
+        const MAX_CORRECTION_ANGLE = 120;
+        const ROTATION_STEPS = 15;
+        const HIGHWAY_SEGMENT_LENGTH = 3;
+        const STREET_SEGMENT_LENGTH = 1;
+        const MIN_PRUNE_LENGTH = 1;
 
-        const MAX_CORRECTION_ANGLE = 70;
-        const ROTATION_STEPS = 5;
-        const HIGHWAY_SEGMENT_LENGTH = 5;
-        const MIN_PRUNE_LENGTH = 2;
+        const HIGHWAY_BRANCH_PROBABILITY = 0.2;
+        const STREET_BRANCH_PROBABILITY = 0.4
+        const STREET_FORMATION_PROBABILITY = 0.5;
 
         const MAX_EXTENSION = 5;
-        const SNAP_RADIUS = 3;
+        const SNAP_RADIUS = 0.5;
 
-        while (numRoadsGenerated < maxRoads) {
-            let lastNode = turtle.node;
-            if (lastNode.x !== lastNode.position[0]) {
-                console.log(numRoadsGenerated);
+        let ITERATION_LIMIT = 100;
+        let numIterations = 0;
+        while(highwayTurtles.length > 0 || streetTurtles.length > 0) {
+            if (numIterations > maxIterations) {
+                break;
             }
-
-            // ------------------------------------------------------------------------------
-            // First, we want to get the direction of the next road segment
-            // ------------------------------------------------------------------------------
-            let curBestAngle = 0;
-            let highestDirectionWeight = -1000;
-            for (let i = 0; i < POP_SAMPLES; i++) {
-                let angle = this.generateRandomNumber(-SPREAD_ANGLE / 2, SPREAD_ANGLE / 2);
-                let directionWeight = 0;
-                for (let distance = 1; distance <= SAMPLE_LENGTH; distance++) {
-                    let samplePos: vec2 = turtle.dryMove(angle, distance);
-                    directionWeight += this.geoData.getPopulationDensity(samplePos) / distance;
+            for (let turtle of (highwayTurtles.concat(streetTurtles))) {
+                numIterations++;
+                if (numIterations > maxIterations) {
+                    break;
                 }
-                if (directionWeight > highestDirectionWeight) {
-                    curBestAngle = angle;
-                    highestDirectionWeight = directionWeight;
-                }
-            }
-            let proposedAngle = curBestAngle;
-            let proposedLength = HIGHWAY_SEGMENT_LENGTH;
 
-            // ------------------------------------------------------------------------------
-            // Now that we have the direction, we must rotate to ensure that the road does
-            // not end up in an illegal area
-            // ------------------------------------------------------------------------------
-            let endBranch = false;
-            let makeNewNode = true;
-            let splitEdge = false;
-            let splitNode1 = null;
-            let splitNode2 = null;
-            let proposedPos: vec2 = turtle.dryMove(proposedAngle, proposedLength);
-            let isIllegal: boolean = this.geoData.getPopulationDensity(proposedPos) <= 0;
-            if (isIllegal) {
-                let foundCorrection = false;
-                let angleInc = MAX_CORRECTION_ANGLE / ROTATION_STEPS;
-                for (let dAngle = 0; dAngle <= MAX_CORRECTION_ANGLE; dAngle += angleInc) {
-                    let samplePos1: vec2 = turtle.dryMove(proposedAngle + dAngle, proposedLength);
-                    if (this.geoData.getPopulationDensity(samplePos1) >= 0) {
-                        proposedAngle += dAngle
-                        foundCorrection = true;
-                        break;
-                    }
-                    let samplePos2: vec2 = turtle.dryMove(proposedAngle - dAngle, proposedLength);
-                    if (this.geoData.getPopulationDensity(samplePos2) >= 0) {
-                        proposedAngle -= dAngle
-                        foundCorrection = true;
-                        break;
-                    }
+                // This is the node we're going to extend from
+                let lastNode = turtle.node;
 
-                }
-                if (!foundCorrection) {
-                    // Try extending the highway instead
-                    let samplePos: vec2 = turtle.dryMove(proposedAngle, proposedLength * 2.5);
-                    for (let extensionAmount = 1; extensionAmount < proposedLength * 2; extensionAmount++) {
-                        let samplePos: vec2 = turtle.dryMove(proposedAngle, proposedLength + extensionAmount);
-                        if (this.geoData.getPopulationDensity(samplePos) >= 0) {
-                            proposedLength += extensionAmount;
-                            foundCorrection = true;
-                            break;
+                // ------------------------------------------------------------------------------
+                // First, we want to get the direction of the next road segment
+                // ------------------------------------------------------------------------------
+                let proposedAngle = this.findBestAngle(turtle);
+                let proposedLength = HIGHWAY_SEGMENT_LENGTH;
+
+                // ------------------------------------------------------------------------------
+                // Now that we have the direction, we must rotate to ensure that the road does
+                // not end up in an illegal area
+                // ------------------------------------------------------------------------------
+
+                // We set a bunch of flags here to handle what this turtle is actually going to end
+                // up doing
+                let endBranch = false;
+                let makeNewNode = true;
+                let splitEdge = false;
+                let splitNode1 = null;
+                let splitNode2 = null;
+
+                let proposedPos: vec2 = turtle.dryMove(proposedAngle, proposedLength);
+                let isIllegal: boolean = this.geoData.getPopulationDensity(proposedPos) < 0;
+
+                if (isIllegal) {
+                    // We don't even attempt to adjust the road unless it's a highway
+                    let foundCorrection = false;
+                    if (turtle.type === ROAD_HIGHWAY) {
+
+                        // First we try rotating the highway back into a good area
+                        let angleInc = MAX_CORRECTION_ANGLE / ROTATION_STEPS;
+                        for (let dAngle = 0; dAngle <= MAX_CORRECTION_ANGLE; dAngle += angleInc) {
+                            let samplePos1: vec2 = turtle.dryMove(proposedAngle + dAngle, proposedLength);
+                            if (this.geoData.getPopulationDensity(samplePos1) >= 0) {
+                                proposedAngle += dAngle
+                                foundCorrection = true;
+                                break;
+                            }
+                            let samplePos2: vec2 = turtle.dryMove(proposedAngle - dAngle, proposedLength);
+                            if (this.geoData.getPopulationDensity(samplePos2) >= 0) {
+                                proposedAngle -= dAngle
+                                foundCorrection = true;
+                                break;
+                            }
                         }
-                    }
-                }
-                if (!foundCorrection) {
-                    endBranch = true;
-                    makeNewNode = false;
-                }
-            }
-            proposedPos = turtle.dryMove(proposedAngle, proposedLength);
 
-            // ------------------------------------------------------------------------------
-            // Now we check whether or not the new proposed segment intersects with any
-            // existing ones. If it does, we truncate it and end the growth
-            // ------------------------------------------------------------------------------
-            
-            if (!endBranch) {
-                for (let node of this.highwayNetwork.getNodesNear(new Node(proposedPos), HIGHWAY_SEGMENT_LENGTH)) {
-                    for (let neighbor of this.highwayNetwork.getAdjacentNodes(node)) {
-                        let intersection: vec2 =
-                            getIntersection(lastNode.position, proposedPos, node.position, neighbor.position);
-                        if (intersection) {
-                            let distance = vec2.distance(lastNode.position, intersection);
-                            if (distance < proposedLength) {
-                                proposedLength = distance;
-                                endBranch = true;
-                                splitEdge = true;
-                                splitNode1 = node;
-                                splitNode2 = neighbor;
+                        // If that doesn't work, we try extending it
+                        if (!foundCorrection) {
+                            let samplePos: vec2 = turtle.dryMove(proposedAngle, proposedLength * 2.5);
+                            for (let ext = 1; ext < proposedLength * 2; ext++) {
+                                let samplePos: vec2 = turtle.dryMove(proposedAngle, proposedLength + ext);
+                                if (this.geoData.getPopulationDensity(samplePos) >= 0) {
+                                    proposedLength += ext;
+                                    foundCorrection = true;
+                                    break;
+                                }
                             }
                         }
                     }
-                }
-            }
-
-            // ------------------------------------------------------------------------------
-            // If the proposed node is really close to another node, we can just merge it
-            // with that one instead
-            // ------------------------------------------------------------------------------
-            if (!endBranch) {
-                let shortestDistance = 10000000;
-                let closestNode: Node = null;
-                for (let node of this.highwayNetwork.getNodesNear(new Node(proposedPos), SNAP_RADIUS)) {
-                    let distance = vec2.distance(proposedPos, node.position);
-                    if (distance < shortestDistance) {
-                        shortestDistance = distance;
-                        closestNode = node;
+                    if (!foundCorrection) {
                         endBranch = true;
                         makeNewNode = false;
                     }
                 }
-                if (closestNode) {
-                    this.highwayNetwork.connect(lastNode, closestNode);
+                proposedPos = turtle.dryMove(proposedAngle, proposedLength);
+
+                // We won't actually use this node in the graph. Only for intersection testing purposes
+                // We give it a -1, since the type won't matter
+                let testNode: Node = new Node(proposedPos, -1);
+
+                // ------------------------------------------------------------------------------
+                // Now we check whether or not the new proposed segment intersects with any
+                // existing ones. If it does, we truncate it and end the growth. It doesn't
+                // matter which type we are
+                // ------------------------------------------------------------------------------   
+                if (!endBranch) {
+                    let checkRadius = Math.max(HIGHWAY_SEGMENT_LENGTH, STREET_SEGMENT_LENGTH);
+                    for (let node of this.roadNetwork.getNodesNear(testNode, checkRadius)) {
+                        for (let neighbor of this.roadNetwork.getAdjacentNodes(node)) {
+                            let edgeType = node.type === neighbor.type ? node.type : ROAD_HIGHWAY;
+                            let intersection: vec2 =
+                                getIntersection(lastNode.position, proposedPos, node.position,neighbor.position);
+                            if (intersection && (turtle.type === ROAD_STREET || edgeType === ROAD_HIGHWAY)) {
+                                let distance = vec2.distance(lastNode.position, intersection);
+                                if (distance < proposedLength) {
+                                    proposedLength = distance;
+                                    endBranch = true;
+                                    splitEdge = true;
+                                    splitNode1 = node;
+                                    splitNode2 = neighbor;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // ------------------------------------------------------------------------------
+                // If the proposed node is really close to another node, we can just merge it
+                // with that one instead. Again, doesn't matter which type we're using
+                // ------------------------------------------------------------------------------
+                if (!endBranch) {
+                    let shortestDistance = 10000000;
+                    let closestNode: Node = null;
+                    for (let node of this.roadNetwork.getNodesNear(new Node(proposedPos, -1), SNAP_RADIUS)) {
+                        if (turtle.type === ROAD_STREET || node.type === ROAD_HIGHWAY) {
+                            let distance = vec2.distance(proposedPos, node.position);
+                            if (distance < shortestDistance) {
+                                shortestDistance = distance;
+                                closestNode = node;
+                                endBranch = true;
+                                makeNewNode = false;
+                            }
+                        }
+                    }
+                    if (closestNode) {
+                        this.roadNetwork.connect(lastNode, closestNode);
+                        numRoadsGenerated++;
+                    }
+                }
+
+                // ------------------------------------------------------------------------------
+                // Now we check if the road almost intersects with another road, and if it does,
+                // we extend it
+                // ------------------------------------------------------------------------------
+                if (!endBranch) {
+                    let adjustedPos = turtle.dryMove(proposedAngle, proposedLength + MAX_EXTENSION);
+                    let adjustedLength = MAX_EXTENSION;
+                    for (let node of this.roadNetwork.getNodesNear(testNode, HIGHWAY_SEGMENT_LENGTH)) {
+                        for (let neighbor of this.roadNetwork.getAdjacentNodes(node)) {
+                            let edgeType = node.type === neighbor.type ? node.type : ROAD_HIGHWAY;
+                            let intersection: vec2 =
+                                getIntersection(lastNode.position, adjustedPos, node.position, neighbor.position);
+                            if (intersection && (turtle.type === ROAD_STREET || edgeType === ROAD_HIGHWAY)) {
+                                let distance = vec2.distance(lastNode.position, intersection);
+                                if (distance < adjustedLength) {
+                                    adjustedLength = distance;
+                                    endBranch = true;
+                                    splitEdge = true;
+                                    splitNode1 = node;
+                                    splitNode2 = neighbor;
+                                }
+                            }
+                        }
+                    }
+                    if (endBranch) {
+                        proposedLength = adjustedLength;
+                    }
+                }
+
+                // ------------------------------------------------------------------------------
+                // Unless we flagged this iteration to avoid making a new node, make the new
+                // node
+                // ------------------------------------------------------------------------------
+
+                if (makeNewNode) {
+                    turtle.rotate(proposedAngle);
+                    turtle.moveForward(proposedLength);
+                    let newNode: Node = turtle.makeNode();
+                    this.roadNetwork.connect(lastNode, newNode);
+                    if (splitEdge) {
+                        this.roadNetwork.splitEdge(splitNode1, splitNode2, newNode);
+                    }
+
                     numRoadsGenerated++;
                 }
-            }
 
-            // ------------------------------------------------------------------------------
-            // Now we check if the road almost intersects with another road, and if it does,
-            // we extend it
-            // ------------------------------------------------------------------------------
-            if (!endBranch) {
-                let adjustedPos = turtle.dryMove(proposedAngle, proposedLength + MAX_EXTENSION);
-                let adjustedLength = 2 * MAX_EXTENSION;
-                for (let node of this.highwayNetwork.getNodesNear(new Node(adjustedPos), HIGHWAY_SEGMENT_LENGTH)) {
-                    for (let neighbor of this.highwayNetwork.getAdjacentNodes(node)) {
-                        let intersection: vec2 =
-                            getIntersection(lastNode.position, adjustedPos, node.position, neighbor.position);
-                        if (intersection) {
-                            let distance = vec2.distance(lastNode.position, intersection);
-                            if (distance < adjustedLength) {
-                                adjustedLength = distance;
-                                endBranch = true;
-                                splitEdge = true;
-                                splitNode1 = node;
-                                splitNode2 = neighbor;
-                            }
-                        }
-                    }
-                }
+                // ------------------------------------------------------------------------------
+                // If the current road has stopped growing, start making a new one. This can
+                // either mean starting a new road altogether, or branching off of an existing
+                // node
+                // ------------------------------------------------------------------------------
+
                 if (endBranch) {
-                    proposedLength = adjustedLength;
-                }
-            }
-
-            // ------------------------------------------------------------------------------
-            // Unless we flagged this iteration to avoid making a new node, make the new
-            // node
-            // ------------------------------------------------------------------------------
-
-            if (makeNewNode) {
-                turtle.rotate(proposedAngle);
-                turtle.moveForward(proposedLength);
-                let newNode: Node = turtle.makeNode();
-                this.highwayNetwork.connect(lastNode, newNode);
-                if (splitEdge) {
-                    this.highwayNetwork.splitEdge(splitNode1, splitNode2, newNode);
-                }
-
-                numRoadsGenerated++;
-            }
-
-            // ------------------------------------------------------------------------------
-            // If the current road has stopped growing, start making a new one. This can
-            // either mean starting a new road altogether, or branching off of an existing
-            // node
-            // ------------------------------------------------------------------------------
-
-            if (endBranch) {
-                // Decide if we want to branch, or just find a new starting position
-                let random: number = this.generateRandomNumber();
-
-                // Start anew
-                if (random > 0.8) {
-                    turtle.setPosition(this.getStartingPoint());
-                    turtle.makeNode();
-                }
-
-                // Branch from an existing node
-                if (random <= 0.8) {
-                    // Select a random node
-                    let nodes: Node[] = Array.from(this.highwayNetwork.getNodeIterator());
-                    let idx: number = this.generateRandomNumber(0, this.highwayNetwork.getNumNodes() - 1);
-                    let selected: Node = nodes[Math.floor(idx)];
-                    turtle.setNode(selected);
-                    turtle.setPosition(selected.position);
-
-                    // Find an appropriate branching angle that isn't too close to any of the others
-                    let angles: number[] = [];
-                    for (let neighbor of this.highwayNetwork.getAdjacentNodes(selected)) {
-                        let direction: vec2 = vec2.create();
-                        vec2.subtract(direction, neighbor.position, selected.position);
-                        let angle = ((Math.atan2(direction[0], direction[1]) * 180 / Math.PI) + 360) % 360;
-                        angles.push(angle);
-                    }
-                    let newAngle = 0;
-                    if (angles.length === 1) {
-                        newAngle = (angles[0] + 180) % 360;
-                    }
-                    else if (angles.length === 2) {
-                        let diff = (angles[1] - angles[0] + 360) % 360;
-                        newAngle = diff > 180 ? (angles[0] + angles[1]) / 2 : (angles[0] + angles[1] + 360) / 2;
-                        newAngle = (newAngle + 360) % 360;
-                    }
-                    else {
-                        angles.sort((a, b) => a - b);
-                        let biggestDiff = 0;
-                        let idx = -1;
-                        for (let i = 0; i < angles.length; i++) {
-                            let nextI = (i + 1) % angles.length;
-                            let diff = (angles[nextI] - angles[i] + 360) % 360;
-                            if (diff > biggestDiff) {
-                                biggestDiff = diff;
-                                idx = i;
-                            }
+                    if (turtle.type === ROAD_HIGHWAY) {
+                        let idx = highwayTurtles.indexOf(turtle);
+                        if (idx >= 0) {
+                            highwayTurtles.splice(idx, 1);
                         }
-                        newAngle = (angles[idx] + biggestDiff / 2 + 360) % 360;
                     }
-                    turtle.setAngle(newAngle);
+                    else if (turtle.type === ROAD_STREET) {
+                        let idx = streetTurtles.indexOf(turtle);
+                        if (idx >= 0) {
+                            streetTurtles.splice(idx, 1);
+                        }
+                    }
+                }
+                else {
+                    // With a certain probablility, branch the road at a 90 deg angle
+                    let random = this.generateRandomNumber();
+                    if (turtle.type === ROAD_HIGHWAY && random < HIGHWAY_BRANCH_PROBABILITY) {
+                        let branchTurtle = turtle.duplicate();
+                        branchTurtle.rotate(90);
+                        if (random < HIGHWAY_BRANCH_PROBABILITY * STREET_FORMATION_PROBABILITY) {
+                            branchTurtle.type = ROAD_STREET
+                            streetTurtles.push(branchTurtle);
+                        }
+                        else {
+                            highwayTurtles.push(branchTurtle);
+                        }
+                    }
+                    else if (turtle.type === ROAD_STREET && random < STREET_BRANCH_PROBABILITY) {
+                        let branchTurtle = turtle.duplicate();
+                        branchTurtle.rotate(90);
+                        streetTurtles.push(branchTurtle);
+                    }
                 }
             }
         }
     }   
 
-
     drawRoadNetwork(road: Drawable, highwayThickness: number): void {
         let seenEdges = new Set();
         let numRoads = 0;
+        let numStreets = 0;
         let endpoints: vec4[] = [];
+        let roadThicknesses: number[] = [];
+        let streetThickness = highwayThickness / 3.0;
 
-        for (let node of this.highwayNetwork.getNodeIterator()) {
-            for (let neighbor of this.highwayNetwork.getAdjacentNodes(node)) {
+        for (let node of this.roadNetwork.getNodeIterator()) {
+            for (let neighbor of this.roadNetwork.getAdjacentNodes(node)) {
                 if (!seenEdges.has([node.x, node.y, neighbor.x, neighbor.y].toString())) {
                     seenEdges.add([node.x, node.y, neighbor.x, neighbor.y].toString());
                     seenEdges.add([neighbor.x, neighbor.y, node.x, node.y].toString());
                     endpoints = endpoints.concat(vec4.fromValues(node.x, node.y, neighbor.x, neighbor.y));
                     numRoads++;
+
+                    let roadType = node.type === neighbor.type ? node.type : ROAD_STREET;
+                    roadThicknesses.push(roadType === ROAD_HIGHWAY ? highwayThickness : streetThickness);
                 }
             }
         }
-        let highwayThicknesses = Array(numRoads).fill(highwayThickness);
-        road.setInstanceVBOs(endpoints, highwayThicknesses);
+
+        road.setInstanceVBOs(endpoints, roadThicknesses);
         road.setNumInstances(numRoads);
     }
 }

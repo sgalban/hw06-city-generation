@@ -4,11 +4,13 @@ export class Node {
     readonly position: vec2;
     readonly x: number;
     readonly y: number;
+    readonly type: number;
 
-    constructor(_position: vec2 | number[]) {
+    constructor(_position: vec2 | number[], _type: number) {
         this.position = vec2.fromValues(_position[0], _position[1]);
         this.x = _position[0];
         this.y = _position[1];
+        this.type = _type;
     }
 
     distance(other: Node) {
@@ -116,6 +118,20 @@ export default class SpatialGraph {
 
     getAdjacentNodes(node: Node): Node[] {
         return this.adjacency.get(node);
+    }
+
+    removeNode(node: Node) {
+        for (let neighbor of this.adjacency.get(node)) {
+            let idx = this.adjacency.get(neighbor).indexOf(node);
+            this.adjacency.get(neighbor).splice(idx, 1);
+            this.numEdges--;
+        }
+        this.adjacency.delete(node);
+
+        let pos = [Math.floor(node.x), Math.floor(node.y)].toString();
+            if (this.nodeGrid.has(pos)) {
+                this.nodeGrid.get(pos).splice(this.nodeGrid.get(pos).indexOf(node), 1);
+            }
     }
 
     splitEdge(end1: Node, end2: Node, newNode: Node) {

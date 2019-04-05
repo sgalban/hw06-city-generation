@@ -20,11 +20,12 @@ import RoadGenerator from './CityGenerator/RoadGenerator';
 const controls = {
     "Show Population": false,
     "Land-Water Ratio": 0.6,
-    "Road Count": 275,
+    "Road Count": 100,
 };
 
 const TSEED: vec2 = vec2.fromValues(0.1234, 0.5678);
 const PSEED: vec2 = vec2.fromValues(0.4112, 0.9382);
+const ROAD_THICKNESS = 0.15;
 
 const MAP_SIZE: number = 50;
 
@@ -58,7 +59,7 @@ function loadScene() {
     roadGenerator = new RoadGenerator(geoData, MAP_SIZE);
   
     roadGenerator.generateHighways(controls["Road Count"]);
-    roadGenerator.drawRoadNetwork(cube, 0.2);
+    roadGenerator.drawRoadNetwork(cube, ROAD_THICKNESS);
   
     wPressed = false;
     aPressed = false;
@@ -117,7 +118,7 @@ function main() {
     const gui = new DAT.GUI();
     gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
     gui.add(controls, "Show Population");
-    gui.add(controls, "Road Count", 0, 400);
+    gui.add(controls, "Road Count", 0, 10000);
   
     // get canvas and webgl context
     const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -191,7 +192,7 @@ function main() {
             lastRoadCount = controls["Road Count"];
             lastLandRatio = controls["Land-Water Ratio"];
             roadGenerator.generateHighways(controls["Road Count"]);
-            roadGenerator.drawRoadNetwork(cube, 0.2);
+            roadGenerator.drawRoadNetwork(cube, ROAD_THICKNESS);
         }
 
         geoData.setLandRatio(controls["Land-Water Ratio"]);

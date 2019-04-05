@@ -1,21 +1,28 @@
 import {vec2, vec3, quat, mat4} from 'gl-matrix';
 import {Node} from './SpatialGraph';
 
+const ROAD_HIGHWAY = 0;
+const ROAD_STREET = 1;
+
 export default class Turtle {
     position: vec2;
     node: Node;
     angle: number;
-    color: vec3;
-    private history: Turtle[];
-    newBranch = false;
+    type: number;
 
-    constructor() {
+    constructor(_type: number) {
         this.position = vec2.fromValues(0, 0);
         this.angle = 0;
-        this.color = vec3.fromValues(0.6, 0.3, 0.2);
         this.node = null;
-        this.history = [];
-        this.newBranch = false;
+        this.type = _type;
+    }
+
+    static turtleFrom(node: Node, angle: number): Turtle {
+        let turtle = new Turtle(node.type);
+        turtle.setAngle(angle);
+        turtle.setNode(node);
+        turtle.setPosition(node.position);
+        return turtle;
     }
 
     setPosition(pos: vec2): void {
@@ -31,19 +38,11 @@ export default class Turtle {
     }
     
     duplicate(): Turtle {
-        let copy : Turtle = new Turtle();
+        let copy : Turtle = new Turtle(this.type);
         copy.position = vec2.clone(this.position);
         copy.angle = this.angle;
         copy.node = this.node;
-        copy.history = this.history;
         return copy;
-    }
-
-    copy(other: Turtle): void {
-        this.position = other.position;
-        this.angle = other.angle;
-        this.node = other.node;
-        this.history = other.history;
     }
 
     rotate(amount: number): void {
@@ -62,24 +61,8 @@ export default class Turtle {
         return vec2.add(vec2.create(), this.position, delta);
     }
 
-    branch(angle: number) {
-        let newTurt: Turtle = this.duplicate();
-        newTurt.rotate(angle);
-        this.history.unshift(newTurt);
-    }
-
-    endBranch(): boolean {
-        if (this.history.length > 0) {
-            let newBranch: Turtle = this.history.pop();
-            this.copy(newBranch);
-            this.newBranch = true;
-            return true;
-        }
-        return false;
-    }
-
     makeNode(): Node {
-        let newNode = new Node(this.position);
+        let newNode = new Node(this.position, this.type);
         this.node = newNode;
         return this.node;
     }
