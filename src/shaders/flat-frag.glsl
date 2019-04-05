@@ -9,6 +9,6 @@ out vec4 out_Col;
 
 
 void main() {
-    vec3 color = vec3(0.5, 0.6, 1.0);
+    vec3 color = vec3(0.5, 0.3, 1.0);
     out_Col = vec4(color, 1.0);
 }

@@ -1,29 +1,39 @@
-import {vec2, vec3} from 'gl-matrix';
+import {vec2, vec3, vec4} from 'gl-matrix';
 import * as Stats from 'stats-js';
 import * as DAT from 'dat-gui';
+
 import Square from './geometry/Square';
 import Plane from './geometry/Plane';
 import Cube from './geometry/Cube';
 import OpenGLRenderer from './rendering/gl/OpenGLRenderer';
+import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
+
 import Camera from './Camera';
 import {setGL} from './globals';
-import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
+
 import GeoData from './CityGenerator/GeoData';
+import RoadGenerator from './CityGenerator/RoadGenerator';
+
 
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
-    "Land-Water Ratio": 0.5
+    "Show Population": false,
+    "Land-Water Ratio": 0.6,
+    "Road Count": 10,
 };
 
 const TSEED: vec2 = vec2.fromValues(0.1234, 0.5678);
 const PSEED: vec2 = vec2.fromValues(0.4112, 0.9382);
+
+const MAP_SIZE: number = 50;
 
 let square: Square;
 let plane : Plane;
 let cube: Cube;
 
 let geoData: GeoData;
+let roadGenerator: RoadGenerator;
 
 let wPressed: boolean;
 let aPressed: boolean;
@@ -32,23 +42,31 @@ let dPressed: boolean;
 let planePos: vec2;
 let time: number;
 
+function clamp(value: number, min: number, max: number): number {
+    return Math.max(Math.min(value, max), min);
+}
+
 function loadScene() {
-  square = new Square(vec3.fromValues(0, 0, 0));
-  square.create();
-  plane = new Plane(vec3.fromValues(0,0,0), vec2.fromValues(100,100), 20);
-  plane.create();
-  cube = new Cube(vec3.fromValues(0, 0, 0));
-  cube.create();
-
-  geoData = new GeoData(TSEED, PSEED, controls["Land-Water Ratio"]);
-
-  wPressed = false;
-  aPressed = false;
-  sPressed = false;
-  dPressed = false;
-  planePos = vec2.fromValues(0,0);
-
-  time = 0;
+    square = new Square(vec3.fromValues(0, 0, 0));
+    square.create();
+    plane = new Plane(vec3.fromValues(0,0,0), vec2.fromValues(100,100), 20);
+    plane.create();
+    cube = new Cube(vec3.fromValues(0, 0, 0));
+    cube.create();
+  
+    geoData = new GeoData(TSEED, PSEED, controls["Land-Water Ratio"], MAP_SIZE);
+    roadGenerator = new RoadGenerator(geoData, MAP_SIZE);
+  
+    roadGenerator.generateHighways(controls["Road Count"]);
+    roadGenerator.drawRoadNetwork(cube, 0.2);
+  
+    wPressed = false;
+    aPressed = false;
+    sPressed = false;
+    dPressed = false;
+    planePos = vec2.fromValues(0,0);
+  
+    time = 0;
 }
 
 function main() {
@@ -98,6 +116,8 @@ function main() {
     // Add controls to the gui
     const gui = new DAT.GUI();
     gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
+    gui.add(controls, "Show Population");
+    gui.add(controls, "Road Count", 0, 400);
   
     // get canvas and webgl context
     const canvas = <HTMLCanvasElement> document.getElementById('canvas');
@@ -115,7 +135,7 @@ function main() {
     const camera = new Camera(vec3.fromValues(0, 10, -20), vec3.fromValues(0, 0, 0));
   
     const renderer = new OpenGLRenderer(canvas);
-    renderer.setClearColor(164.0 / 255.0, 233.0 / 255.0, 1.0, 1);
+    renderer.setClearColor(0.64, 0.91, 1.0, 1);
     gl.enable(gl.DEPTH_TEST);
   
     const lambert = new ShaderProgram([
@@ -149,10 +169,17 @@ function main() {
         }
         let newPos: vec2 = vec2.fromValues(0,0);
         vec2.add(newPos, velocity, planePos);
+        newPos = vec2.fromValues(
+            clamp(newPos[0], -MAP_SIZE - 10, MAP_SIZE + 10),
+            clamp(newPos[1], -MAP_SIZE - 10, MAP_SIZE + 10)
+        );
         lambert.setPlanePos(newPos);
         road.setPlanePos(newPos);
         planePos = newPos;
     }
+
+    let lastRoadCount = controls["Road Count"];
+    let lastLandRatio = controls["Land-Water Ratio"];
   
     // This function will be called every frame
     function tick() {
@@ -160,15 +187,21 @@ function main() {
         stats.begin();
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
 
+        if (controls["Road Count"] !== lastRoadCount || controls["Land-Water Ratio"] != lastLandRatio) {
+            lastRoadCount = controls["Road Count"];
+            lastLandRatio = controls["Land-Water Ratio"];
+            roadGenerator.generateHighways(controls["Road Count"]);
+            roadGenerator.drawRoadNetwork(cube, 0.2);
+        }
+
         geoData.setLandRatio(controls["Land-Water Ratio"]);
-        let height = geoData.isLand(planePos) ? 1.0 : 0.0;
-        cube = new Cube(vec3.fromValues(0, height, 0));
-        cube.create();
     
         flat.setTime(time);
         lambert.setTime(time);
-        road.setTime
+        road.setTime(time);
+
         lambert.setWaterRatio(controls["Land-Water Ratio"]);
+        lambert.setShowPop(controls["Show Population"]);
     
         time += 1.0
     

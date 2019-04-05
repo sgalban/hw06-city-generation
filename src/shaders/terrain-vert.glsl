@@ -33,7 +33,7 @@ float cubicFalloff(float t) {
  * ----------------------------------------------------------------------------------------- */
 
 float random1(vec2 p, vec2 seed) {
-    return fract(sin(dot(p + seed, vec2(127.1, 311.7))));
+    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 29.13);
 }
 
 float random1(vec3 p, vec3 seed) {
@@ -89,7 +89,7 @@ void main() {
         0.5;
 
     vec4 modelposition = vec4(vs_Pos.x, vertHeight, vs_Pos.z, 1);
-    fs_Pos = vec3(noisePos.x, vertHeight, noisePos.y);
+    fs_Pos = vec3(vs_Pos.x, vertHeight, vs_Pos.z);
 
     modelposition = u_Model * modelposition;
     gl_Position = u_ViewProj * modelposition;

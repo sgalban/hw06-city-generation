@@ -4,11 +4,11 @@ precision highp float;
 uniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane
 uniform highp int u_Time;
 uniform highp int u_UseLight;
+uniform highp int u_ShowPop;
 
 in vec3 fs_Pos;
 in vec4 fs_Nor;
 in vec4 fs_Col;
-
 
 out vec4 out_Col; // This is the final output color that you will see on your
                   // screen for the pixel that is currently being processed.
@@ -71,11 +71,13 @@ float fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {
 
 
 void main() {
+    vec2 noisePos = fs_Pos.xz + u_PlanePos;
 
     const vec3 WATER = vec3(0.2, 0.3, 1);
     const vec3 TIDE  = vec3(0.6, 0.7, 1);
     const vec3 SAND  = vec3(1, 1, 0.6);
     const vec3 LAND  = vec3(0.0, 0.8, 0.0);
+    const vec3 SKY   = vec3(0.64, 0.91, 1.0);
 
     float height = fs_Pos.y;
 
@@ -86,10 +88,14 @@ void main() {
         height < +0.49 ? mix(SAND, LAND, smoothstep(0.0, 1.0, height * 2.0)):
         LAND;
 
-    float populationDensity = height < 0.4 ? 0.0 : pow(fbm(fs_Pos.xz, 2, 0.15, SEED2), 2.0);
+    float populationDensity = height < 0.4 ? 0.0 : pow(fbm(noisePos, 2, 0.08, SEED2), 2.0);
 
     const vec3 POP_COLOR = vec3(1, 0, 0);
-    vec3 color = mix(terrainColor, POP_COLOR, populationDensity);
+    vec3 color = u_ShowPop == 0 ? terrainColor : mix(terrainColor, POP_COLOR, populationDensity);
+    color = mix(color, SKY, smoothstep(0.0, 1.0, clamp((length(fs_Pos.xz) - 45.0) / 5.0, 0.0, 1.0)));
+    if (distance(noisePos, vec2(-14.68, -30.85)) < 0.5) {
+        color = vec3(1, 0, 1);
+    }
 
     out_Col = vec4(color, 1.0);
 }

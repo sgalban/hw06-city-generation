@@ -3,10 +3,14 @@ import Drawable from '../rendering/gl/Drawable';
 import {gl} from '../globals';
 
 class Square extends Drawable {
+    center: vec4;
+
     indices: Uint32Array;
     positions: Float32Array;
     normals: Float32Array;
-    center: vec4;
+
+    endpoints: Float32Array;
+    thickness: Float32Array;
   
     constructor(center: vec3) {
         super(); // Call the constructor of the super class. This is required.
@@ -54,40 +58,42 @@ class Square extends Drawable {
             0, 0, -1, 0,
         ]);
         this.positions = new Float32Array([
-            -0.5 + this.center[0], +0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], +0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], +0.5 + this.center[1], +0.5 + this.center[2], 1,
-            -0.5 + this.center[0], +0.5 + this.center[1], +0.5 + this.center[2], 1,
+            -0.5, +0.5, -0.5, 1,
+            +0.5, +0.5, -0.5, 1,
+            +0.5, +0.5, +0.5, 1,
+            -0.5, +0.5, +0.5, 1,
 
-            -0.5 + this.center[0], -0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], -0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], -0.5 + this.center[1], +0.5 + this.center[2], 1,
-            -0.5 + this.center[0], -0.5 + this.center[1], +0.5 + this.center[2], 1,
+            -0.5, -0.5, -0.5, 1,
+            +0.5, -0.5, -0.5, 1,
+            +0.5, -0.5, +0.5, 1,
+            -0.5, -0.5, +0.5, 1,
 
-            +0.5 + this.center[0], -0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], +0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], +0.5 + this.center[1], +0.5 + this.center[2], 1,
-            +0.5 + this.center[0], -0.5 + this.center[1], +0.5 + this.center[2], 1,
+            +0.5, -0.5, -0.5, 1,
+            +0.5, +0.5, -0.5, 1,
+            +0.5, +0.5, +0.5, 1,
+            +0.5, -0.5, +0.5, 1,
 
-            -0.5 + this.center[0], -0.5 + this.center[1], -0.5 + this.center[2], 1,
-            -0.5 + this.center[0], +0.5 + this.center[1], -0.5 + this.center[2], 1,
-            -0.5 + this.center[0], +0.5 + this.center[1], +0.5 + this.center[2], 1,
-            -0.5 + this.center[0], -0.5 + this.center[1], +0.5 + this.center[2], 1,
+            -0.5, -0.5, -0.5, 1,
+            -0.5, +0.5, -0.5, 1,
+            -0.5, +0.5, +0.5, 1,
+            -0.5, -0.5, +0.5, 1,
 
-            -0.5 + this.center[0], -0.5 + this.center[1], +0.5 + this.center[2], 1,
-            +0.5 + this.center[0], -0.5 + this.center[1], +0.5 + this.center[2], 1,
-            +0.5 + this.center[0], +0.5 + this.center[1], +0.5 + this.center[2], 1,
-            -0.5 + this.center[0], +0.5 + this.center[1], +0.5 + this.center[2], 1,
+            -0.5, -0.5, +0.5, 1,
+            +0.5, -0.5, +0.5, 1,
+            +0.5, +0.5, +0.5, 1,
+            -0.5, +0.5, +0.5, 1,
 
-            -0.5 + this.center[0], -0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], -0.5 + this.center[1], -0.5 + this.center[2], 1,
-            +0.5 + this.center[0], +0.5 + this.center[1], -0.5 + this.center[2], 1,
-            -0.5 + this.center[0], +0.5 + this.center[1], -0.5 + this.center[2], 1,
+            -0.5, -0.5, -0.5, 1,
+            +0.5, -0.5, -0.5, 1,
+            +0.5, +0.5, -0.5, 1,
+            -0.5, +0.5, -0.5, 1,
         ]);
   
         this.generateIdx();
         this.generatePos();
         this.generateNor();
+        this.generateEndpoints();
+        this.generateThickness();
     
         this.count = this.indices.length;
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.bufIdx);
@@ -100,6 +106,20 @@ class Square extends Drawable {
         gl.bufferData(gl.ARRAY_BUFFER, this.positions, gl.STATIC_DRAW);
     
         console.log(`Created cube`);
+    }
+
+    setInstanceVBOs(endpoints: vec4[], thickness: number[]) {
+        let endpointArray: number[] = [];
+        for (let v of endpoints) {
+            endpointArray = endpointArray.concat(v[0], v[1], v[2], v[3]);
+        }
+        this.endpoints = new Float32Array(endpointArray);
+        this.thickness = new Float32Array(thickness);
+    
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.bufEnd);
+        gl.bufferData(gl.ARRAY_BUFFER, this.endpoints, gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.bufThic);
+        gl.bufferData(gl.ARRAY_BUFFER, this.thickness, gl.STATIC_DRAW);
     }
 };
 

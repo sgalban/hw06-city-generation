@@ -16,7 +16,7 @@ function mix(x: number, y: number, a: number) {
 function random1(p: vec2, seed: vec2) : number {
     return fract(Math.sin(vec2.dot(
         vec2.add(vec2.create(), p, seed
-    ), vec2.fromValues(127.1, 311.7))));
+    ), vec2.fromValues(127.1, 311.7))) * 29.13);
 }
 
 function brownianNoise(p: vec2, seed: vec2) : number {
@@ -51,20 +51,33 @@ export default class GeoData {
     terrainSeed: vec2;
     populationSeed: vec2;
     landRatio: number;
+    mapSize: number;
 
-    constructor(_terrainSeed: vec2, _populationSeed: vec2, _landRatio: number) {
+    constructor(_terrainSeed: vec2, _populationSeed: vec2, _landRatio: number, _mapSize: number) {
         this.terrainSeed = _terrainSeed;
         this.populationSeed = _populationSeed;
         this.landRatio = _landRatio;
+        this.mapSize = _mapSize;
     }
 
     setLandRatio(ratio: number): void {
         this.landRatio = ratio;
     }
 
-    isLand(pos: vec2): boolean {
-        let terrainNoise = fbm(pos, 3, 0.05, this.terrainSeed);
+    isLand(pos: vec2 | number[]): boolean {
+        let vec: vec2 = vec2.fromValues(pos[0], pos[1]);
+        let terrainNoise = fbm(vec, 3, 0.05, this.terrainSeed);
         return terrainNoise < this.landRatio - 0.075;
+    }
+
+    getPopulationDensity(pos: vec2): number {
+        if (!this.isLand(pos)) {
+            return -0.001;
+        }
+        if (Math.abs(pos[0]) > this.mapSize + 50 || Math.abs(pos[1]) > this.mapSize + 50) {
+            return -0.003;
+        }
+        return Math.pow(fbm(pos, 2, 0.08, this.populationSeed), 2.0);
     }
 
 }
