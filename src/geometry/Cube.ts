@@ -108,7 +108,7 @@ class Cube extends Drawable {
         console.log(`Created cube`);
     }
 
-    setInstanceVBOs(endpoints: vec4[], thickness: number[]) {
+    setRoadVBOs(endpoints: vec4[], thickness: number[]) {
         let endpointArray: number[] = [];
         for (let v of endpoints) {
             endpointArray = endpointArray.concat(v[0], v[1], v[2], v[3]);

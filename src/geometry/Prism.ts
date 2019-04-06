@@ -11,6 +11,7 @@ class Prism extends Drawable {
 
     offsets: Float32Array;
     heights: Float32Array;
+    thicknesses: Float32Array;
     sides: number;
   
     constructor(center: vec3, sides: number) {
@@ -43,9 +44,9 @@ class Prism extends Drawable {
                 x2, 0, z2, 1
             );
             normals.push(
-                0, 0, -1, 0,
-                0, 0, -1, 0,
-                0, 0, -1, 0,
+                0, 0, 1, 0,
+                0, 0, 1, 0,
+                0, 0, 1, 0,
             )
             indices.push(curIdx + 0, curIdx + 1, curIdx + 2);
 
@@ -56,9 +57,9 @@ class Prism extends Drawable {
                 x2, 1, z2, 1
             );
             normals.push(
-                0, 0, 1, 0,
-                0, 0, 1, 0,
-                0, 0, 1, 0,
+                0, 0, -1, 0,
+                0, 0, -1, 0,
+                0, 0, -1, 0,
             )
             indices.push(curIdx + 3, curIdx + 4, curIdx + 5);
 
@@ -93,6 +94,7 @@ class Prism extends Drawable {
         this.generateNor();
         this.generateOff();
         this.generateHgt();
+        this.generateThickness();
     
         this.count = this.indices.length;
         gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.bufIdx);
@@ -107,7 +109,7 @@ class Prism extends Drawable {
         console.log(`Created ` + this.sides + ` Prism`);
     }
 
-    setInstanceVBOs(offsets: vec4[], heights: number[]) {
+    setBuildingVBOs(offsets: vec4[], heights: number[], thicknesses: number[]) {
         let offsetArray: number[] = [];
         for (let off of offsets) {
             offsetArray.push(off[0], off[1], off[2], off[3]);
@@ -115,11 +117,14 @@ class Prism extends Drawable {
 
         this.offsets = new Float32Array(offsetArray);
         this.heights = new Float32Array(heights);
+        this.thicknesses = new Float32Array(thicknesses);
 
         gl.bindBuffer(gl.ARRAY_BUFFER, this.bufOff);
         gl.bufferData(gl.ARRAY_BUFFER, this.offsets, gl.STATIC_DRAW);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.bufHgt);
         gl.bufferData(gl.ARRAY_BUFFER, this.heights, gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.bufThic);
+        gl.bufferData(gl.ARRAY_BUFFER, this.thicknesses, gl.STATIC_DRAW);
     }
 };
 

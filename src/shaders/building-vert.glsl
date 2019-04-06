@@ -11,13 +11,13 @@ in vec4 vs_Pos;
 in vec4 vs_Nor;
 in vec4 vs_Offset;
 in float vs_Height;
+in float vs_Thickness;
 
 out vec3 fs_Pos;
 out vec4 fs_Nor;
 
 void main() {
-    vec4 actualPos = vs_Pos;
-    actualPos.y *= vs_Height;
+    vec4 actualPos = vec4(vs_Pos.x * vs_Thickness, vs_Pos.y * vs_Height, vs_Pos.z * vs_Thickness, 1);
     actualPos += (vs_Offset - vec4(u_PlanePos.x, 0, u_PlanePos.y, 0));
     vec4 modelposition = u_Model * actualPos;
     fs_Pos = modelposition.xyz;

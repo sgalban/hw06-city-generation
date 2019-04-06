@@ -375,7 +375,7 @@ export default class RoadGenerator {
             }
         }
 
-        road.setInstanceVBOs(endpoints, roadThicknesses);
+        road.setRoadVBOs(endpoints, roadThicknesses);
         road.setNumInstances(numRoads);
     }
 }

@@ -11,7 +11,7 @@ in vec4 fs_Col;
 out vec4 out_Col;
 
 void main() {
-    const vec3 SKY   = vec3(0.64, 0.91, 1.0);
+    const vec3 SKY   = vec3(0, 0, 0.05);
     
     vec3 color = vec3(0.3, 0.3, 0.4);
     color = mix(color, SKY, smoothstep(0.0, 1.0, clamp((length(fs_Pos.xz) - 45.0) / 5.0, 0.0, 1.0)));

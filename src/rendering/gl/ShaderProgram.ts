@@ -1,4 +1,4 @@
-import {vec2, vec4, mat4} from 'gl-matrix';
+import {vec2, vec3, vec4, mat4} from 'gl-matrix';
 import Drawable from './Drawable';
 import {gl} from '../../globals';
 
@@ -39,6 +39,10 @@ class ShaderProgram {
     unifLighting: WebGLUniformLocation;
     unifRatio: WebGLUniformLocation;
     unifShowPop: WebGLUniformLocation;
+    unifRef: WebGLUniformLocation;
+    unifEye: WebGLUniformLocation;
+    unifUp: WebGLUniformLocation;
+    unifDimensions: WebGLUniformLocation;
   
     constructor(shaders: Array<Shader>) {
         this.prog = gl.createProgram();
@@ -67,12 +71,36 @@ class ShaderProgram {
         this.unifLighting   = gl.getUniformLocation(this.prog, "u_UseLight");
         this.unifRatio      = gl.getUniformLocation(this.prog, "u_LandRatio");
         this.unifShowPop    = gl.getUniformLocation(this.prog, "u_ShowPop");
+        this.unifEye   = gl.getUniformLocation(this.prog, "u_Eye");
+        this.unifRef   = gl.getUniformLocation(this.prog, "u_Ref");
+        this.unifUp   = gl.getUniformLocation(this.prog, "u_Up");
+        this.unifDimensions   = gl.getUniformLocation(this.prog, "u_Dimensions");
     }
   
     use() {
         if (activeProgram !== this.prog) {
             gl.useProgram(this.prog);
             activeProgram = this.prog;
+        }
+    }
+
+    setEyeRefUp(eye: vec3, ref: vec3, up: vec3) {
+        this.use();
+        if(this.unifEye !== -1) {
+            gl.uniform3f(this.unifEye, eye[0], eye[1], eye[2]);
+        }
+        if(this.unifRef !== -1) {
+            gl.uniform3f(this.unifRef, ref[0], ref[1], ref[2]);
+        }
+        if(this.unifUp !== -1) {
+            gl.uniform3f(this.unifUp, up[0], up[1], up[2]);
+        }
+    }
+
+    setDimensions(width: number, height: number) {
+        this.use();
+        if(this.unifDimensions !== -1) {
+            gl.uniform2f(this.unifDimensions, width, height);
         }
     }
   
@@ -173,7 +201,12 @@ class ShaderProgram {
         }
     
         d.bindIdx();
-        gl.drawElementsInstanced(d.drawMode(), d.elemCount(), gl.UNSIGNED_INT, 0, d.numInstances);
+        if (d.numInstances > 0) {
+            gl.drawElementsInstanced(d.drawMode(), d.elemCount(), gl.UNSIGNED_INT, 0, d.numInstances);
+        }
+        else {
+            gl.drawElements(d.drawMode(), d.elemCount(), gl.UNSIGNED_INT, 0);
+        }
     
         if (this.attrPos != -1) {
             gl.disableVertexAttribArray(this.attrPos)

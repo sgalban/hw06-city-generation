@@ -34,7 +34,10 @@ const MAP_SIZE: number = 50;
 let square: Square;
 let plane : Plane;
 let cube: Cube;
-let pentagon: Prism;
+let quad: Prism;
+let pent: Prism;
+let hex: Prism;
+let oct: Prism;
 
 let geoData: GeoData;
 let roadGenerator: RoadGenerator;
@@ -57,16 +60,23 @@ function loadScene() {
     plane.create();
     cube = new Cube(vec3.fromValues(0, 0, 0));
     cube.create();
-    pentagon = new Prism(vec3.fromValues(0, 0, 0), 5);
-    pentagon.create();
+
+    quad = new Prism(vec3.fromValues(0, 0, 0), 4);
+    quad.create();
+    pent = new Prism(vec3.fromValues(0, 0, 0), 5);
+    pent.create();
+    hex = new Prism(vec3.fromValues(0, 0, 0), 6);
+    hex.create();
+    oct = new Prism(vec3.fromValues(0, 0, 0), 8);
+    oct.create();
   
     geoData = new GeoData(TSEED, PSEED, controls["Land-Water Ratio"], MAP_SIZE);
     roadGenerator = new RoadGenerator(geoData, MAP_SIZE);
 
     roadGenerator.generateHighways(controls["Road Count"]);
     roadGenerator.drawRoadNetwork(cube, ROAD_THICKNESS);
-    let buildings: BuildingGenerator = new BuildingGenerator(roadGenerator, geoData, MAP_SIZE * 2.0);
-    buildings.placeBuildings(100, pentagon);
+    let buildings: BuildingGenerator = new BuildingGenerator(roadGenerator, geoData, MAP_SIZE * 2.0, quad, pent, hex, oct);
+    buildings.placeBuildings(1000);
   
     wPressed = false;
     aPressed = false;
@@ -79,7 +89,6 @@ function loadScene() {
 
 function main() {
     window.addEventListener('keypress', function (e) {
-      // console.log(e.key);
         switch(e.key) {
             case 'w': case 'W':
             wPressed = true;
@@ -122,9 +131,9 @@ function main() {
     document.body.appendChild(stats.domElement);
   
     // Add controls to the gui
-    const gui = new DAT.GUI();
+    //const gui = new DAT.GUI();
     //gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
-    gui.add(controls, "Show Population");
+    //gui.add(controls, "Show Population");
     //gui.add(controls, "Road Count", 0, 10000);
   
     // get canvas and webgl context
@@ -143,7 +152,7 @@ function main() {
     const camera = new Camera(vec3.fromValues(0, 10, -20), vec3.fromValues(0, 0, 0));
   
     const renderer = new OpenGLRenderer(canvas);
-    renderer.setClearColor(0.64, 0.91, 1.0, 1);
+    renderer.setClearColor(1, 1, 1, 1);//(0.64, 0.91, 1.0, 1);
     gl.enable(gl.DEPTH_TEST);
   
     const lambert = new ShaderProgram([
@@ -225,15 +234,18 @@ function main() {
         renderer.render(camera, lambert, [
             plane,
         ]);
-        renderer.render(camera, flat, [
-            square,
-        ]);
         renderer.render(camera, road, [
             cube,
         ]);
         renderer.render(camera, building, [
-            pentagon,
-        ])
+            quad,
+            pent,
+            hex,
+            oct
+        ]);
+        renderer.render(camera, flat, [
+            square,
+        ]);
         stats.end();
     
         // Tell the browser to call `tick` again whenever it renders a new frame
@@ -244,11 +256,13 @@ function main() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.setAspectRatio(window.innerWidth / window.innerHeight);
         camera.updateProjectionMatrix();
+        flat.setDimensions(window.innerWidth, window.innerHeight);
     }, false);
   
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.setAspectRatio(window.innerWidth / window.innerHeight);
     camera.updateProjectionMatrix();
+    flat.setDimensions(window.innerWidth, window.innerHeight);
   
     // Start the render loop
     tick();

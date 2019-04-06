@@ -13,7 +13,7 @@ in vec4 vs_Nor;
 in vec4 vs_Col;
 
 out vec3 fs_Pos;
-out vec4 fs_Nor;
+out vec3 fs_Nor;
 out vec4 fs_Col;
 
 const vec2 SEED2 = vec2(0.1234, 0.5678);
@@ -78,16 +78,19 @@ float fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {
     return totalNoise / normalizer;
 }
 
-void main() {
-    vec2 noisePos = vs_Pos.xz + u_PlanePos;
-
+float getHeight(vec2 pos) { 
     const float COAST_SIZE = 0.075;
-    float isLand = fbm(noisePos, 3, 0.05, SEED2);
+    float isLand = fbm(pos, 3, 0.05, SEED2);
     float vertHeight =
         isLand > u_LandRatio - 0.00000000 ? -0.5:
         isLand > u_LandRatio - COAST_SIZE ? mix(-0.5, 0.5, cubicFalloff((u_LandRatio - isLand) / COAST_SIZE)):
         0.5;
+    return vertHeight;
+}
 
+void main() {
+    vec2 noisePos = vs_Pos.xz + u_PlanePos;
+    float vertHeight = getHeight(noisePos);
     vec4 modelposition = vec4(vs_Pos.x, vertHeight, vs_Pos.z, 1);
     fs_Pos = vec3(vs_Pos.x, vertHeight, vs_Pos.z);
 

@@ -34,7 +34,7 @@ void main() {
     pos = rotation * pos;
     pos += (end1 + end2) / 2.0;
 
-    vec4 modifiedPos = vec4(pos.x, vs_Pos.y * 0.2 + 0.5, pos.y, 1.0) - vec4(u_PlanePos.x, 0, u_PlanePos.y, 0);
+    vec4 modifiedPos = vec4(pos.x, vs_Pos.y * 0.05 + 0.5, pos.y, 1.0) - vec4(u_PlanePos.x, 0, u_PlanePos.y, 0);
     fs_Pos = modifiedPos.xyz;
     vec4 modelposition = u_Model * modifiedPos;
     gl_Position = u_ViewProj * modelposition;

@@ -122,7 +122,11 @@ abstract class Drawable {
         this.numInstances = num;
     }
 
-    setInstanceVBOs(endpoints: vec4[], thickness: number[]) {
+    setRoadVBOs(endpoints: vec4[], thickness: number[]) {
+        throw new Error("Must be implemented in instanced geometry subclass")
+    }
+
+    setBuildingVBOs(offsets: vec4[], heights: number[], thickness: number[]) {
         throw new Error("Must be implemented in instanced geometry subclass")
     }
 
