@@ -60,11 +60,49 @@
 /******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 23);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(11);
+/* unused harmony reexport glMatrix */
+/* unused harmony reexport mat2 */
+/* unused harmony reexport mat2d */
+/* unused harmony reexport mat3 */
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__; });
+/* unused harmony reexport quat */
+/* unused harmony reexport quat2 */
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__; });
+/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__; });
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -118,44 +156,6 @@ function equals(a, b) {
 }
 
 /***/ }),
-/* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gl_matrix_common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__gl_matrix_mat2_js__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__gl_matrix_mat2d_js__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__gl_matrix_mat3_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__gl_matrix_quat_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__gl_matrix_quat2_js__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__ = __webpack_require__(25);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__ = __webpack_require__(10);
-/* unused harmony reexport glMatrix */
-/* unused harmony reexport mat2 */
-/* unused harmony reexport mat2d */
-/* unused harmony reexport mat3 */
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_4__gl_matrix_mat4_js__; });
-/* unused harmony reexport quat */
-/* unused harmony reexport quat2 */
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__gl_matrix_vec2_js__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_8__gl_matrix_vec3_js__; });
-/* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "d", function() { return __WEBPACK_IMPORTED_MODULE_9__gl_matrix_vec4_js__; });
-
-
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
 /* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -170,6 +170,124 @@ function setGL(_gl) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
+
+class Drawable {
+    constructor() {
+        this.count = 0;
+        this.idxBound = false;
+        this.posBound = false;
+        this.norBound = false;
+        this.endBound = false;
+        this.thicBound = false;
+        this.offBound = false;
+        this.hgtBound = false;
+        this.numInstances = 0;
+    }
+    destory() {
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufEnd);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufThic);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufOff);
+        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufHgt);
+    }
+    generateIdx() {
+        this.idxBound = true;
+        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generatePos() {
+        this.posBound = true;
+        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateNor() {
+        this.norBound = true;
+        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateEndpoints() {
+        this.endBound = true;
+        this.bufEnd = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateThickness() {
+        this.thicBound = true;
+        this.bufThic = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateOff() {
+        this.offBound = true;
+        this.bufOff = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    generateHgt() {
+        this.hgtBound = true;
+        this.bufHgt = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
+    }
+    bindIdx() {
+        if (this.idxBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        }
+        return this.idxBound;
+    }
+    bindPos() {
+        if (this.posBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        }
+        return this.posBound;
+    }
+    bindNor() {
+        if (this.norBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        }
+        return this.norBound;
+    }
+    bindEndpoints() {
+        if (this.endBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufEnd);
+        }
+        return this.endBound;
+    }
+    bindThickness() {
+        if (this.thicBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufThic);
+        }
+        return this.thicBound;
+    }
+    bindOff() {
+        if (this.offBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufOff);
+        }
+        return this.offBound;
+    }
+    bindHgt() {
+        if (this.hgtBound) {
+            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufHgt);
+        }
+        return this.hgtBound;
+    }
+    setNumInstances(num) {
+        this.numInstances = num;
+    }
+    setRoadVBOs(endpoints, thickness) {
+        throw new Error("Must be implemented in instanced geometry subclass");
+    }
+    setBuildingVBOs(offsets, heights, thickness) {
+        throw new Error("Must be implemented in instanced geometry subclass");
+    }
+    elemCount() {
+        return this.count;
+    }
+    drawMode() {
+        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Drawable);
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 module.exports = invert;
@@ -229,66 +347,6 @@ function invert(out, a) {
 };
 
 /***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__globals__ = __webpack_require__(2);
-
-class Drawable {
-    constructor() {
-        this.count = 0;
-        this.idxBound = false;
-        this.posBound = false;
-        this.norBound = false;
-    }
-    destory() {
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufIdx);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufPos);
-        __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].deleteBuffer(this.bufNor);
-    }
-    generateIdx() {
-        this.idxBound = true;
-        this.bufIdx = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generatePos() {
-        this.posBound = true;
-        this.bufPos = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    generateNor() {
-        this.norBound = true;
-        this.bufNor = __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].createBuffer();
-    }
-    bindIdx() {
-        if (this.idxBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
-        }
-        return this.idxBound;
-    }
-    bindPos() {
-        if (this.posBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
-        }
-        return this.posBound;
-    }
-    bindNor() {
-        if (this.norBound) {
-            __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
-        }
-        return this.norBound;
-    }
-    elemCount() {
-        return this.count;
-    }
-    drawMode() {
-        return __WEBPACK_IMPORTED_MODULE_0__globals__["a" /* gl */].TRIANGLES;
-    }
-}
-;
-/* harmony default export */ __webpack_exports__["a"] = (Drawable);
-
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
@@ -318,6 +376,185 @@ function normalize(out, a) {
 
 /***/ }),
 /* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+
+class Node {
+    constructor(_position, _type) {
+        this.position = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(_position[0], _position[1]);
+        this.x = _position[0];
+        this.y = _position[1];
+        this.type = _type;
+    }
+    distance(other) {
+        return __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].distance(this.position, other.position);
+    }
+    equal(other) {
+        return this.x === other.x && this.y === other.y;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Node;
+
+class SpatialGraph {
+    constructor() {
+        this.adjacency = new Map();
+        this.numEdges = 0;
+        this.nodeGrid = new Map();
+    }
+    getNumEdges() {
+        return this.numEdges;
+    }
+    getNumNodes() {
+        return this.adjacency.size;
+    }
+    addNode(n) {
+        if (!this.adjacency.has(n)) {
+            this.adjacency.set(n, []);
+            let pos = [Math.floor(n.x), Math.floor(n.y)].toString();
+            if (this.nodeGrid.has(pos)) {
+                this.nodeGrid.get(pos).push(n);
+            }
+            else {
+                this.nodeGrid.set(pos, [n]);
+            }
+        }
+    }
+    areAdjacent(n1, n2) {
+        let equal = false;
+        this.adjacency.forEach((neighbors, node) => {
+            for (let neighbor of neighbors) {
+                if (n1.equal(node) && n2.equal(neighbor)) {
+                    equal = true;
+                }
+            }
+        });
+        return equal;
+    }
+    connect(n1, n2) {
+        let success = false;
+        if (n1.equal(n2)) {
+            return false;
+        }
+        if (!this.adjacency.has(n1)) {
+            this.addNode(n1);
+            this.adjacency.set(n1, [n2]);
+            success = true;
+        }
+        else {
+            let adj1 = this.adjacency.get(n1);
+            if (adj1.indexOf(n2) === -1) {
+                adj1.push(n2);
+                this.adjacency.set(n1, adj1);
+                success = true;
+            }
+        }
+        if (!this.adjacency.has(n2)) {
+            this.addNode(n2);
+            this.adjacency.set(n2, [n1]);
+            success = true;
+        }
+        else {
+            let adj2 = this.adjacency.get(n2);
+            if (adj2.indexOf(n1) === -1) {
+                adj2.push(n1);
+                this.adjacency.set(n2, adj2);
+                success = true;
+            }
+        }
+        if (success) {
+            this.numEdges++;
+        }
+        return success;
+    }
+    getNodes() {
+        let nodes = [];
+        this.adjacency.forEach((neighbors, node) => {
+            nodes.push(node);
+        });
+        return nodes;
+    }
+    getNodeIterator() {
+        return this.adjacency.keys();
+    }
+    getAdjacentNodes(node) {
+        return this.adjacency.get(node);
+    }
+    removeNode(node) {
+        for (let neighbor of this.adjacency.get(node)) {
+            let idx = this.adjacency.get(neighbor).indexOf(node);
+            this.adjacency.get(neighbor).splice(idx, 1);
+            this.numEdges--;
+        }
+        this.adjacency.delete(node);
+        let pos = [Math.floor(node.x), Math.floor(node.y)].toString();
+        if (this.nodeGrid.has(pos)) {
+            this.nodeGrid.get(pos).splice(this.nodeGrid.get(pos).indexOf(node), 1);
+        }
+    }
+    splitEdge(end1, end2, newNode) {
+        if (this.areAdjacent(end1, end2)) {
+            this.adjacency.get(end1).splice(this.adjacency.get(end1).indexOf(end2), 1);
+            this.adjacency.get(end2).splice(this.adjacency.get(end2).indexOf(end1), 1);
+            this.numEdges--;
+        }
+        this.connect(end1, newNode);
+        this.connect(newNode, end2);
+    }
+    getNodesNear(node, radius) {
+        let gridRad = Math.ceil(radius) + 1;
+        let gridPos = [Math.floor(node.x), Math.floor(node.y)].toString();
+        let nodes = [];
+        for (let i = -gridRad; i <= gridRad; i++) {
+            for (let j = -gridRad; j <= gridRad; j++) {
+                let pos = [Math.floor(i + node.x), Math.floor(j + node.y)].toString();
+                if (this.nodeGrid.has(pos)) {
+                    let gridNodes = this.nodeGrid.get(pos);
+                    for (let n of gridNodes) {
+                        if (n.distance(node) < radius) {
+                            nodes.push(n);
+                        }
+                    }
+                }
+            }
+        }
+        let output = nodes.filter((n) => !n.equal(node));
+        return output;
+    }
+    getConnectedComponents() {
+        let ccs = [];
+        let unseenNodes = new Set(this.getNodeIterator());
+        let seenNodes = new Set();
+        while (unseenNodes.size > 0) {
+            let root = unseenNodes.values().next().value;
+            unseenNodes.delete(root);
+            seenNodes.add(root);
+            let cc = [root];
+            let frontier = new Set([root]);
+            while (frontier.size > 0) {
+                let nextNode = frontier.values().next().value;
+                frontier.delete(nextNode);
+                for (let neighbor of this.getAdjacentNodes(nextNode)) {
+                    if (!seenNodes.has(neighbor)) {
+                        seenNodes.add(neighbor);
+                        unseenNodes.delete(neighbor);
+                        cc.push(neighbor);
+                        frontier.add(neighbor);
+                    }
+                }
+            }
+            ccs.push(cc);
+        }
+        return ccs;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["b"] = SpatialGraph;
+
+
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -353,7 +590,7 @@ function normalize(out, a) {
 /* unused harmony export equals */
 /* unused harmony export mul */
 /* unused harmony export sub */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -1166,7 +1403,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1218,7 +1455,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["equals"] = equals;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mul", function() { return mul; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sub", function() { return sub; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -3062,7 +3299,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3101,10 +3338,10 @@ var sub = subtract;
 /* unused harmony export rotationTo */
 /* unused harmony export sqlerp */
 /* unused harmony export setAxes */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mat3_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vec3_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vec4_js__ = __webpack_require__(11);
 
 
 
@@ -3768,7 +4005,7 @@ var setAxes = function () {
 }();
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3820,7 +4057,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -4610,7 +4847,7 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4654,7 +4891,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "len", function() { return len; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -5271,7 +5508,7 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5279,8 +5516,8 @@ var forEach = function () {
 
 module.exports = createFilteredVector
 
-var cubicHermite = __webpack_require__(40)
-var bsearch = __webpack_require__(12)
+var cubicHermite = __webpack_require__(41)
+var bsearch = __webpack_require__(13)
 
 function clamp(lo, hi, x) {
   return Math.min(hi, Math.max(lo, x))
@@ -5569,7 +5806,7 @@ function createFilteredVector(initState, initVelocity, initTime) {
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5636,7 +5873,7 @@ module.exports = {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = cross;
@@ -5660,7 +5897,7 @@ function cross(out, a, b) {
 }
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports) {
 
 module.exports = dot;
@@ -5677,10 +5914,10 @@ function dot(a, b) {
 }
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var identity = __webpack_require__(16);
+var identity = __webpack_require__(17);
 
 module.exports = lookAt;
 
@@ -5772,7 +6009,7 @@ function lookAt(out, eye, center, up) {
 };
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports) {
 
 module.exports = identity;
@@ -5804,7 +6041,7 @@ function identity(out) {
 };
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = translate;
@@ -5847,7 +6084,7 @@ function translate(out, a, v) {
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports) {
 
 module.exports = create;
@@ -5879,7 +6116,7 @@ function create() {
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = scale;
@@ -5915,7 +6152,7 @@ function scale(out, a, v) {
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports) {
 
 module.exports = determinant;
@@ -5950,23 +6187,112 @@ function determinant(a) {
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = fract;
+/* unused harmony export between */
+/* unused harmony export normal */
+/* unused harmony export lerp */
+/* unused harmony export unlerp */
+/* harmony export (immutable) */ __webpack_exports__["b"] = getIntersection;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+
+function fract(x) {
+    return x - Math.floor(x);
+}
+function between(val, min, max) {
+    if (max < min) {
+        [min, max] = [max, min];
+    }
+    return val > min && val < max;
+}
+function normal(val) {
+    return val >= 0 && val <= 1;
+}
+function lerp(start, end, t) {
+    let [x1, y1] = [start[0], start[1]];
+    let [x2, y2] = [end[0], end[1]];
+    return __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues((t - 1) * x1 + t * x2, (t - 1) * y1 + t * y2);
+}
+function unlerp(start, end, value) {
+    return (value - start) / (end - start);
+}
+function getIntersection(start1, end1, start2, end2) {
+    // Handle vertical cases
+    if (start1[0] === end1[0] && start2[0] === end2[0]) {
+        return null;
+    }
+    else if (start1[0] === end1[0]) {
+        const m2 = (start2[1] - end2[1]) / (start2[0] - end2[0]);
+        const intersection = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(start1[0], m2 * (start1[0] - start2[0]) + start2[1]);
+        if (between(intersection[0], start2[0], end2[0]) && between(intersection[1], start1[1], end1[1])) {
+            return intersection;
+        }
+        else {
+            return null;
+        }
+    }
+    else if (start2[0] === end2[0]) {
+        const m1 = (start1[1] - end1[1]) / (start1[0] - end1[0]);
+        const intersection = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(start2[0], m1 * (start2[0] - start1[0]) + start1[1]);
+        if (between(intersection[0], start1[0], end1[0]) && between(intersection[1], start2[1], end2[1])) {
+            return intersection;
+        }
+        else {
+            return null;
+        }
+    }
+    // Handle all other cases
+    const m1 = (start1[1] - end1[1]) / (start1[0] - end1[0]);
+    const m2 = (start2[1] - end2[1]) / (start2[0] - end2[0]);
+    const x1 = start1[0];
+    const y1 = start1[1];
+    const x2 = start2[0];
+    const y2 = start2[1];
+    if (m1 === m2) {
+        return null;
+    }
+    const x = (m1 * x1 - m2 * x2 - y1 + y2) / (m1 - m2);
+    const y = m1 * (x - x1) + y1;
+    if (between(x, start1[0], end1[0]) && between(x, start2[0], end2[0]) &&
+        between(y, start1[1], end1[1]) && between(y, start2[1], end2[1])) {
+        return __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(x, y);
+    }
+    else if (between(x, start1[0], end1[0]) && between(x, start2[0], end2[0]) &&
+        (start1[1] === end1[1] || start2[1] === end2[1])) {
+        return __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(x, y);
+    }
+    else {
+        return null;
+    }
+}
+
+
+/***/ }),
+/* 23 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_stats_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_stats_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_dat_gui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_dat_gui__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geometry_Square__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__geometry_Plane__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geometry_Cube__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__geometry_Square__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__geometry_Plane__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__geometry_Cube__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__geometry_Prism__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__rendering_gl_OpenGLRenderer__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Camera__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__globals__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Camera__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__globals__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__CityGenerator_GeoData__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__CityGenerator_RoadGenerator__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__CityGenerator_BuildingGenerator__ = __webpack_require__(73);
+
+
+
 
 
 
@@ -5980,24 +6306,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 // Define an object with application parameters and button callbacks
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
-    "Land-Water Ratio": 0.5
+    "Show Population": false,
+    "Land-Water Ratio": 0.6,
+    "Road Count": 2000,
 };
+const TSEED = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0.1234, 0.5678);
+const PSEED = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0.4112, 0.9382);
+const ROAD_THICKNESS = 0.15;
+const MAP_SIZE = 50;
 let square;
 let plane;
 let cube;
+let quad;
+let pent;
+let hex;
+let oct;
+let geoData;
+let roadGenerator;
 let wPressed;
 let aPressed;
 let sPressed;
 let dPressed;
 let planePos;
 let time;
+function clamp(value, min, max) {
+    return Math.max(Math.min(value, max), min);
+}
 function loadScene() {
-    square = new __WEBPACK_IMPORTED_MODULE_3__geometry_Square__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
+    square = new __WEBPACK_IMPORTED_MODULE_2__geometry_Square__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
     square.create();
-    plane = new __WEBPACK_IMPORTED_MODULE_4__geometry_Plane__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(100, 100), 20);
+    plane = new __WEBPACK_IMPORTED_MODULE_3__geometry_Plane__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(100, 100), 20);
     plane.create();
-    cube = new __WEBPACK_IMPORTED_MODULE_5__geometry_Cube__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
+    cube = new __WEBPACK_IMPORTED_MODULE_4__geometry_Cube__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
     cube.create();
+    quad = new __WEBPACK_IMPORTED_MODULE_5__geometry_Prism__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 4);
+    quad.create();
+    pent = new __WEBPACK_IMPORTED_MODULE_5__geometry_Prism__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 5);
+    pent.create();
+    hex = new __WEBPACK_IMPORTED_MODULE_5__geometry_Prism__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 6);
+    hex.create();
+    oct = new __WEBPACK_IMPORTED_MODULE_5__geometry_Prism__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0), 8);
+    oct.create();
+    geoData = new __WEBPACK_IMPORTED_MODULE_10__CityGenerator_GeoData__["a" /* default */](TSEED, PSEED, controls["Land-Water Ratio"], MAP_SIZE);
+    roadGenerator = new __WEBPACK_IMPORTED_MODULE_11__CityGenerator_RoadGenerator__["a" /* default */](geoData, MAP_SIZE);
+    roadGenerator.generateHighways(controls["Road Count"]);
+    roadGenerator.drawRoadNetwork(cube, ROAD_THICKNESS);
+    let buildings = new __WEBPACK_IMPORTED_MODULE_12__CityGenerator_BuildingGenerator__["a" /* default */](roadGenerator, geoData, MAP_SIZE * 2.0, quad, pent, hex, oct);
+    buildings.placeBuildings(1000);
     wPressed = false;
     aPressed = false;
     sPressed = false;
@@ -6007,18 +6362,21 @@ function loadScene() {
 }
 function main() {
     window.addEventListener('keypress', function (e) {
-        // console.log(e.key);
         switch (e.key) {
             case 'w':
+            case 'W':
                 wPressed = true;
                 break;
             case 'a':
+            case 'A':
                 aPressed = true;
                 break;
             case 's':
+            case 'S':
                 sPressed = true;
                 break;
             case 'd':
+            case 'D':
                 dPressed = true;
                 break;
         }
@@ -6026,15 +6384,19 @@ function main() {
     window.addEventListener('keyup', function (e) {
         switch (e.key) {
             case 'w':
+            case 'W':
                 wPressed = false;
                 break;
             case 'a':
+            case 'A':
                 aPressed = false;
                 break;
             case 's':
+            case 'S':
                 sPressed = false;
                 break;
             case 'd':
+            case 'D':
                 dPressed = false;
                 break;
         }
@@ -6047,8 +6409,10 @@ function main() {
     stats.domElement.style.top = '0px';
     document.body.appendChild(stats.domElement);
     // Add controls to the gui
-    const gui = new __WEBPACK_IMPORTED_MODULE_2_dat_gui__["GUI"]();
-    gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
+    //const gui = new DAT.GUI();
+    //gui.add(controls, "Land-Water Ratio", 0.0, 1.0);
+    //gui.add(controls, "Show Population");
+    //gui.add(controls, "Road Count", 0, 10000);
     // get canvas and webgl context
     const canvas = document.getElementById('canvas');
     const gl = canvas.getContext('webgl2');
@@ -6057,20 +6421,28 @@ function main() {
     }
     // `setGL` is a function imported above which sets the value of `gl` in the `globals.ts` module.
     // Later, we can import `gl` from `globals.ts` to access it
-    Object(__WEBPACK_IMPORTED_MODULE_8__globals__["b" /* setGL */])(gl);
+    Object(__WEBPACK_IMPORTED_MODULE_9__globals__["b" /* setGL */])(gl);
     // Initial call to load scene
     loadScene();
-    const camera = new __WEBPACK_IMPORTED_MODULE_7__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 10, -20), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
+    const camera = new __WEBPACK_IMPORTED_MODULE_8__Camera__["a" /* default */](__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 10, -20), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["c" /* vec3 */].fromValues(0, 0, 0));
     const renderer = new __WEBPACK_IMPORTED_MODULE_6__rendering_gl_OpenGLRenderer__["a" /* default */](canvas);
-    renderer.setClearColor(164.0 / 255.0, 233.0 / 255.0, 1.0, 1);
+    renderer.setClearColor(1, 1, 1, 1); //(0.64, 0.91, 1.0, 1);
     gl.enable(gl.DEPTH_TEST);
-    const lambert = new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(70)),
-        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(71)),
+    const lambert = new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(74)),
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(75)),
     ]);
-    const flat = new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["b" /* default */]([
-        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(72)),
-        new __WEBPACK_IMPORTED_MODULE_9__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(73)),
+    const flat = new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(76)),
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(77)),
+    ]);
+    const road = new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(78)),
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(79)),
+    ]);
+    const building = new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["b" /* default */]([
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.VERTEX_SHADER, __webpack_require__(80)),
+        new __WEBPACK_IMPORTED_MODULE_7__rendering_gl_ShaderProgram__["a" /* Shader */](gl.FRAGMENT_SHADER, __webpack_require__(81)),
     ]);
     function processKeyPresses() {
         let velocity = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0, 0);
@@ -6088,25 +6460,48 @@ function main() {
         }
         let newPos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0, 0);
         __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(newPos, velocity, planePos);
+        newPos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(clamp(newPos[0], -MAP_SIZE - 10, MAP_SIZE + 10), clamp(newPos[1], -MAP_SIZE - 10, MAP_SIZE + 10));
         lambert.setPlanePos(newPos);
+        road.setPlanePos(newPos);
+        building.setPlanePos(newPos);
         planePos = newPos;
     }
+    let lastRoadCount = controls["Road Count"];
+    let lastLandRatio = controls["Land-Water Ratio"];
     // This function will be called every frame
     function tick() {
         camera.update();
         stats.begin();
         gl.viewport(0, 0, window.innerWidth, window.innerHeight);
+        if (controls["Road Count"] !== lastRoadCount || controls["Land-Water Ratio"] != lastLandRatio) {
+            lastRoadCount = controls["Road Count"];
+            lastLandRatio = controls["Land-Water Ratio"];
+            roadGenerator.generateHighways(controls["Road Count"]);
+            roadGenerator.drawRoadNetwork(cube, ROAD_THICKNESS);
+        }
+        geoData.setLandRatio(controls["Land-Water Ratio"]);
         flat.setTime(time);
         lambert.setTime(time);
+        road.setTime(time);
         lambert.setWaterRatio(controls["Land-Water Ratio"]);
+        lambert.setShowPop(controls["Show Population"]);
         time += 1.0;
         renderer.clear();
         processKeyPresses();
         renderer.render(camera, lambert, [
             plane,
         ]);
+        renderer.render(camera, road, [
+            cube,
+        ]);
+        renderer.render(camera, building, [
+            quad,
+            pent,
+            hex,
+            oct
+        ]);
         renderer.render(camera, flat, [
-            square, cube
+            square,
         ]);
         stats.end();
         // Tell the browser to call `tick` again whenever it renders a new frame
@@ -6116,10 +6511,12 @@ function main() {
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.setAspectRatio(window.innerWidth / window.innerHeight);
         camera.updateProjectionMatrix();
+        flat.setDimensions(window.innerWidth, window.innerHeight);
     }, false);
     renderer.setSize(window.innerWidth, window.innerHeight);
     camera.setAspectRatio(window.innerWidth / window.innerHeight);
     camera.updateProjectionMatrix();
+    flat.setDimensions(window.innerWidth, window.innerHeight);
     // Start the render loop
     tick();
 }
@@ -6127,7 +6524,7 @@ main();
 
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6157,7 +6554,7 @@ main();
 /* unused harmony export multiplyScalarAndAdd */
 /* unused harmony export mul */
 /* unused harmony export sub */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -6594,7 +6991,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6623,7 +7020,7 @@ var sub = subtract;
 /* unused harmony export equals */
 /* unused harmony export mul */
 /* unused harmony export sub */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -7110,7 +7507,7 @@ var mul = multiply;
 var sub = subtract;
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7153,9 +7550,9 @@ var sub = subtract;
 /* unused harmony export str */
 /* unused harmony export exactEquals */
 /* unused harmony export equals */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__quat_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mat4_js__ = __webpack_require__(8);
 
 
 
@@ -8002,7 +8399,7 @@ function equals(a, b) {
 }
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8051,7 +8448,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrDist", function() { return sqrDist; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sqrLen", function() { return sqrLen; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "forEach", function() { return forEach; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__common_js__ = __webpack_require__(1);
 
 
 /**
@@ -8679,4451 +9076,19 @@ var forEach = function () {
 }();
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define(t):e.Stats=t()}(this,function(){"use strict";var c=function(){var n=0,l=document.createElement("div");function e(e){return l.appendChild(e.dom),e}function t(e){for(var t=0;t<l.children.length;t++)l.children[t].style.display=t===e?"block":"none";n=e}l.style.cssText="position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000",l.addEventListener("click",function(e){e.preventDefault(),t(++n%l.children.length)},!1);var i=(performance||Date).now(),a=i,o=0,f=e(new c.Panel("FPS","#0ff","#002")),r=e(new c.Panel("MS","#0f0","#020"));if(self.performance&&self.performance.memory)var d=e(new c.Panel("MB","#f08","#201"));return t(0),{REVISION:16,dom:l,addPanel:e,showPanel:t,begin:function(){i=(performance||Date).now()},end:function(){o++;var e=(performance||Date).now();if(r.update(e-i,200),a+1e3<=e&&(f.update(1e3*o/(e-a),100),a=e,o=0,d)){var t=performance.memory;d.update(t.usedJSHeapSize/1048576,t.jsHeapSizeLimit/1048576)}return e},update:function(){i=this.end()},domElement:l,setMode:t}};return c.Panel=function(n,l,i){var a=1/0,o=0,f=Math.round,r=f(window.devicePixelRatio||1),d=80*r,e=48*r,c=3*r,p=2*r,u=3*r,s=15*r,m=74*r,h=30*r,y=document.createElement("canvas");y.width=d,y.height=e,y.style.cssText="width:80px;height:48px";var v=y.getContext("2d");return v.font="bold "+9*r+"px Helvetica,Arial,sans-serif",v.textBaseline="top",v.fillStyle=i,v.fillRect(0,0,d,e),v.fillStyle=l,v.fillText(n,c,p),v.fillRect(u,s,m,h),v.fillStyle=i,v.globalAlpha=.9,v.fillRect(u,s,m,h),{dom:y,update:function(e,t){a=Math.min(a,e),o=Math.max(o,e),v.fillStyle=i,v.globalAlpha=1,v.fillRect(0,0,d,s),v.fillStyle=l,v.fillText(f(e)+" "+n+" ("+f(a)+"-"+f(o)+")",c,p),v.drawImage(y,u+r,s,m-r,h,u,s,m-r,h),v.fillRect(u+m-r,s,r,h),v.fillStyle=i,v.globalAlpha=.9,v.fillRect(u+m-r,s,r,f((1-e/t)*h))}}},c});
 
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(28)
-module.exports.color = __webpack_require__(29)
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports) {
-
-/**
- * dat-gui JavaScript Controller Library
- * http://code.google.com/p/dat-gui
- *
- * Copyright 2011 Data Arts Team, Google Creative Lab
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- */
-
-/** @namespace */
-var dat = module.exports = dat || {};
-
-/** @namespace */
-dat.gui = dat.gui || {};
-
-/** @namespace */
-dat.utils = dat.utils || {};
-
-/** @namespace */
-dat.controllers = dat.controllers || {};
-
-/** @namespace */
-dat.dom = dat.dom || {};
-
-/** @namespace */
-dat.color = dat.color || {};
-
-dat.utils.css = (function () {
-  return {
-    load: function (url, doc) {
-      doc = doc || document;
-      var link = doc.createElement('link');
-      link.type = 'text/css';
-      link.rel = 'stylesheet';
-      link.href = url;
-      doc.getElementsByTagName('head')[0].appendChild(link);
-    },
-    inject: function(css, doc) {
-      doc = doc || document;
-      var injected = document.createElement('style');
-      injected.type = 'text/css';
-      injected.innerHTML = css;
-      doc.getElementsByTagName('head')[0].appendChild(injected);
-    }
-  }
-})();
-
-
-dat.utils.common = (function () {
-  
-  var ARR_EACH = Array.prototype.forEach;
-  var ARR_SLICE = Array.prototype.slice;
-
-  /**
-   * Band-aid methods for things that should be a lot easier in JavaScript.
-   * Implementation and structure inspired by underscore.js
-   * http://documentcloud.github.com/underscore/
-   */
-
-  return { 
-    
-    BREAK: {},
-  
-    extend: function(target) {
-      
-      this.each(ARR_SLICE.call(arguments, 1), function(obj) {
-        
-        for (var key in obj)
-          if (!this.isUndefined(obj[key])) 
-            target[key] = obj[key];
-        
-      }, this);
-      
-      return target;
-      
-    },
-    
-    defaults: function(target) {
-      
-      this.each(ARR_SLICE.call(arguments, 1), function(obj) {
-        
-        for (var key in obj)
-          if (this.isUndefined(target[key])) 
-            target[key] = obj[key];
-        
-      }, this);
-      
-      return target;
-    
-    },
-    
-    compose: function() {
-      var toCall = ARR_SLICE.call(arguments);
-            return function() {
-              var args = ARR_SLICE.call(arguments);
-              for (var i = toCall.length -1; i >= 0; i--) {
-                args = [toCall[i].apply(this, args)];
-              }
-              return args[0];
-            }
-    },
-    
-    each: function(obj, itr, scope) {
-
-      
-      if (ARR_EACH && obj.forEach === ARR_EACH) { 
-        
-        obj.forEach(itr, scope);
-        
-      } else if (obj.length === obj.length + 0) { // Is number but not NaN
-        
-        for (var key = 0, l = obj.length; key < l; key++)
-          if (key in obj && itr.call(scope, obj[key], key) === this.BREAK) 
-            return;
-            
-      } else {
-
-        for (var key in obj) 
-          if (itr.call(scope, obj[key], key) === this.BREAK)
-            return;
-            
-      }
-            
-    },
-    
-    defer: function(fnc) {
-      setTimeout(fnc, 0);
-    },
-    
-    toArray: function(obj) {
-      if (obj.toArray) return obj.toArray();
-      return ARR_SLICE.call(obj);
-    },
-
-    isUndefined: function(obj) {
-      return obj === undefined;
-    },
-    
-    isNull: function(obj) {
-      return obj === null;
-    },
-    
-    isNaN: function(obj) {
-      return obj !== obj;
-    },
-    
-    isArray: Array.isArray || function(obj) {
-      return obj.constructor === Array;
-    },
-    
-    isObject: function(obj) {
-      return obj === Object(obj);
-    },
-    
-    isNumber: function(obj) {
-      return obj === obj+0;
-    },
-    
-    isString: function(obj) {
-      return obj === obj+'';
-    },
-    
-    isBoolean: function(obj) {
-      return obj === false || obj === true;
-    },
-    
-    isFunction: function(obj) {
-      return Object.prototype.toString.call(obj) === '[object Function]';
-    }
-  
-  };
-    
-})();
-
-
-dat.controllers.Controller = (function (common) {
-
-  /**
-   * @class An "abstract" class that represents a given property of an object.
-   *
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   *
-   * @member dat.controllers
-   */
-  var Controller = function(object, property) {
-
-    this.initialValue = object[property];
-
-    /**
-     * Those who extend this class will put their DOM elements in here.
-     * @type {DOMElement}
-     */
-    this.domElement = document.createElement('div');
-
-    /**
-     * The object to manipulate
-     * @type {Object}
-     */
-    this.object = object;
-
-    /**
-     * The name of the property to manipulate
-     * @type {String}
-     */
-    this.property = property;
-
-    /**
-     * The function to be called on change.
-     * @type {Function}
-     * @ignore
-     */
-    this.__onChange = undefined;
-
-    /**
-     * The function to be called on finishing change.
-     * @type {Function}
-     * @ignore
-     */
-    this.__onFinishChange = undefined;
-
-  };
-
-  common.extend(
-
-      Controller.prototype,
-
-      /** @lends dat.controllers.Controller.prototype */
-      {
-
-        /**
-         * Specify that a function fire every time someone changes the value with
-         * this Controller.
-         *
-         * @param {Function} fnc This function will be called whenever the value
-         * is modified via this Controller.
-         * @returns {dat.controllers.Controller} this
-         */
-        onChange: function(fnc) {
-          this.__onChange = fnc;
-          return this;
-        },
-
-        /**
-         * Specify that a function fire every time someone "finishes" changing
-         * the value wih this Controller. Useful for values that change
-         * incrementally like numbers or strings.
-         *
-         * @param {Function} fnc This function will be called whenever
-         * someone "finishes" changing the value via this Controller.
-         * @returns {dat.controllers.Controller} this
-         */
-        onFinishChange: function(fnc) {
-          this.__onFinishChange = fnc;
-          return this;
-        },
-
-        /**
-         * Change the value of <code>object[property]</code>
-         *
-         * @param {Object} newValue The new value of <code>object[property]</code>
-         */
-        setValue: function(newValue) {
-          this.object[this.property] = newValue;
-          if (this.__onChange) {
-            this.__onChange.call(this, newValue);
-          }
-          this.updateDisplay();
-          return this;
-        },
-
-        /**
-         * Gets the value of <code>object[property]</code>
-         *
-         * @returns {Object} The current value of <code>object[property]</code>
-         */
-        getValue: function() {
-          return this.object[this.property];
-        },
-
-        /**
-         * Refreshes the visual display of a Controller in order to keep sync
-         * with the object's current value.
-         * @returns {dat.controllers.Controller} this
-         */
-        updateDisplay: function() {
-          return this;
-        },
-
-        /**
-         * @returns {Boolean} true if the value has deviated from initialValue
-         */
-        isModified: function() {
-          return this.initialValue !== this.getValue()
-        }
-
-      }
-
-  );
-
-  return Controller;
-
-
-})(dat.utils.common);
-
-
-dat.dom.dom = (function (common) {
-
-  var EVENT_MAP = {
-    'HTMLEvents': ['change'],
-    'MouseEvents': ['click','mousemove','mousedown','mouseup', 'mouseover'],
-    'KeyboardEvents': ['keydown']
-  };
-
-  var EVENT_MAP_INV = {};
-  common.each(EVENT_MAP, function(v, k) {
-    common.each(v, function(e) {
-      EVENT_MAP_INV[e] = k;
-    });
-  });
-
-  var CSS_VALUE_PIXELS = /(\d+(\.\d+)?)px/;
-
-  function cssValueToPixels(val) {
-
-    if (val === '0' || common.isUndefined(val)) return 0;
-
-    var match = val.match(CSS_VALUE_PIXELS);
-
-    if (!common.isNull(match)) {
-      return parseFloat(match[1]);
-    }
-
-    // TODO ...ems? %?
-
-    return 0;
-
-  }
-
-  /**
-   * @namespace
-   * @member dat.dom
-   */
-  var dom = {
-
-    /**
-     * 
-     * @param elem
-     * @param selectable
-     */
-    makeSelectable: function(elem, selectable) {
-
-      if (elem === undefined || elem.style === undefined) return;
-
-      elem.onselectstart = selectable ? function() {
-        return false;
-      } : function() {
-      };
-
-      elem.style.MozUserSelect = selectable ? 'auto' : 'none';
-      elem.style.KhtmlUserSelect = selectable ? 'auto' : 'none';
-      elem.unselectable = selectable ? 'on' : 'off';
-
-    },
-
-    /**
-     *
-     * @param elem
-     * @param horizontal
-     * @param vertical
-     */
-    makeFullscreen: function(elem, horizontal, vertical) {
-
-      if (common.isUndefined(horizontal)) horizontal = true;
-      if (common.isUndefined(vertical)) vertical = true;
-
-      elem.style.position = 'absolute';
-
-      if (horizontal) {
-        elem.style.left = 0;
-        elem.style.right = 0;
-      }
-      if (vertical) {
-        elem.style.top = 0;
-        elem.style.bottom = 0;
-      }
-
-    },
-
-    /**
-     *
-     * @param elem
-     * @param eventType
-     * @param params
-     */
-    fakeEvent: function(elem, eventType, params, aux) {
-      params = params || {};
-      var className = EVENT_MAP_INV[eventType];
-      if (!className) {
-        throw new Error('Event type ' + eventType + ' not supported.');
-      }
-      var evt = document.createEvent(className);
-      switch (className) {
-        case 'MouseEvents':
-          var clientX = params.x || params.clientX || 0;
-          var clientY = params.y || params.clientY || 0;
-          evt.initMouseEvent(eventType, params.bubbles || false,
-              params.cancelable || true, window, params.clickCount || 1,
-              0, //screen X
-              0, //screen Y
-              clientX, //client X
-              clientY, //client Y
-              false, false, false, false, 0, null);
-          break;
-        case 'KeyboardEvents':
-          var init = evt.initKeyboardEvent || evt.initKeyEvent; // webkit || moz
-          common.defaults(params, {
-            cancelable: true,
-            ctrlKey: false,
-            altKey: false,
-            shiftKey: false,
-            metaKey: false,
-            keyCode: undefined,
-            charCode: undefined
-          });
-          init(eventType, params.bubbles || false,
-              params.cancelable, window,
-              params.ctrlKey, params.altKey,
-              params.shiftKey, params.metaKey,
-              params.keyCode, params.charCode);
-          break;
-        default:
-          evt.initEvent(eventType, params.bubbles || false,
-              params.cancelable || true);
-          break;
-      }
-      common.defaults(evt, aux);
-      elem.dispatchEvent(evt);
-    },
-
-    /**
-     *
-     * @param elem
-     * @param event
-     * @param func
-     * @param bool
-     */
-    bind: function(elem, event, func, bool) {
-      bool = bool || false;
-      if (elem.addEventListener)
-        elem.addEventListener(event, func, bool);
-      else if (elem.attachEvent)
-        elem.attachEvent('on' + event, func);
-      return dom;
-    },
-
-    /**
-     *
-     * @param elem
-     * @param event
-     * @param func
-     * @param bool
-     */
-    unbind: function(elem, event, func, bool) {
-      bool = bool || false;
-      if (elem.removeEventListener)
-        elem.removeEventListener(event, func, bool);
-      else if (elem.detachEvent)
-        elem.detachEvent('on' + event, func);
-      return dom;
-    },
-
-    /**
-     *
-     * @param elem
-     * @param className
-     */
-    addClass: function(elem, className) {
-      if (elem.className === undefined) {
-        elem.className = className;
-      } else if (elem.className !== className) {
-        var classes = elem.className.split(/ +/);
-        if (classes.indexOf(className) == -1) {
-          classes.push(className);
-          elem.className = classes.join(' ').replace(/^\s+/, '').replace(/\s+$/, '');
-        }
-      }
-      return dom;
-    },
-
-    /**
-     *
-     * @param elem
-     * @param className
-     */
-    removeClass: function(elem, className) {
-      if (className) {
-        if (elem.className === undefined) {
-          // elem.className = className;
-        } else if (elem.className === className) {
-          elem.removeAttribute('class');
-        } else {
-          var classes = elem.className.split(/ +/);
-          var index = classes.indexOf(className);
-          if (index != -1) {
-            classes.splice(index, 1);
-            elem.className = classes.join(' ');
-          }
-        }
-      } else {
-        elem.className = undefined;
-      }
-      return dom;
-    },
-
-    hasClass: function(elem, className) {
-      return new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)').test(elem.className) || false;
-    },
-
-    /**
-     *
-     * @param elem
-     */
-    getWidth: function(elem) {
-
-      var style = getComputedStyle(elem);
-
-      return cssValueToPixels(style['border-left-width']) +
-          cssValueToPixels(style['border-right-width']) +
-          cssValueToPixels(style['padding-left']) +
-          cssValueToPixels(style['padding-right']) +
-          cssValueToPixels(style['width']);
-    },
-
-    /**
-     *
-     * @param elem
-     */
-    getHeight: function(elem) {
-
-      var style = getComputedStyle(elem);
-
-      return cssValueToPixels(style['border-top-width']) +
-          cssValueToPixels(style['border-bottom-width']) +
-          cssValueToPixels(style['padding-top']) +
-          cssValueToPixels(style['padding-bottom']) +
-          cssValueToPixels(style['height']);
-    },
-
-    /**
-     *
-     * @param elem
-     */
-    getOffset: function(elem) {
-      var offset = {left: 0, top:0};
-      if (elem.offsetParent) {
-        do {
-          offset.left += elem.offsetLeft;
-          offset.top += elem.offsetTop;
-        } while (elem = elem.offsetParent);
-      }
-      return offset;
-    },
-
-    // http://stackoverflow.com/posts/2684561/revisions
-    /**
-     * 
-     * @param elem
-     */
-    isActive: function(elem) {
-      return elem === document.activeElement && ( elem.type || elem.href );
-    }
-
-  };
-
-  return dom;
-
-})(dat.utils.common);
-
-
-dat.controllers.OptionController = (function (Controller, dom, common) {
-
-  /**
-   * @class Provides a select input to alter the property of an object, using a
-   * list of accepted values.
-   *
-   * @extends dat.controllers.Controller
-   *
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   * @param {Object|string[]} options A map of labels to acceptable values, or
-   * a list of acceptable string values.
-   *
-   * @member dat.controllers
-   */
-  var OptionController = function(object, property, options) {
-
-    OptionController.superclass.call(this, object, property);
-
-    var _this = this;
-
-    /**
-     * The drop down menu
-     * @ignore
-     */
-    this.__select = document.createElement('select');
-
-    if (common.isArray(options)) {
-      var map = {};
-      common.each(options, function(element) {
-        map[element] = element;
-      });
-      options = map;
-    }
-
-    common.each(options, function(value, key) {
-
-      var opt = document.createElement('option');
-      opt.innerHTML = key;
-      opt.setAttribute('value', value);
-      _this.__select.appendChild(opt);
-
-    });
-
-    // Acknowledge original value
-    this.updateDisplay();
-
-    dom.bind(this.__select, 'change', function() {
-      var desiredValue = this.options[this.selectedIndex].value;
-      _this.setValue(desiredValue);
-    });
-
-    this.domElement.appendChild(this.__select);
-
-  };
-
-  OptionController.superclass = Controller;
-
-  common.extend(
-
-      OptionController.prototype,
-      Controller.prototype,
-
-      {
-
-        setValue: function(v) {
-          var toReturn = OptionController.superclass.prototype.setValue.call(this, v);
-          if (this.__onFinishChange) {
-            this.__onFinishChange.call(this, this.getValue());
-          }
-          return toReturn;
-        },
-
-        updateDisplay: function() {
-          this.__select.value = this.getValue();
-          return OptionController.superclass.prototype.updateDisplay.call(this);
-        }
-
-      }
-
-  );
-
-  return OptionController;
-
-})(dat.controllers.Controller,
-dat.dom.dom,
-dat.utils.common);
-
-
-dat.controllers.NumberController = (function (Controller, common) {
-
-  /**
-   * @class Represents a given property of an object that is a number.
-   *
-   * @extends dat.controllers.Controller
-   *
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   * @param {Object} [params] Optional parameters
-   * @param {Number} [params.min] Minimum allowed value
-   * @param {Number} [params.max] Maximum allowed value
-   * @param {Number} [params.step] Increment by which to change value
-   *
-   * @member dat.controllers
-   */
-  var NumberController = function(object, property, params) {
-
-    NumberController.superclass.call(this, object, property);
-
-    params = params || {};
-
-    this.__min = params.min;
-    this.__max = params.max;
-    this.__step = params.step;
-
-    if (common.isUndefined(this.__step)) {
-
-      if (this.initialValue == 0) {
-        this.__impliedStep = 1; // What are we, psychics?
-      } else {
-        // Hey Doug, check this out.
-        this.__impliedStep = Math.pow(10, Math.floor(Math.log(this.initialValue)/Math.LN10))/10;
-      }
-
-    } else {
-
-      this.__impliedStep = this.__step;
-
-    }
-
-    this.__precision = numDecimals(this.__impliedStep);
-
-
-  };
-
-  NumberController.superclass = Controller;
-
-  common.extend(
-
-      NumberController.prototype,
-      Controller.prototype,
-
-      /** @lends dat.controllers.NumberController.prototype */
-      {
-
-        setValue: function(v) {
-
-          if (this.__min !== undefined && v < this.__min) {
-            v = this.__min;
-          } else if (this.__max !== undefined && v > this.__max) {
-            v = this.__max;
-          }
-
-          if (this.__step !== undefined && v % this.__step != 0) {
-            v = Math.round(v / this.__step) * this.__step;
-          }
-
-          return NumberController.superclass.prototype.setValue.call(this, v);
-
-        },
-
-        /**
-         * Specify a minimum value for <code>object[property]</code>.
-         *
-         * @param {Number} minValue The minimum value for
-         * <code>object[property]</code>
-         * @returns {dat.controllers.NumberController} this
-         */
-        min: function(v) {
-          this.__min = v;
-          return this;
-        },
-
-        /**
-         * Specify a maximum value for <code>object[property]</code>.
-         *
-         * @param {Number} maxValue The maximum value for
-         * <code>object[property]</code>
-         * @returns {dat.controllers.NumberController} this
-         */
-        max: function(v) {
-          this.__max = v;
-          return this;
-        },
-
-        /**
-         * Specify a step value that dat.controllers.NumberController
-         * increments by.
-         *
-         * @param {Number} stepValue The step value for
-         * dat.controllers.NumberController
-         * @default if minimum and maximum specified increment is 1% of the
-         * difference otherwise stepValue is 1
-         * @returns {dat.controllers.NumberController} this
-         */
-        step: function(v) {
-          this.__step = v;
-          return this;
-        }
-
-      }
-
-  );
-
-  function numDecimals(x) {
-    x = x.toString();
-    if (x.indexOf('.') > -1) {
-      return x.length - x.indexOf('.') - 1;
-    } else {
-      return 0;
-    }
-  }
-
-  return NumberController;
-
-})(dat.controllers.Controller,
-dat.utils.common);
-
-
-dat.controllers.NumberControllerBox = (function (NumberController, dom, common) {
-
-  /**
-   * @class Represents a given property of an object that is a number and
-   * provides an input element with which to manipulate it.
-   *
-   * @extends dat.controllers.Controller
-   * @extends dat.controllers.NumberController
-   *
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   * @param {Object} [params] Optional parameters
-   * @param {Number} [params.min] Minimum allowed value
-   * @param {Number} [params.max] Maximum allowed value
-   * @param {Number} [params.step] Increment by which to change value
-   *
-   * @member dat.controllers
-   */
-  var NumberControllerBox = function(object, property, params) {
-
-    this.__truncationSuspended = false;
-
-    NumberControllerBox.superclass.call(this, object, property, params);
-
-    var _this = this;
-
-    /**
-     * {Number} Previous mouse y position
-     * @ignore
-     */
-    var prev_y;
-
-    this.__input = document.createElement('input');
-    this.__input.setAttribute('type', 'text');
-
-    // Makes it so manually specified values are not truncated.
-
-    dom.bind(this.__input, 'change', onChange);
-    dom.bind(this.__input, 'blur', onBlur);
-    dom.bind(this.__input, 'mousedown', onMouseDown);
-    dom.bind(this.__input, 'keydown', function(e) {
-
-      // When pressing entire, you can be as precise as you want.
-      if (e.keyCode === 13) {
-        _this.__truncationSuspended = true;
-        this.blur();
-        _this.__truncationSuspended = false;
-      }
-
-    });
-
-    function onChange() {
-      var attempted = parseFloat(_this.__input.value);
-      if (!common.isNaN(attempted)) _this.setValue(attempted);
-    }
-
-    function onBlur() {
-      onChange();
-      if (_this.__onFinishChange) {
-        _this.__onFinishChange.call(_this, _this.getValue());
-      }
-    }
-
-    function onMouseDown(e) {
-      dom.bind(window, 'mousemove', onMouseDrag);
-      dom.bind(window, 'mouseup', onMouseUp);
-      prev_y = e.clientY;
-    }
-
-    function onMouseDrag(e) {
-
-      var diff = prev_y - e.clientY;
-      _this.setValue(_this.getValue() + diff * _this.__impliedStep);
-
-      prev_y = e.clientY;
-
-    }
-
-    function onMouseUp() {
-      dom.unbind(window, 'mousemove', onMouseDrag);
-      dom.unbind(window, 'mouseup', onMouseUp);
-    }
-
-    this.updateDisplay();
-
-    this.domElement.appendChild(this.__input);
-
-  };
-
-  NumberControllerBox.superclass = NumberController;
-
-  common.extend(
-
-      NumberControllerBox.prototype,
-      NumberController.prototype,
-
-      {
-
-        updateDisplay: function() {
-
-          this.__input.value = this.__truncationSuspended ? this.getValue() : roundToDecimal(this.getValue(), this.__precision);
-          return NumberControllerBox.superclass.prototype.updateDisplay.call(this);
-        }
-
-      }
-
-  );
-
-  function roundToDecimal(value, decimals) {
-    var tenTo = Math.pow(10, decimals);
-    return Math.round(value * tenTo) / tenTo;
-  }
-
-  return NumberControllerBox;
-
-})(dat.controllers.NumberController,
-dat.dom.dom,
-dat.utils.common);
-
-
-dat.controllers.NumberControllerSlider = (function (NumberController, dom, css, common, styleSheet) {
-
-  /**
-   * @class Represents a given property of an object that is a number, contains
-   * a minimum and maximum, and provides a slider element with which to
-   * manipulate it. It should be noted that the slider element is made up of
-   * <code>&lt;div&gt;</code> tags, <strong>not</strong> the html5
-   * <code>&lt;slider&gt;</code> element.
-   *
-   * @extends dat.controllers.Controller
-   * @extends dat.controllers.NumberController
-   * 
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   * @param {Number} minValue Minimum allowed value
-   * @param {Number} maxValue Maximum allowed value
-   * @param {Number} stepValue Increment by which to change value
-   *
-   * @member dat.controllers
-   */
-  var NumberControllerSlider = function(object, property, min, max, step) {
-
-    NumberControllerSlider.superclass.call(this, object, property, { min: min, max: max, step: step });
-
-    var _this = this;
-
-    this.__background = document.createElement('div');
-    this.__foreground = document.createElement('div');
-    
-
-
-    dom.bind(this.__background, 'mousedown', onMouseDown);
-    
-    dom.addClass(this.__background, 'slider');
-    dom.addClass(this.__foreground, 'slider-fg');
-
-    function onMouseDown(e) {
-
-      dom.bind(window, 'mousemove', onMouseDrag);
-      dom.bind(window, 'mouseup', onMouseUp);
-
-      onMouseDrag(e);
-    }
-
-    function onMouseDrag(e) {
-
-      e.preventDefault();
-
-      var offset = dom.getOffset(_this.__background);
-      var width = dom.getWidth(_this.__background);
-      
-      _this.setValue(
-        map(e.clientX, offset.left, offset.left + width, _this.__min, _this.__max)
-      );
-
-      return false;
-
-    }
-
-    function onMouseUp() {
-      dom.unbind(window, 'mousemove', onMouseDrag);
-      dom.unbind(window, 'mouseup', onMouseUp);
-      if (_this.__onFinishChange) {
-        _this.__onFinishChange.call(_this, _this.getValue());
-      }
-    }
-
-    this.updateDisplay();
-
-    this.__background.appendChild(this.__foreground);
-    this.domElement.appendChild(this.__background);
-
-  };
-
-  NumberControllerSlider.superclass = NumberController;
-
-  /**
-   * Injects default stylesheet for slider elements.
-   */
-  NumberControllerSlider.useDefaultStyles = function() {
-    css.inject(styleSheet);
-  };
-
-  common.extend(
-
-      NumberControllerSlider.prototype,
-      NumberController.prototype,
-
-      {
-
-        updateDisplay: function() {
-          var pct = (this.getValue() - this.__min)/(this.__max - this.__min);
-          this.__foreground.style.width = pct*100+'%';
-          return NumberControllerSlider.superclass.prototype.updateDisplay.call(this);
-        }
-
-      }
-
-
-
-  );
-
-  function map(v, i1, i2, o1, o2) {
-    return o1 + (o2 - o1) * ((v - i1) / (i2 - i1));
-  }
-
-  return NumberControllerSlider;
-  
-})(dat.controllers.NumberController,
-dat.dom.dom,
-dat.utils.css,
-dat.utils.common,
-".slider {\n  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);\n  height: 1em;\n  border-radius: 1em;\n  background-color: #eee;\n  padding: 0 0.5em;\n  overflow: hidden;\n}\n\n.slider-fg {\n  padding: 1px 0 2px 0;\n  background-color: #aaa;\n  height: 1em;\n  margin-left: -0.5em;\n  padding-right: 0.5em;\n  border-radius: 1em 0 0 1em;\n}\n\n.slider-fg:after {\n  display: inline-block;\n  border-radius: 1em;\n  background-color: #fff;\n  border:  1px solid #aaa;\n  content: '';\n  float: right;\n  margin-right: -1em;\n  margin-top: -1px;\n  height: 0.9em;\n  width: 0.9em;\n}");
-
-
-dat.controllers.FunctionController = (function (Controller, dom, common) {
-
-  /**
-   * @class Provides a GUI interface to fire a specified method, a property of an object.
-   *
-   * @extends dat.controllers.Controller
-   *
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   *
-   * @member dat.controllers
-   */
-  var FunctionController = function(object, property, text) {
-
-    FunctionController.superclass.call(this, object, property);
-
-    var _this = this;
-
-    this.__button = document.createElement('div');
-    this.__button.innerHTML = text === undefined ? 'Fire' : text;
-    dom.bind(this.__button, 'click', function(e) {
-      e.preventDefault();
-      _this.fire();
-      return false;
-    });
-
-    dom.addClass(this.__button, 'button');
-
-    this.domElement.appendChild(this.__button);
-
-
-  };
-
-  FunctionController.superclass = Controller;
-
-  common.extend(
-
-      FunctionController.prototype,
-      Controller.prototype,
-      {
-        
-        fire: function() {
-          if (this.__onChange) {
-            this.__onChange.call(this);
-          }
-          if (this.__onFinishChange) {
-            this.__onFinishChange.call(this, this.getValue());
-          }
-          this.getValue().call(this.object);
-        }
-      }
-
-  );
-
-  return FunctionController;
-
-})(dat.controllers.Controller,
-dat.dom.dom,
-dat.utils.common);
-
-
-dat.controllers.BooleanController = (function (Controller, dom, common) {
-
-  /**
-   * @class Provides a checkbox input to alter the boolean property of an object.
-   * @extends dat.controllers.Controller
-   *
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   *
-   * @member dat.controllers
-   */
-  var BooleanController = function(object, property) {
-
-    BooleanController.superclass.call(this, object, property);
-
-    var _this = this;
-    this.__prev = this.getValue();
-
-    this.__checkbox = document.createElement('input');
-    this.__checkbox.setAttribute('type', 'checkbox');
-
-
-    dom.bind(this.__checkbox, 'change', onChange, false);
-
-    this.domElement.appendChild(this.__checkbox);
-
-    // Match original value
-    this.updateDisplay();
-
-    function onChange() {
-      _this.setValue(!_this.__prev);
-    }
-
-  };
-
-  BooleanController.superclass = Controller;
-
-  common.extend(
-
-      BooleanController.prototype,
-      Controller.prototype,
-
-      {
-
-        setValue: function(v) {
-          var toReturn = BooleanController.superclass.prototype.setValue.call(this, v);
-          if (this.__onFinishChange) {
-            this.__onFinishChange.call(this, this.getValue());
-          }
-          this.__prev = this.getValue();
-          return toReturn;
-        },
-
-        updateDisplay: function() {
-          
-          if (this.getValue() === true) {
-            this.__checkbox.setAttribute('checked', 'checked');
-            this.__checkbox.checked = true;    
-          } else {
-              this.__checkbox.checked = false;
-          }
-
-          return BooleanController.superclass.prototype.updateDisplay.call(this);
-
-        }
-
-
-      }
-
-  );
-
-  return BooleanController;
-
-})(dat.controllers.Controller,
-dat.dom.dom,
-dat.utils.common);
-
-
-dat.color.toString = (function (common) {
-
-  return function(color) {
-
-    if (color.a == 1 || common.isUndefined(color.a)) {
-
-      var s = color.hex.toString(16);
-      while (s.length < 6) {
-        s = '0' + s;
-      }
-
-      return '#' + s;
-
-    } else {
-
-      return 'rgba(' + Math.round(color.r) + ',' + Math.round(color.g) + ',' + Math.round(color.b) + ',' + color.a + ')';
-
-    }
-
-  }
-
-})(dat.utils.common);
-
-
-dat.color.interpret = (function (toString, common) {
-
-  var result, toReturn;
-
-  var interpret = function() {
-
-    toReturn = false;
-
-    var original = arguments.length > 1 ? common.toArray(arguments) : arguments[0];
-
-    common.each(INTERPRETATIONS, function(family) {
-
-      if (family.litmus(original)) {
-
-        common.each(family.conversions, function(conversion, conversionName) {
-
-          result = conversion.read(original);
-
-          if (toReturn === false && result !== false) {
-            toReturn = result;
-            result.conversionName = conversionName;
-            result.conversion = conversion;
-            return common.BREAK;
-
-          }
-
-        });
-
-        return common.BREAK;
-
-      }
-
-    });
-
-    return toReturn;
-
-  };
-
-  var INTERPRETATIONS = [
-
-    // Strings
-    {
-
-      litmus: common.isString,
-
-      conversions: {
-
-        THREE_CHAR_HEX: {
-
-          read: function(original) {
-
-            var test = original.match(/^#([A-F0-9])([A-F0-9])([A-F0-9])$/i);
-            if (test === null) return false;
-
-            return {
-              space: 'HEX',
-              hex: parseInt(
-                  '0x' +
-                      test[1].toString() + test[1].toString() +
-                      test[2].toString() + test[2].toString() +
-                      test[3].toString() + test[3].toString())
-            };
-
-          },
-
-          write: toString
-
-        },
-
-        SIX_CHAR_HEX: {
-
-          read: function(original) {
-
-            var test = original.match(/^#([A-F0-9]{6})$/i);
-            if (test === null) return false;
-
-            return {
-              space: 'HEX',
-              hex: parseInt('0x' + test[1].toString())
-            };
-
-          },
-
-          write: toString
-
-        },
-
-        CSS_RGB: {
-
-          read: function(original) {
-
-            var test = original.match(/^rgb\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\)/);
-            if (test === null) return false;
-
-            return {
-              space: 'RGB',
-              r: parseFloat(test[1]),
-              g: parseFloat(test[2]),
-              b: parseFloat(test[3])
-            };
-
-          },
-
-          write: toString
-
-        },
-
-        CSS_RGBA: {
-
-          read: function(original) {
-
-            var test = original.match(/^rgba\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\,\s*(.+)\s*\)/);
-            if (test === null) return false;
-
-            return {
-              space: 'RGB',
-              r: parseFloat(test[1]),
-              g: parseFloat(test[2]),
-              b: parseFloat(test[3]),
-              a: parseFloat(test[4])
-            };
-
-          },
-
-          write: toString
-
-        }
-
-      }
-
-    },
-
-    // Numbers
-    {
-
-      litmus: common.isNumber,
-
-      conversions: {
-
-        HEX: {
-          read: function(original) {
-            return {
-              space: 'HEX',
-              hex: original,
-              conversionName: 'HEX'
-            }
-          },
-
-          write: function(color) {
-            return color.hex;
-          }
-        }
-
-      }
-
-    },
-
-    // Arrays
-    {
-
-      litmus: common.isArray,
-
-      conversions: {
-
-        RGB_ARRAY: {
-          read: function(original) {
-            if (original.length != 3) return false;
-            return {
-              space: 'RGB',
-              r: original[0],
-              g: original[1],
-              b: original[2]
-            };
-          },
-
-          write: function(color) {
-            return [color.r, color.g, color.b];
-          }
-
-        },
-
-        RGBA_ARRAY: {
-          read: function(original) {
-            if (original.length != 4) return false;
-            return {
-              space: 'RGB',
-              r: original[0],
-              g: original[1],
-              b: original[2],
-              a: original[3]
-            };
-          },
-
-          write: function(color) {
-            return [color.r, color.g, color.b, color.a];
-          }
-
-        }
-
-      }
-
-    },
-
-    // Objects
-    {
-
-      litmus: common.isObject,
-
-      conversions: {
-
-        RGBA_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.r) &&
-                common.isNumber(original.g) &&
-                common.isNumber(original.b) &&
-                common.isNumber(original.a)) {
-              return {
-                space: 'RGB',
-                r: original.r,
-                g: original.g,
-                b: original.b,
-                a: original.a
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              r: color.r,
-              g: color.g,
-              b: color.b,
-              a: color.a
-            }
-          }
-        },
-
-        RGB_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.r) &&
-                common.isNumber(original.g) &&
-                common.isNumber(original.b)) {
-              return {
-                space: 'RGB',
-                r: original.r,
-                g: original.g,
-                b: original.b
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              r: color.r,
-              g: color.g,
-              b: color.b
-            }
-          }
-        },
-
-        HSVA_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.h) &&
-                common.isNumber(original.s) &&
-                common.isNumber(original.v) &&
-                common.isNumber(original.a)) {
-              return {
-                space: 'HSV',
-                h: original.h,
-                s: original.s,
-                v: original.v,
-                a: original.a
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              h: color.h,
-              s: color.s,
-              v: color.v,
-              a: color.a
-            }
-          }
-        },
-
-        HSV_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.h) &&
-                common.isNumber(original.s) &&
-                common.isNumber(original.v)) {
-              return {
-                space: 'HSV',
-                h: original.h,
-                s: original.s,
-                v: original.v
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              h: color.h,
-              s: color.s,
-              v: color.v
-            }
-          }
-
-        }
-
-      }
-
-    }
-
-
-  ];
-
-  return interpret;
-
-
-})(dat.color.toString,
-dat.utils.common);
-
-
-dat.GUI = dat.gui.GUI = (function (css, saveDialogueContents, styleSheet, controllerFactory, Controller, BooleanController, FunctionController, NumberControllerBox, NumberControllerSlider, OptionController, ColorController, requestAnimationFrame, CenteredDiv, dom, common) {
-
-  css.inject(styleSheet);
-
-  /** Outer-most className for GUI's */
-  var CSS_NAMESPACE = 'dg';
-
-  var HIDE_KEY_CODE = 72;
-
-  /** The only value shared between the JS and SCSS. Use caution. */
-  var CLOSE_BUTTON_HEIGHT = 20;
-
-  var DEFAULT_DEFAULT_PRESET_NAME = 'Default';
-
-  var SUPPORTS_LOCAL_STORAGE = (function() {
-    try {
-      return 'localStorage' in window && window['localStorage'] !== null;
-    } catch (e) {
-      return false;
-    }
-  })();
-
-  var SAVE_DIALOGUE;
-
-  /** Have we yet to create an autoPlace GUI? */
-  var auto_place_virgin = true;
-
-  /** Fixed position div that auto place GUI's go inside */
-  var auto_place_container;
-
-  /** Are we hiding the GUI's ? */
-  var hide = false;
-
-  /** GUI's which should be hidden */
-  var hideable_guis = [];
-
-  /**
-   * A lightweight controller library for JavaScript. It allows you to easily
-   * manipulate variables and fire functions on the fly.
-   * @class
-   *
-   * @member dat.gui
-   *
-   * @param {Object} [params]
-   * @param {String} [params.name] The name of this GUI.
-   * @param {Object} [params.load] JSON object representing the saved state of
-   * this GUI.
-   * @param {Boolean} [params.auto=true]
-   * @param {dat.gui.GUI} [params.parent] The GUI I'm nested in.
-   * @param {Boolean} [params.closed] If true, starts closed
-   */
-  var GUI = function(params) {
-
-    var _this = this;
-
-    /**
-     * Outermost DOM Element
-     * @type DOMElement
-     */
-    this.domElement = document.createElement('div');
-    this.__ul = document.createElement('ul');
-    this.domElement.appendChild(this.__ul);
-
-    dom.addClass(this.domElement, CSS_NAMESPACE);
-
-    /**
-     * Nested GUI's by name
-     * @ignore
-     */
-    this.__folders = {};
-
-    this.__controllers = [];
-
-    /**
-     * List of objects I'm remembering for save, only used in top level GUI
-     * @ignore
-     */
-    this.__rememberedObjects = [];
-
-    /**
-     * Maps the index of remembered objects to a map of controllers, only used
-     * in top level GUI.
-     *
-     * @private
-     * @ignore
-     *
-     * @example
-     * [
-     *  {
-     *    propertyName: Controller,
-     *    anotherPropertyName: Controller
-     *  },
-     *  {
-     *    propertyName: Controller
-     *  }
-     * ]
-     */
-    this.__rememberedObjectIndecesToControllers = [];
-
-    this.__listening = [];
-
-    params = params || {};
-
-    // Default parameters
-    params = common.defaults(params, {
-      autoPlace: true,
-      width: GUI.DEFAULT_WIDTH
-    });
-
-    params = common.defaults(params, {
-      resizable: params.autoPlace,
-      hideable: params.autoPlace
-    });
-
-
-    if (!common.isUndefined(params.load)) {
-
-      // Explicit preset
-      if (params.preset) params.load.preset = params.preset;
-
-    } else {
-
-      params.load = { preset: DEFAULT_DEFAULT_PRESET_NAME };
-
-    }
-
-    if (common.isUndefined(params.parent) && params.hideable) {
-      hideable_guis.push(this);
-    }
-
-    // Only root level GUI's are resizable.
-    params.resizable = common.isUndefined(params.parent) && params.resizable;
-
-
-    if (params.autoPlace && common.isUndefined(params.scrollable)) {
-      params.scrollable = true;
-    }
-//    params.scrollable = common.isUndefined(params.parent) && params.scrollable === true;
-
-    // Not part of params because I don't want people passing this in via
-    // constructor. Should be a 'remembered' value.
-    var use_local_storage =
-        SUPPORTS_LOCAL_STORAGE &&
-            localStorage.getItem(getLocalStorageHash(this, 'isLocal')) === 'true';
-
-    Object.defineProperties(this,
-
-        /** @lends dat.gui.GUI.prototype */
-        {
-
-          /**
-           * The parent <code>GUI</code>
-           * @type dat.gui.GUI
-           */
-          parent: {
-            get: function() {
-              return params.parent;
-            }
-          },
-
-          scrollable: {
-            get: function() {
-              return params.scrollable;
-            }
-          },
-
-          /**
-           * Handles <code>GUI</code>'s element placement for you
-           * @type Boolean
-           */
-          autoPlace: {
-            get: function() {
-              return params.autoPlace;
-            }
-          },
-
-          /**
-           * The identifier for a set of saved values
-           * @type String
-           */
-          preset: {
-
-            get: function() {
-              if (_this.parent) {
-                return _this.getRoot().preset;
-              } else {
-                return params.load.preset;
-              }
-            },
-
-            set: function(v) {
-              if (_this.parent) {
-                _this.getRoot().preset = v;
-              } else {
-                params.load.preset = v;
-              }
-              setPresetSelectIndex(this);
-              _this.revert();
-            }
-
-          },
-
-          /**
-           * The width of <code>GUI</code> element
-           * @type Number
-           */
-          width: {
-            get: function() {
-              return params.width;
-            },
-            set: function(v) {
-              params.width = v;
-              setWidth(_this, v);
-            }
-          },
-
-          /**
-           * The name of <code>GUI</code>. Used for folders. i.e
-           * a folder's name
-           * @type String
-           */
-          name: {
-            get: function() {
-              return params.name;
-            },
-            set: function(v) {
-              // TODO Check for collisions among sibling folders
-              params.name = v;
-              if (title_row_name) {
-                title_row_name.innerHTML = params.name;
-              }
-            }
-          },
-
-          /**
-           * Whether the <code>GUI</code> is collapsed or not
-           * @type Boolean
-           */
-          closed: {
-            get: function() {
-              return params.closed;
-            },
-            set: function(v) {
-              params.closed = v;
-              if (params.closed) {
-                dom.addClass(_this.__ul, GUI.CLASS_CLOSED);
-              } else {
-                dom.removeClass(_this.__ul, GUI.CLASS_CLOSED);
-              }
-              // For browsers that aren't going to respect the CSS transition,
-              // Lets just check our height against the window height right off
-              // the bat.
-              this.onResize();
-
-              if (_this.__closeButton) {
-                _this.__closeButton.innerHTML = v ? GUI.TEXT_OPEN : GUI.TEXT_CLOSED;
-              }
-            }
-          },
-
-          /**
-           * Contains all presets
-           * @type Object
-           */
-          load: {
-            get: function() {
-              return params.load;
-            }
-          },
-
-          /**
-           * Determines whether or not to use <a href="https://developer.mozilla.org/en/DOM/Storage#localStorage">localStorage</a> as the means for
-           * <code>remember</code>ing
-           * @type Boolean
-           */
-          useLocalStorage: {
-
-            get: function() {
-              return use_local_storage;
-            },
-            set: function(bool) {
-              if (SUPPORTS_LOCAL_STORAGE) {
-                use_local_storage = bool;
-                if (bool) {
-                  dom.bind(window, 'unload', saveToLocalStorage);
-                } else {
-                  dom.unbind(window, 'unload', saveToLocalStorage);
-                }
-                localStorage.setItem(getLocalStorageHash(_this, 'isLocal'), bool);
-              }
-            }
-
-          }
-
-        });
-
-    // Are we a root level GUI?
-    if (common.isUndefined(params.parent)) {
-
-      params.closed = false;
-
-      dom.addClass(this.domElement, GUI.CLASS_MAIN);
-      dom.makeSelectable(this.domElement, false);
-
-      // Are we supposed to be loading locally?
-      if (SUPPORTS_LOCAL_STORAGE) {
-
-        if (use_local_storage) {
-
-          _this.useLocalStorage = true;
-
-          var saved_gui = localStorage.getItem(getLocalStorageHash(this, 'gui'));
-
-          if (saved_gui) {
-            params.load = JSON.parse(saved_gui);
-          }
-
-        }
-
-      }
-
-      this.__closeButton = document.createElement('div');
-      this.__closeButton.innerHTML = GUI.TEXT_CLOSED;
-      dom.addClass(this.__closeButton, GUI.CLASS_CLOSE_BUTTON);
-      this.domElement.appendChild(this.__closeButton);
-
-      dom.bind(this.__closeButton, 'click', function() {
-
-        _this.closed = !_this.closed;
-
-
-      });
-
-
-      // Oh, you're a nested GUI!
-    } else {
-
-      if (params.closed === undefined) {
-        params.closed = true;
-      }
-
-      var title_row_name = document.createTextNode(params.name);
-      dom.addClass(title_row_name, 'controller-name');
-
-      var title_row = addRow(_this, title_row_name);
-
-      var on_click_title = function(e) {
-        e.preventDefault();
-        _this.closed = !_this.closed;
-        return false;
-      };
-
-      dom.addClass(this.__ul, GUI.CLASS_CLOSED);
-
-      dom.addClass(title_row, 'title');
-      dom.bind(title_row, 'click', on_click_title);
-
-      if (!params.closed) {
-        this.closed = false;
-      }
-
-    }
-
-    if (params.autoPlace) {
-
-      if (common.isUndefined(params.parent)) {
-
-        if (auto_place_virgin) {
-          auto_place_container = document.createElement('div');
-          dom.addClass(auto_place_container, CSS_NAMESPACE);
-          dom.addClass(auto_place_container, GUI.CLASS_AUTO_PLACE_CONTAINER);
-          document.body.appendChild(auto_place_container);
-          auto_place_virgin = false;
-        }
-
-        // Put it in the dom for you.
-        auto_place_container.appendChild(this.domElement);
-
-        // Apply the auto styles
-        dom.addClass(this.domElement, GUI.CLASS_AUTO_PLACE);
-
-      }
-
-
-      // Make it not elastic.
-      if (!this.parent) setWidth(_this, params.width);
-
-    }
-
-    dom.bind(window, 'resize', function() { _this.onResize() });
-    dom.bind(this.__ul, 'webkitTransitionEnd', function() { _this.onResize(); });
-    dom.bind(this.__ul, 'transitionend', function() { _this.onResize() });
-    dom.bind(this.__ul, 'oTransitionEnd', function() { _this.onResize() });
-    this.onResize();
-
-
-    if (params.resizable) {
-      addResizeHandle(this);
-    }
-
-    function saveToLocalStorage() {
-      localStorage.setItem(getLocalStorageHash(_this, 'gui'), JSON.stringify(_this.getSaveObject()));
-    }
-
-    var root = _this.getRoot();
-    function resetWidth() {
-        var root = _this.getRoot();
-        root.width += 1;
-        common.defer(function() {
-          root.width -= 1;
-        });
-      }
-
-      if (!params.parent) {
-        resetWidth();
-      }
-
-  };
-
-  GUI.toggleHide = function() {
-
-    hide = !hide;
-    common.each(hideable_guis, function(gui) {
-      gui.domElement.style.zIndex = hide ? -999 : 999;
-      gui.domElement.style.opacity = hide ? 0 : 1;
-    });
-  };
-
-  GUI.CLASS_AUTO_PLACE = 'a';
-  GUI.CLASS_AUTO_PLACE_CONTAINER = 'ac';
-  GUI.CLASS_MAIN = 'main';
-  GUI.CLASS_CONTROLLER_ROW = 'cr';
-  GUI.CLASS_TOO_TALL = 'taller-than-window';
-  GUI.CLASS_CLOSED = 'closed';
-  GUI.CLASS_CLOSE_BUTTON = 'close-button';
-  GUI.CLASS_DRAG = 'drag';
-
-  GUI.DEFAULT_WIDTH = 245;
-  GUI.TEXT_CLOSED = 'Close Controls';
-  GUI.TEXT_OPEN = 'Open Controls';
-
-  dom.bind(window, 'keydown', function(e) {
-
-    if (document.activeElement.type !== 'text' &&
-        (e.which === HIDE_KEY_CODE || e.keyCode == HIDE_KEY_CODE)) {
-      GUI.toggleHide();
-    }
-
-  }, false);
-
-  common.extend(
-
-      GUI.prototype,
-
-      /** @lends dat.gui.GUI */
-      {
-
-        /**
-         * @param object
-         * @param property
-         * @returns {dat.controllers.Controller} The new controller that was added.
-         * @instance
-         */
-        add: function(object, property) {
-
-          return add(
-              this,
-              object,
-              property,
-              {
-                factoryArgs: Array.prototype.slice.call(arguments, 2)
-              }
-          );
-
-        },
-
-        /**
-         * @param object
-         * @param property
-         * @returns {dat.controllers.ColorController} The new controller that was added.
-         * @instance
-         */
-        addColor: function(object, property) {
-
-          return add(
-              this,
-              object,
-              property,
-              {
-                color: true
-              }
-          );
-
-        },
-
-        /**
-         * @param controller
-         * @instance
-         */
-        remove: function(controller) {
-
-          // TODO listening?
-          this.__ul.removeChild(controller.__li);
-          this.__controllers.slice(this.__controllers.indexOf(controller), 1);
-          var _this = this;
-          common.defer(function() {
-            _this.onResize();
-          });
-
-        },
-
-        destroy: function() {
-
-          if (this.autoPlace) {
-            auto_place_container.removeChild(this.domElement);
-          }
-
-        },
-
-        /**
-         * @param name
-         * @returns {dat.gui.GUI} The new folder.
-         * @throws {Error} if this GUI already has a folder by the specified
-         * name
-         * @instance
-         */
-        addFolder: function(name) {
-
-          // We have to prevent collisions on names in order to have a key
-          // by which to remember saved values
-          if (this.__folders[name] !== undefined) {
-            throw new Error('You already have a folder in this GUI by the' +
-                ' name "' + name + '"');
-          }
-
-          var new_gui_params = { name: name, parent: this };
-
-          // We need to pass down the autoPlace trait so that we can
-          // attach event listeners to open/close folder actions to
-          // ensure that a scrollbar appears if the window is too short.
-          new_gui_params.autoPlace = this.autoPlace;
-
-          // Do we have saved appearance data for this folder?
-
-          if (this.load && // Anything loaded?
-              this.load.folders && // Was my parent a dead-end?
-              this.load.folders[name]) { // Did daddy remember me?
-
-            // Start me closed if I was closed
-            new_gui_params.closed = this.load.folders[name].closed;
-
-            // Pass down the loaded data
-            new_gui_params.load = this.load.folders[name];
-
-          }
-
-          var gui = new GUI(new_gui_params);
-          this.__folders[name] = gui;
-
-          var li = addRow(this, gui.domElement);
-          dom.addClass(li, 'folder');
-          return gui;
-
-        },
-
-        open: function() {
-          this.closed = false;
-        },
-
-        close: function() {
-          this.closed = true;
-        },
-
-        onResize: function() {
-
-          var root = this.getRoot();
-
-          if (root.scrollable) {
-
-            var top = dom.getOffset(root.__ul).top;
-            var h = 0;
-
-            common.each(root.__ul.childNodes, function(node) {
-              if (! (root.autoPlace && node === root.__save_row))
-                h += dom.getHeight(node);
-            });
-
-            if (window.innerHeight - top - CLOSE_BUTTON_HEIGHT < h) {
-              dom.addClass(root.domElement, GUI.CLASS_TOO_TALL);
-              root.__ul.style.height = window.innerHeight - top - CLOSE_BUTTON_HEIGHT + 'px';
-            } else {
-              dom.removeClass(root.domElement, GUI.CLASS_TOO_TALL);
-              root.__ul.style.height = 'auto';
-            }
-
-          }
-
-          if (root.__resize_handle) {
-            common.defer(function() {
-              root.__resize_handle.style.height = root.__ul.offsetHeight + 'px';
-            });
-          }
-
-          if (root.__closeButton) {
-            root.__closeButton.style.width = root.width + 'px';
-          }
-
-        },
-
-        /**
-         * Mark objects for saving. The order of these objects cannot change as
-         * the GUI grows. When remembering new objects, append them to the end
-         * of the list.
-         *
-         * @param {Object...} objects
-         * @throws {Error} if not called on a top level GUI.
-         * @instance
-         */
-        remember: function() {
-
-          if (common.isUndefined(SAVE_DIALOGUE)) {
-            SAVE_DIALOGUE = new CenteredDiv();
-            SAVE_DIALOGUE.domElement.innerHTML = saveDialogueContents;
-          }
-
-          if (this.parent) {
-            throw new Error("You can only call remember on a top level GUI.");
-          }
-
-          var _this = this;
-
-          common.each(Array.prototype.slice.call(arguments), function(object) {
-            if (_this.__rememberedObjects.length == 0) {
-              addSaveMenu(_this);
-            }
-            if (_this.__rememberedObjects.indexOf(object) == -1) {
-              _this.__rememberedObjects.push(object);
-            }
-          });
-
-          if (this.autoPlace) {
-            // Set save row width
-            setWidth(this, this.width);
-          }
-
-        },
-
-        /**
-         * @returns {dat.gui.GUI} the topmost parent GUI of a nested GUI.
-         * @instance
-         */
-        getRoot: function() {
-          var gui = this;
-          while (gui.parent) {
-            gui = gui.parent;
-          }
-          return gui;
-        },
-
-        /**
-         * @returns {Object} a JSON object representing the current state of
-         * this GUI as well as its remembered properties.
-         * @instance
-         */
-        getSaveObject: function() {
-
-          var toReturn = this.load;
-
-          toReturn.closed = this.closed;
-
-          // Am I remembering any values?
-          if (this.__rememberedObjects.length > 0) {
-
-            toReturn.preset = this.preset;
-
-            if (!toReturn.remembered) {
-              toReturn.remembered = {};
-            }
-
-            toReturn.remembered[this.preset] = getCurrentPreset(this);
-
-          }
-
-          toReturn.folders = {};
-          common.each(this.__folders, function(element, key) {
-            toReturn.folders[key] = element.getSaveObject();
-          });
-
-          return toReturn;
-
-        },
-
-        save: function() {
-
-          if (!this.load.remembered) {
-            this.load.remembered = {};
-          }
-
-          this.load.remembered[this.preset] = getCurrentPreset(this);
-          markPresetModified(this, false);
-
-        },
-
-        saveAs: function(presetName) {
-
-          if (!this.load.remembered) {
-
-            // Retain default values upon first save
-            this.load.remembered = {};
-            this.load.remembered[DEFAULT_DEFAULT_PRESET_NAME] = getCurrentPreset(this, true);
-
-          }
-
-          this.load.remembered[presetName] = getCurrentPreset(this);
-          this.preset = presetName;
-          addPresetOption(this, presetName, true);
-
-        },
-
-        revert: function(gui) {
-
-          common.each(this.__controllers, function(controller) {
-            // Make revert work on Default.
-            if (!this.getRoot().load.remembered) {
-              controller.setValue(controller.initialValue);
-            } else {
-              recallSavedValue(gui || this.getRoot(), controller);
-            }
-          }, this);
-
-          common.each(this.__folders, function(folder) {
-            folder.revert(folder);
-          });
-
-          if (!gui) {
-            markPresetModified(this.getRoot(), false);
-          }
-
-
-        },
-
-        listen: function(controller) {
-
-          var init = this.__listening.length == 0;
-          this.__listening.push(controller);
-          if (init) updateDisplays(this.__listening);
-
-        }
-
-      }
-
-  );
-
-  function add(gui, object, property, params) {
-
-    if (object[property] === undefined) {
-      throw new Error("Object " + object + " has no property \"" + property + "\"");
-    }
-
-    var controller;
-
-    if (params.color) {
-
-      controller = new ColorController(object, property);
-
-    } else {
-
-      var factoryArgs = [object,property].concat(params.factoryArgs);
-      controller = controllerFactory.apply(gui, factoryArgs);
-
-    }
-
-    if (params.before instanceof Controller) {
-      params.before = params.before.__li;
-    }
-
-    recallSavedValue(gui, controller);
-
-    dom.addClass(controller.domElement, 'c');
-
-    var name = document.createElement('span');
-    dom.addClass(name, 'property-name');
-    name.innerHTML = controller.property;
-
-    var container = document.createElement('div');
-    container.appendChild(name);
-    container.appendChild(controller.domElement);
-
-    var li = addRow(gui, container, params.before);
-
-    dom.addClass(li, GUI.CLASS_CONTROLLER_ROW);
-    dom.addClass(li, typeof controller.getValue());
-
-    augmentController(gui, li, controller);
-
-    gui.__controllers.push(controller);
-
-    return controller;
-
-  }
-
-  /**
-   * Add a row to the end of the GUI or before another row.
-   *
-   * @param gui
-   * @param [dom] If specified, inserts the dom content in the new row
-   * @param [liBefore] If specified, places the new row before another row
-   */
-  function addRow(gui, dom, liBefore) {
-    var li = document.createElement('li');
-    if (dom) li.appendChild(dom);
-    if (liBefore) {
-      gui.__ul.insertBefore(li, params.before);
-    } else {
-      gui.__ul.appendChild(li);
-    }
-    gui.onResize();
-    return li;
-  }
-
-  function augmentController(gui, li, controller) {
-
-    controller.__li = li;
-    controller.__gui = gui;
-
-    common.extend(controller, {
-
-      options: function(options) {
-
-        if (arguments.length > 1) {
-          controller.remove();
-
-          return add(
-              gui,
-              controller.object,
-              controller.property,
-              {
-                before: controller.__li.nextElementSibling,
-                factoryArgs: [common.toArray(arguments)]
-              }
-          );
-
-        }
-
-        if (common.isArray(options) || common.isObject(options)) {
-          controller.remove();
-
-          return add(
-              gui,
-              controller.object,
-              controller.property,
-              {
-                before: controller.__li.nextElementSibling,
-                factoryArgs: [options]
-              }
-          );
-
-        }
-
-      },
-
-      name: function(v) {
-        controller.__li.firstElementChild.firstElementChild.innerHTML = v;
-        return controller;
-      },
-
-      listen: function() {
-        controller.__gui.listen(controller);
-        return controller;
-      },
-
-      remove: function() {
-        controller.__gui.remove(controller);
-        return controller;
-      }
-
-    });
-
-    // All sliders should be accompanied by a box.
-    if (controller instanceof NumberControllerSlider) {
-
-      var box = new NumberControllerBox(controller.object, controller.property,
-          { min: controller.__min, max: controller.__max, step: controller.__step });
-
-      common.each(['updateDisplay', 'onChange', 'onFinishChange'], function(method) {
-        var pc = controller[method];
-        var pb = box[method];
-        controller[method] = box[method] = function() {
-          var args = Array.prototype.slice.call(arguments);
-          pc.apply(controller, args);
-          return pb.apply(box, args);
-        }
-      });
-
-      dom.addClass(li, 'has-slider');
-      controller.domElement.insertBefore(box.domElement, controller.domElement.firstElementChild);
-
-    }
-    else if (controller instanceof NumberControllerBox) {
-
-      var r = function(returned) {
-
-        // Have we defined both boundaries?
-        if (common.isNumber(controller.__min) && common.isNumber(controller.__max)) {
-
-          // Well, then lets just replace this with a slider.
-          controller.remove();
-          return add(
-              gui,
-              controller.object,
-              controller.property,
-              {
-                before: controller.__li.nextElementSibling,
-                factoryArgs: [controller.__min, controller.__max, controller.__step]
-              });
-
-        }
-
-        return returned;
-
-      };
-
-      controller.min = common.compose(r, controller.min);
-      controller.max = common.compose(r, controller.max);
-
-    }
-    else if (controller instanceof BooleanController) {
-
-      dom.bind(li, 'click', function() {
-        dom.fakeEvent(controller.__checkbox, 'click');
-      });
-
-      dom.bind(controller.__checkbox, 'click', function(e) {
-        e.stopPropagation(); // Prevents double-toggle
-      })
-
-    }
-    else if (controller instanceof FunctionController) {
-
-      dom.bind(li, 'click', function() {
-        dom.fakeEvent(controller.__button, 'click');
-      });
-
-      dom.bind(li, 'mouseover', function() {
-        dom.addClass(controller.__button, 'hover');
-      });
-
-      dom.bind(li, 'mouseout', function() {
-        dom.removeClass(controller.__button, 'hover');
-      });
-
-    }
-    else if (controller instanceof ColorController) {
-
-      dom.addClass(li, 'color');
-      controller.updateDisplay = common.compose(function(r) {
-        li.style.borderLeftColor = controller.__color.toString();
-        return r;
-      }, controller.updateDisplay);
-
-      controller.updateDisplay();
-
-    }
-
-    controller.setValue = common.compose(function(r) {
-      if (gui.getRoot().__preset_select && controller.isModified()) {
-        markPresetModified(gui.getRoot(), true);
-      }
-      return r;
-    }, controller.setValue);
-
-  }
-
-  function recallSavedValue(gui, controller) {
-
-    // Find the topmost GUI, that's where remembered objects live.
-    var root = gui.getRoot();
-
-    // Does the object we're controlling match anything we've been told to
-    // remember?
-    var matched_index = root.__rememberedObjects.indexOf(controller.object);
-
-    // Why yes, it does!
-    if (matched_index != -1) {
-
-      // Let me fetch a map of controllers for thcommon.isObject.
-      var controller_map =
-          root.__rememberedObjectIndecesToControllers[matched_index];
-
-      // Ohp, I believe this is the first controller we've created for this
-      // object. Lets make the map fresh.
-      if (controller_map === undefined) {
-        controller_map = {};
-        root.__rememberedObjectIndecesToControllers[matched_index] =
-            controller_map;
-      }
-
-      // Keep track of this controller
-      controller_map[controller.property] = controller;
-
-      // Okay, now have we saved any values for this controller?
-      if (root.load && root.load.remembered) {
-
-        var preset_map = root.load.remembered;
-
-        // Which preset are we trying to load?
-        var preset;
-
-        if (preset_map[gui.preset]) {
-
-          preset = preset_map[gui.preset];
-
-        } else if (preset_map[DEFAULT_DEFAULT_PRESET_NAME]) {
-
-          // Uhh, you can have the default instead?
-          preset = preset_map[DEFAULT_DEFAULT_PRESET_NAME];
-
-        } else {
-
-          // Nada.
-
-          return;
-
-        }
-
-
-        // Did the loaded object remember thcommon.isObject?
-        if (preset[matched_index] &&
-
-          // Did we remember this particular property?
-            preset[matched_index][controller.property] !== undefined) {
-
-          // We did remember something for this guy ...
-          var value = preset[matched_index][controller.property];
-
-          // And that's what it is.
-          controller.initialValue = value;
-          controller.setValue(value);
-
-        }
-
-      }
-
-    }
-
-  }
-
-  function getLocalStorageHash(gui, key) {
-    // TODO how does this deal with multiple GUI's?
-    return document.location.href + '.' + key;
-
-  }
-
-  function addSaveMenu(gui) {
-
-    var div = gui.__save_row = document.createElement('li');
-
-    dom.addClass(gui.domElement, 'has-save');
-
-    gui.__ul.insertBefore(div, gui.__ul.firstChild);
-
-    dom.addClass(div, 'save-row');
-
-    var gears = document.createElement('span');
-    gears.innerHTML = '&nbsp;';
-    dom.addClass(gears, 'button gears');
-
-    // TODO replace with FunctionController
-    var button = document.createElement('span');
-    button.innerHTML = 'Save';
-    dom.addClass(button, 'button');
-    dom.addClass(button, 'save');
-
-    var button2 = document.createElement('span');
-    button2.innerHTML = 'New';
-    dom.addClass(button2, 'button');
-    dom.addClass(button2, 'save-as');
-
-    var button3 = document.createElement('span');
-    button3.innerHTML = 'Revert';
-    dom.addClass(button3, 'button');
-    dom.addClass(button3, 'revert');
-
-    var select = gui.__preset_select = document.createElement('select');
-
-    if (gui.load && gui.load.remembered) {
-
-      common.each(gui.load.remembered, function(value, key) {
-        addPresetOption(gui, key, key == gui.preset);
-      });
-
-    } else {
-      addPresetOption(gui, DEFAULT_DEFAULT_PRESET_NAME, false);
-    }
-
-    dom.bind(select, 'change', function() {
-
-
-      for (var index = 0; index < gui.__preset_select.length; index++) {
-        gui.__preset_select[index].innerHTML = gui.__preset_select[index].value;
-      }
-
-      gui.preset = this.value;
-
-    });
-
-    div.appendChild(select);
-    div.appendChild(gears);
-    div.appendChild(button);
-    div.appendChild(button2);
-    div.appendChild(button3);
-
-    if (SUPPORTS_LOCAL_STORAGE) {
-
-      var saveLocally = document.getElementById('dg-save-locally');
-      var explain = document.getElementById('dg-local-explain');
-
-      saveLocally.style.display = 'block';
-
-      var localStorageCheckBox = document.getElementById('dg-local-storage');
-
-      if (localStorage.getItem(getLocalStorageHash(gui, 'isLocal')) === 'true') {
-        localStorageCheckBox.setAttribute('checked', 'checked');
-      }
-
-      function showHideExplain() {
-        explain.style.display = gui.useLocalStorage ? 'block' : 'none';
-      }
-
-      showHideExplain();
-
-      // TODO: Use a boolean controller, fool!
-      dom.bind(localStorageCheckBox, 'change', function() {
-        gui.useLocalStorage = !gui.useLocalStorage;
-        showHideExplain();
-      });
-
-    }
-
-    var newConstructorTextArea = document.getElementById('dg-new-constructor');
-
-    dom.bind(newConstructorTextArea, 'keydown', function(e) {
-      if (e.metaKey && (e.which === 67 || e.keyCode == 67)) {
-        SAVE_DIALOGUE.hide();
-      }
-    });
-
-    dom.bind(gears, 'click', function() {
-      newConstructorTextArea.innerHTML = JSON.stringify(gui.getSaveObject(), undefined, 2);
-      SAVE_DIALOGUE.show();
-      newConstructorTextArea.focus();
-      newConstructorTextArea.select();
-    });
-
-    dom.bind(button, 'click', function() {
-      gui.save();
-    });
-
-    dom.bind(button2, 'click', function() {
-      var presetName = prompt('Enter a new preset name.');
-      if (presetName) gui.saveAs(presetName);
-    });
-
-    dom.bind(button3, 'click', function() {
-      gui.revert();
-    });
-
-//    div.appendChild(button2);
-
-  }
-
-  function addResizeHandle(gui) {
-
-    gui.__resize_handle = document.createElement('div');
-
-    common.extend(gui.__resize_handle.style, {
-
-      width: '6px',
-      marginLeft: '-3px',
-      height: '200px',
-      cursor: 'ew-resize',
-      position: 'absolute'
-//      border: '1px solid blue'
-
-    });
-
-    var pmouseX;
-
-    dom.bind(gui.__resize_handle, 'mousedown', dragStart);
-    dom.bind(gui.__closeButton, 'mousedown', dragStart);
-
-    gui.domElement.insertBefore(gui.__resize_handle, gui.domElement.firstElementChild);
-
-    function dragStart(e) {
-
-      e.preventDefault();
-
-      pmouseX = e.clientX;
-
-      dom.addClass(gui.__closeButton, GUI.CLASS_DRAG);
-      dom.bind(window, 'mousemove', drag);
-      dom.bind(window, 'mouseup', dragStop);
-
-      return false;
-
-    }
-
-    function drag(e) {
-
-      e.preventDefault();
-
-      gui.width += pmouseX - e.clientX;
-      gui.onResize();
-      pmouseX = e.clientX;
-
-      return false;
-
-    }
-
-    function dragStop() {
-
-      dom.removeClass(gui.__closeButton, GUI.CLASS_DRAG);
-      dom.unbind(window, 'mousemove', drag);
-      dom.unbind(window, 'mouseup', dragStop);
-
-    }
-
-  }
-
-  function setWidth(gui, w) {
-    gui.domElement.style.width = w + 'px';
-    // Auto placed save-rows are position fixed, so we have to
-    // set the width manually if we want it to bleed to the edge
-    if (gui.__save_row && gui.autoPlace) {
-      gui.__save_row.style.width = w + 'px';
-    }if (gui.__closeButton) {
-      gui.__closeButton.style.width = w + 'px';
-    }
-  }
-
-  function getCurrentPreset(gui, useInitialValues) {
-
-    var toReturn = {};
-
-    // For each object I'm remembering
-    common.each(gui.__rememberedObjects, function(val, index) {
-
-      var saved_values = {};
-
-      // The controllers I've made for thcommon.isObject by property
-      var controller_map =
-          gui.__rememberedObjectIndecesToControllers[index];
-
-      // Remember each value for each property
-      common.each(controller_map, function(controller, property) {
-        saved_values[property] = useInitialValues ? controller.initialValue : controller.getValue();
-      });
-
-      // Save the values for thcommon.isObject
-      toReturn[index] = saved_values;
-
-    });
-
-    return toReturn;
-
-  }
-
-  function addPresetOption(gui, name, setSelected) {
-    var opt = document.createElement('option');
-    opt.innerHTML = name;
-    opt.value = name;
-    gui.__preset_select.appendChild(opt);
-    if (setSelected) {
-      gui.__preset_select.selectedIndex = gui.__preset_select.length - 1;
-    }
-  }
-
-  function setPresetSelectIndex(gui) {
-    for (var index = 0; index < gui.__preset_select.length; index++) {
-      if (gui.__preset_select[index].value == gui.preset) {
-        gui.__preset_select.selectedIndex = index;
-      }
-    }
-  }
-
-  function markPresetModified(gui, modified) {
-    var opt = gui.__preset_select[gui.__preset_select.selectedIndex];
-//    console.log('mark', modified, opt);
-    if (modified) {
-      opt.innerHTML = opt.value + "*";
-    } else {
-      opt.innerHTML = opt.value;
-    }
-  }
-
-  function updateDisplays(controllerArray) {
-
-
-    if (controllerArray.length != 0) {
-
-      requestAnimationFrame(function() {
-        updateDisplays(controllerArray);
-      });
-
-    }
-
-    common.each(controllerArray, function(c) {
-      c.updateDisplay();
-    });
-
-  }
-
-  return GUI;
-
-})(dat.utils.css,
-"<div id=\"dg-save\" class=\"dg dialogue\">\n\n  Here's the new load parameter for your <code>GUI</code>'s constructor:\n\n  <textarea id=\"dg-new-constructor\"></textarea>\n\n  <div id=\"dg-save-locally\">\n\n    <input id=\"dg-local-storage\" type=\"checkbox\"/> Automatically save\n    values to <code>localStorage</code> on exit.\n\n    <div id=\"dg-local-explain\">The values saved to <code>localStorage</code> will\n      override those passed to <code>dat.GUI</code>'s constructor. This makes it\n      easier to work incrementally, but <code>localStorage</code> is fragile,\n      and your friends may not see the same values you do.\n      \n    </div>\n    \n  </div>\n\n</div>",
-".dg ul{list-style:none;margin:0;padding:0;width:100%;clear:both}.dg.ac{position:fixed;top:0;left:0;right:0;height:0;z-index:0}.dg:not(.ac) .main{overflow:hidden}.dg.main{-webkit-transition:opacity 0.1s linear;-o-transition:opacity 0.1s linear;-moz-transition:opacity 0.1s linear;transition:opacity 0.1s linear}.dg.main.taller-than-window{overflow-y:auto}.dg.main.taller-than-window .close-button{opacity:1;margin-top:-1px;border-top:1px solid #2c2c2c}.dg.main ul.closed .close-button{opacity:1 !important}.dg.main:hover .close-button,.dg.main .close-button.drag{opacity:1}.dg.main .close-button{-webkit-transition:opacity 0.1s linear;-o-transition:opacity 0.1s linear;-moz-transition:opacity 0.1s linear;transition:opacity 0.1s linear;border:0;position:absolute;line-height:19px;height:20px;cursor:pointer;text-align:center;background-color:#000}.dg.main .close-button:hover{background-color:#111}.dg.a{float:right;margin-right:15px;overflow-x:hidden}.dg.a.has-save ul{margin-top:27px}.dg.a.has-save ul.closed{margin-top:0}.dg.a .save-row{position:fixed;top:0;z-index:1002}.dg li{-webkit-transition:height 0.1s ease-out;-o-transition:height 0.1s ease-out;-moz-transition:height 0.1s ease-out;transition:height 0.1s ease-out}.dg li:not(.folder){cursor:auto;height:27px;line-height:27px;overflow:hidden;padding:0 4px 0 5px}.dg li.folder{padding:0;border-left:4px solid rgba(0,0,0,0)}.dg li.title{cursor:pointer;margin-left:-4px}.dg .closed li:not(.title),.dg .closed ul li,.dg .closed ul li > *{height:0;overflow:hidden;border:0}.dg .cr{clear:both;padding-left:3px;height:27px}.dg .property-name{cursor:default;float:left;clear:left;width:40%;overflow:hidden;text-overflow:ellipsis}.dg .c{float:left;width:60%}.dg .c input[type=text]{border:0;margin-top:4px;padding:3px;width:100%;float:right}.dg .has-slider input[type=text]{width:30%;margin-left:0}.dg .slider{float:left;width:66%;margin-left:-5px;margin-right:0;height:19px;margin-top:4px}.dg .slider-fg{height:100%}.dg .c input[type=checkbox]{margin-top:9px}.dg .c select{margin-top:5px}.dg .cr.function,.dg .cr.function .property-name,.dg .cr.function *,.dg .cr.boolean,.dg .cr.boolean *{cursor:pointer}.dg .selector{display:none;position:absolute;margin-left:-9px;margin-top:23px;z-index:10}.dg .c:hover .selector,.dg .selector.drag{display:block}.dg li.save-row{padding:0}.dg li.save-row .button{display:inline-block;padding:0px 6px}.dg.dialogue{background-color:#222;width:460px;padding:15px;font-size:13px;line-height:15px}#dg-new-constructor{padding:10px;color:#222;font-family:Monaco, monospace;font-size:10px;border:0;resize:none;box-shadow:inset 1px 1px 1px #888;word-wrap:break-word;margin:12px 0;display:block;width:440px;overflow-y:scroll;height:100px;position:relative}#dg-local-explain{display:none;font-size:11px;line-height:17px;border-radius:3px;background-color:#333;padding:8px;margin-top:10px}#dg-local-explain code{font-size:10px}#dat-gui-save-locally{display:none}.dg{color:#eee;font:11px 'Lucida Grande', sans-serif;text-shadow:0 -1px 0 #111}.dg.main::-webkit-scrollbar{width:5px;background:#1a1a1a}.dg.main::-webkit-scrollbar-corner{height:0;display:none}.dg.main::-webkit-scrollbar-thumb{border-radius:5px;background:#676767}.dg li:not(.folder){background:#1a1a1a;border-bottom:1px solid #2c2c2c}.dg li.save-row{line-height:25px;background:#dad5cb;border:0}.dg li.save-row select{margin-left:5px;width:108px}.dg li.save-row .button{margin-left:5px;margin-top:1px;border-radius:2px;font-size:9px;line-height:7px;padding:4px 4px 5px 4px;background:#c5bdad;color:#fff;text-shadow:0 1px 0 #b0a58f;box-shadow:0 -1px 0 #b0a58f;cursor:pointer}.dg li.save-row .button.gears{background:#c5bdad url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQJJREFUeNpiYKAU/P//PwGIC/ApCABiBSAW+I8AClAcgKxQ4T9hoMAEUrxx2QSGN6+egDX+/vWT4e7N82AMYoPAx/evwWoYoSYbACX2s7KxCxzcsezDh3evFoDEBYTEEqycggWAzA9AuUSQQgeYPa9fPv6/YWm/Acx5IPb7ty/fw+QZblw67vDs8R0YHyQhgObx+yAJkBqmG5dPPDh1aPOGR/eugW0G4vlIoTIfyFcA+QekhhHJhPdQxbiAIguMBTQZrPD7108M6roWYDFQiIAAv6Aow/1bFwXgis+f2LUAynwoIaNcz8XNx3Dl7MEJUDGQpx9gtQ8YCueB+D26OECAAQDadt7e46D42QAAAABJRU5ErkJggg==) 2px 1px no-repeat;height:7px;width:8px}.dg li.save-row .button:hover{background-color:#bab19e;box-shadow:0 -1px 0 #b0a58f}.dg li.folder{border-bottom:0}.dg li.title{padding-left:16px;background:#000 url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlI+hKgFxoCgAOw==) 6px 10px no-repeat;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.2)}.dg .closed li.title{background-image:url(data:image/gif;base64,R0lGODlhBQAFAJEAAP////Pz8////////yH5BAEAAAIALAAAAAAFAAUAAAIIlGIWqMCbWAEAOw==)}.dg .cr.boolean{border-left:3px solid #806787}.dg .cr.function{border-left:3px solid #e61d5f}.dg .cr.number{border-left:3px solid #2fa1d6}.dg .cr.number input[type=text]{color:#2fa1d6}.dg .cr.string{border-left:3px solid #1ed36f}.dg .cr.string input[type=text]{color:#1ed36f}.dg .cr.function:hover,.dg .cr.boolean:hover{background:#111}.dg .c input[type=text]{background:#303030;outline:none}.dg .c input[type=text]:hover{background:#3c3c3c}.dg .c input[type=text]:focus{background:#494949;color:#fff}.dg .c .slider{background:#303030;cursor:ew-resize}.dg .c .slider-fg{background:#2fa1d6}.dg .c .slider:hover{background:#3c3c3c}.dg .c .slider:hover .slider-fg{background:#44abda}\n",
-dat.controllers.factory = (function (OptionController, NumberControllerBox, NumberControllerSlider, StringController, FunctionController, BooleanController, common) {
-
-      return function(object, property) {
-
-        var initialValue = object[property];
-
-        // Providing options?
-        if (common.isArray(arguments[2]) || common.isObject(arguments[2])) {
-          return new OptionController(object, property, arguments[2]);
-        }
-
-        // Providing a map?
-
-        if (common.isNumber(initialValue)) {
-
-          if (common.isNumber(arguments[2]) && common.isNumber(arguments[3])) {
-
-            // Has min and max.
-            return new NumberControllerSlider(object, property, arguments[2], arguments[3]);
-
-          } else {
-
-            return new NumberControllerBox(object, property, { min: arguments[2], max: arguments[3] });
-
-          }
-
-        }
-
-        if (common.isString(initialValue)) {
-          return new StringController(object, property);
-        }
-
-        if (common.isFunction(initialValue)) {
-          return new FunctionController(object, property, '');
-        }
-
-        if (common.isBoolean(initialValue)) {
-          return new BooleanController(object, property);
-        }
-
-      }
-
-    })(dat.controllers.OptionController,
-dat.controllers.NumberControllerBox,
-dat.controllers.NumberControllerSlider,
-dat.controllers.StringController = (function (Controller, dom, common) {
-
-  /**
-   * @class Provides a text input to alter the string property of an object.
-   *
-   * @extends dat.controllers.Controller
-   *
-   * @param {Object} object The object to be manipulated
-   * @param {string} property The name of the property to be manipulated
-   *
-   * @member dat.controllers
-   */
-  var StringController = function(object, property) {
-
-    StringController.superclass.call(this, object, property);
-
-    var _this = this;
-
-    this.__input = document.createElement('input');
-    this.__input.setAttribute('type', 'text');
-
-    dom.bind(this.__input, 'keyup', onChange);
-    dom.bind(this.__input, 'change', onChange);
-    dom.bind(this.__input, 'blur', onBlur);
-    dom.bind(this.__input, 'keydown', function(e) {
-      if (e.keyCode === 13) {
-        this.blur();
-      }
-    });
-    
-
-    function onChange() {
-      _this.setValue(_this.__input.value);
-    }
-
-    function onBlur() {
-      if (_this.__onFinishChange) {
-        _this.__onFinishChange.call(_this, _this.getValue());
-      }
-    }
-
-    this.updateDisplay();
-
-    this.domElement.appendChild(this.__input);
-
-  };
-
-  StringController.superclass = Controller;
-
-  common.extend(
-
-      StringController.prototype,
-      Controller.prototype,
-
-      {
-
-        updateDisplay: function() {
-          // Stops the caret from moving on account of:
-          // keyup -> setValue -> updateDisplay
-          if (!dom.isActive(this.__input)) {
-            this.__input.value = this.getValue();
-          }
-          return StringController.superclass.prototype.updateDisplay.call(this);
-        }
-
-      }
-
-  );
-
-  return StringController;
-
-})(dat.controllers.Controller,
-dat.dom.dom,
-dat.utils.common),
-dat.controllers.FunctionController,
-dat.controllers.BooleanController,
-dat.utils.common),
-dat.controllers.Controller,
-dat.controllers.BooleanController,
-dat.controllers.FunctionController,
-dat.controllers.NumberControllerBox,
-dat.controllers.NumberControllerSlider,
-dat.controllers.OptionController,
-dat.controllers.ColorController = (function (Controller, dom, Color, interpret, common) {
-
-  var ColorController = function(object, property) {
-
-    ColorController.superclass.call(this, object, property);
-
-    this.__color = new Color(this.getValue());
-    this.__temp = new Color(0);
-
-    var _this = this;
-
-    this.domElement = document.createElement('div');
-
-    dom.makeSelectable(this.domElement, false);
-
-    this.__selector = document.createElement('div');
-    this.__selector.className = 'selector';
-
-    this.__saturation_field = document.createElement('div');
-    this.__saturation_field.className = 'saturation-field';
-
-    this.__field_knob = document.createElement('div');
-    this.__field_knob.className = 'field-knob';
-    this.__field_knob_border = '2px solid ';
-
-    this.__hue_knob = document.createElement('div');
-    this.__hue_knob.className = 'hue-knob';
-
-    this.__hue_field = document.createElement('div');
-    this.__hue_field.className = 'hue-field';
-
-    this.__input = document.createElement('input');
-    this.__input.type = 'text';
-    this.__input_textShadow = '0 1px 1px ';
-
-    dom.bind(this.__input, 'keydown', function(e) {
-      if (e.keyCode === 13) { // on enter
-        onBlur.call(this);
-      }
-    });
-
-    dom.bind(this.__input, 'blur', onBlur);
-
-    dom.bind(this.__selector, 'mousedown', function(e) {
-
-      dom
-        .addClass(this, 'drag')
-        .bind(window, 'mouseup', function(e) {
-          dom.removeClass(_this.__selector, 'drag');
-        });
-
-    });
-
-    var value_field = document.createElement('div');
-
-    common.extend(this.__selector.style, {
-      width: '122px',
-      height: '102px',
-      padding: '3px',
-      backgroundColor: '#222',
-      boxShadow: '0px 1px 3px rgba(0,0,0,0.3)'
-    });
-
-    common.extend(this.__field_knob.style, {
-      position: 'absolute',
-      width: '12px',
-      height: '12px',
-      border: this.__field_knob_border + (this.__color.v < .5 ? '#fff' : '#000'),
-      boxShadow: '0px 1px 3px rgba(0,0,0,0.5)',
-      borderRadius: '12px',
-      zIndex: 1
-    });
-    
-    common.extend(this.__hue_knob.style, {
-      position: 'absolute',
-      width: '15px',
-      height: '2px',
-      borderRight: '4px solid #fff',
-      zIndex: 1
-    });
-
-    common.extend(this.__saturation_field.style, {
-      width: '100px',
-      height: '100px',
-      border: '1px solid #555',
-      marginRight: '3px',
-      display: 'inline-block',
-      cursor: 'pointer'
-    });
-
-    common.extend(value_field.style, {
-      width: '100%',
-      height: '100%',
-      background: 'none'
-    });
-    
-    linearGradient(value_field, 'top', 'rgba(0,0,0,0)', '#000');
-
-    common.extend(this.__hue_field.style, {
-      width: '15px',
-      height: '100px',
-      display: 'inline-block',
-      border: '1px solid #555',
-      cursor: 'ns-resize'
-    });
-
-    hueGradient(this.__hue_field);
-
-    common.extend(this.__input.style, {
-      outline: 'none',
-//      width: '120px',
-      textAlign: 'center',
-//      padding: '4px',
-//      marginBottom: '6px',
-      color: '#fff',
-      border: 0,
-      fontWeight: 'bold',
-      textShadow: this.__input_textShadow + 'rgba(0,0,0,0.7)'
-    });
-
-    dom.bind(this.__saturation_field, 'mousedown', fieldDown);
-    dom.bind(this.__field_knob, 'mousedown', fieldDown);
-
-    dom.bind(this.__hue_field, 'mousedown', function(e) {
-      setH(e);
-      dom.bind(window, 'mousemove', setH);
-      dom.bind(window, 'mouseup', unbindH);
-    });
-
-    function fieldDown(e) {
-      setSV(e);
-      // document.body.style.cursor = 'none';
-      dom.bind(window, 'mousemove', setSV);
-      dom.bind(window, 'mouseup', unbindSV);
-    }
-
-    function unbindSV() {
-      dom.unbind(window, 'mousemove', setSV);
-      dom.unbind(window, 'mouseup', unbindSV);
-      // document.body.style.cursor = 'default';
-    }
-
-    function onBlur() {
-      var i = interpret(this.value);
-      if (i !== false) {
-        _this.__color.__state = i;
-        _this.setValue(_this.__color.toOriginal());
-      } else {
-        this.value = _this.__color.toString();
-      }
-    }
-
-    function unbindH() {
-      dom.unbind(window, 'mousemove', setH);
-      dom.unbind(window, 'mouseup', unbindH);
-    }
-
-    this.__saturation_field.appendChild(value_field);
-    this.__selector.appendChild(this.__field_knob);
-    this.__selector.appendChild(this.__saturation_field);
-    this.__selector.appendChild(this.__hue_field);
-    this.__hue_field.appendChild(this.__hue_knob);
-
-    this.domElement.appendChild(this.__input);
-    this.domElement.appendChild(this.__selector);
-
-    this.updateDisplay();
-
-    function setSV(e) {
-
-      e.preventDefault();
-
-      var w = dom.getWidth(_this.__saturation_field);
-      var o = dom.getOffset(_this.__saturation_field);
-      var s = (e.clientX - o.left + document.body.scrollLeft) / w;
-      var v = 1 - (e.clientY - o.top + document.body.scrollTop) / w;
-
-      if (v > 1) v = 1;
-      else if (v < 0) v = 0;
-
-      if (s > 1) s = 1;
-      else if (s < 0) s = 0;
-
-      _this.__color.v = v;
-      _this.__color.s = s;
-
-      _this.setValue(_this.__color.toOriginal());
-
-
-      return false;
-
-    }
-
-    function setH(e) {
-
-      e.preventDefault();
-
-      var s = dom.getHeight(_this.__hue_field);
-      var o = dom.getOffset(_this.__hue_field);
-      var h = 1 - (e.clientY - o.top + document.body.scrollTop) / s;
-
-      if (h > 1) h = 1;
-      else if (h < 0) h = 0;
-
-      _this.__color.h = h * 360;
-
-      _this.setValue(_this.__color.toOriginal());
-
-      return false;
-
-    }
-
-  };
-
-  ColorController.superclass = Controller;
-
-  common.extend(
-
-      ColorController.prototype,
-      Controller.prototype,
-
-      {
-
-        updateDisplay: function() {
-
-          var i = interpret(this.getValue());
-
-          if (i !== false) {
-
-            var mismatch = false;
-
-            // Check for mismatch on the interpreted value.
-
-            common.each(Color.COMPONENTS, function(component) {
-              if (!common.isUndefined(i[component]) &&
-                  !common.isUndefined(this.__color.__state[component]) &&
-                  i[component] !== this.__color.__state[component]) {
-                mismatch = true;
-                return {}; // break
-              }
-            }, this);
-
-            // If nothing diverges, we keep our previous values
-            // for statefulness, otherwise we recalculate fresh
-            if (mismatch) {
-              common.extend(this.__color.__state, i);
-            }
-
-          }
-
-          common.extend(this.__temp.__state, this.__color.__state);
-
-          this.__temp.a = 1;
-
-          var flip = (this.__color.v < .5 || this.__color.s > .5) ? 255 : 0;
-          var _flip = 255 - flip;
-
-          common.extend(this.__field_knob.style, {
-            marginLeft: 100 * this.__color.s - 7 + 'px',
-            marginTop: 100 * (1 - this.__color.v) - 7 + 'px',
-            backgroundColor: this.__temp.toString(),
-            border: this.__field_knob_border + 'rgb(' + flip + ',' + flip + ',' + flip +')'
-          });
-
-          this.__hue_knob.style.marginTop = (1 - this.__color.h / 360) * 100 + 'px'
-
-          this.__temp.s = 1;
-          this.__temp.v = 1;
-
-          linearGradient(this.__saturation_field, 'left', '#fff', this.__temp.toString());
-
-          common.extend(this.__input.style, {
-            backgroundColor: this.__input.value = this.__color.toString(),
-            color: 'rgb(' + flip + ',' + flip + ',' + flip +')',
-            textShadow: this.__input_textShadow + 'rgba(' + _flip + ',' + _flip + ',' + _flip +',.7)'
-          });
-
-        }
-
-      }
-
-  );
-  
-  var vendors = ['-moz-','-o-','-webkit-','-ms-',''];
-  
-  function linearGradient(elem, x, a, b) {
-    elem.style.background = '';
-    common.each(vendors, function(vendor) {
-      elem.style.cssText += 'background: ' + vendor + 'linear-gradient('+x+', '+a+' 0%, ' + b + ' 100%); ';
-    });
-  }
-  
-  function hueGradient(elem) {
-    elem.style.background = '';
-    elem.style.cssText += 'background: -moz-linear-gradient(top,  #ff0000 0%, #ff00ff 17%, #0000ff 34%, #00ffff 50%, #00ff00 67%, #ffff00 84%, #ff0000 100%);'
-    elem.style.cssText += 'background: -webkit-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);'
-    elem.style.cssText += 'background: -o-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);'
-    elem.style.cssText += 'background: -ms-linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);'
-    elem.style.cssText += 'background: linear-gradient(top,  #ff0000 0%,#ff00ff 17%,#0000ff 34%,#00ffff 50%,#00ff00 67%,#ffff00 84%,#ff0000 100%);'
-  }
-
-
-  return ColorController;
-
-})(dat.controllers.Controller,
-dat.dom.dom,
-dat.color.Color = (function (interpret, math, toString, common) {
-
-  var Color = function() {
-
-    this.__state = interpret.apply(this, arguments);
-
-    if (this.__state === false) {
-      throw 'Failed to interpret color arguments';
-    }
-
-    this.__state.a = this.__state.a || 1;
-
-
-  };
-
-  Color.COMPONENTS = ['r','g','b','h','s','v','hex','a'];
-
-  common.extend(Color.prototype, {
-
-    toString: function() {
-      return toString(this);
-    },
-
-    toOriginal: function() {
-      return this.__state.conversion.write(this);
-    }
-
-  });
-
-  defineRGBComponent(Color.prototype, 'r', 2);
-  defineRGBComponent(Color.prototype, 'g', 1);
-  defineRGBComponent(Color.prototype, 'b', 0);
-
-  defineHSVComponent(Color.prototype, 'h');
-  defineHSVComponent(Color.prototype, 's');
-  defineHSVComponent(Color.prototype, 'v');
-
-  Object.defineProperty(Color.prototype, 'a', {
-
-    get: function() {
-      return this.__state.a;
-    },
-
-    set: function(v) {
-      this.__state.a = v;
-    }
-
-  });
-
-  Object.defineProperty(Color.prototype, 'hex', {
-
-    get: function() {
-
-      if (!this.__state.space !== 'HEX') {
-        this.__state.hex = math.rgb_to_hex(this.r, this.g, this.b);
-      }
-
-      return this.__state.hex;
-
-    },
-
-    set: function(v) {
-
-      this.__state.space = 'HEX';
-      this.__state.hex = v;
-
-    }
-
-  });
-
-  function defineRGBComponent(target, component, componentHexIndex) {
-
-    Object.defineProperty(target, component, {
-
-      get: function() {
-
-        if (this.__state.space === 'RGB') {
-          return this.__state[component];
-        }
-
-        recalculateRGB(this, component, componentHexIndex);
-
-        return this.__state[component];
-
-      },
-
-      set: function(v) {
-
-        if (this.__state.space !== 'RGB') {
-          recalculateRGB(this, component, componentHexIndex);
-          this.__state.space = 'RGB';
-        }
-
-        this.__state[component] = v;
-
-      }
-
-    });
-
-  }
-
-  function defineHSVComponent(target, component) {
-
-    Object.defineProperty(target, component, {
-
-      get: function() {
-
-        if (this.__state.space === 'HSV')
-          return this.__state[component];
-
-        recalculateHSV(this);
-
-        return this.__state[component];
-
-      },
-
-      set: function(v) {
-
-        if (this.__state.space !== 'HSV') {
-          recalculateHSV(this);
-          this.__state.space = 'HSV';
-        }
-
-        this.__state[component] = v;
-
-      }
-
-    });
-
-  }
-
-  function recalculateRGB(color, component, componentHexIndex) {
-
-    if (color.__state.space === 'HEX') {
-
-      color.__state[component] = math.component_from_hex(color.__state.hex, componentHexIndex);
-
-    } else if (color.__state.space === 'HSV') {
-
-      common.extend(color.__state, math.hsv_to_rgb(color.__state.h, color.__state.s, color.__state.v));
-
-    } else {
-
-      throw 'Corrupted color state';
-
-    }
-
-  }
-
-  function recalculateHSV(color) {
-
-    var result = math.rgb_to_hsv(color.r, color.g, color.b);
-
-    common.extend(color.__state,
-        {
-          s: result.s,
-          v: result.v
-        }
-    );
-
-    if (!common.isNaN(result.h)) {
-      color.__state.h = result.h;
-    } else if (common.isUndefined(color.__state.h)) {
-      color.__state.h = 0;
-    }
-
-  }
-
-  return Color;
-
-})(dat.color.interpret,
-dat.color.math = (function () {
-
-  var tmpComponent;
-
-  return {
-
-    hsv_to_rgb: function(h, s, v) {
-
-      var hi = Math.floor(h / 60) % 6;
-
-      var f = h / 60 - Math.floor(h / 60);
-      var p = v * (1.0 - s);
-      var q = v * (1.0 - (f * s));
-      var t = v * (1.0 - ((1.0 - f) * s));
-      var c = [
-        [v, t, p],
-        [q, v, p],
-        [p, v, t],
-        [p, q, v],
-        [t, p, v],
-        [v, p, q]
-      ][hi];
-
-      return {
-        r: c[0] * 255,
-        g: c[1] * 255,
-        b: c[2] * 255
-      };
-
-    },
-
-    rgb_to_hsv: function(r, g, b) {
-
-      var min = Math.min(r, g, b),
-          max = Math.max(r, g, b),
-          delta = max - min,
-          h, s;
-
-      if (max != 0) {
-        s = delta / max;
-      } else {
-        return {
-          h: NaN,
-          s: 0,
-          v: 0
-        };
-      }
-
-      if (r == max) {
-        h = (g - b) / delta;
-      } else if (g == max) {
-        h = 2 + (b - r) / delta;
-      } else {
-        h = 4 + (r - g) / delta;
-      }
-      h /= 6;
-      if (h < 0) {
-        h += 1;
-      }
-
-      return {
-        h: h * 360,
-        s: s,
-        v: max / 255
-      };
-    },
-
-    rgb_to_hex: function(r, g, b) {
-      var hex = this.hex_with_component(0, 2, r);
-      hex = this.hex_with_component(hex, 1, g);
-      hex = this.hex_with_component(hex, 0, b);
-      return hex;
-    },
-
-    component_from_hex: function(hex, componentIndex) {
-      return (hex >> (componentIndex * 8)) & 0xFF;
-    },
-
-    hex_with_component: function(hex, componentIndex, value) {
-      return value << (tmpComponent = componentIndex * 8) | (hex & ~ (0xFF << tmpComponent));
-    }
-
-  }
-
-})(),
-dat.color.toString,
-dat.utils.common),
-dat.color.interpret,
-dat.utils.common),
-dat.utils.requestAnimationFrame = (function () {
-
-  /**
-   * requirejs version of Paul Irish's RequestAnimationFrame
-   * http://paulirish.com/2011/requestanimationframe-for-smart-animating/
-   */
-
-  return window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function(callback, element) {
-
-        window.setTimeout(callback, 1000 / 60);
-
-      };
-})(),
-dat.dom.CenteredDiv = (function (dom, common) {
-
-
-  var CenteredDiv = function() {
-
-    this.backgroundElement = document.createElement('div');
-    common.extend(this.backgroundElement.style, {
-      backgroundColor: 'rgba(0,0,0,0.8)',
-      top: 0,
-      left: 0,
-      display: 'none',
-      zIndex: '1000',
-      opacity: 0,
-      WebkitTransition: 'opacity 0.2s linear'
-    });
-
-    dom.makeFullscreen(this.backgroundElement);
-    this.backgroundElement.style.position = 'fixed';
-
-    this.domElement = document.createElement('div');
-    common.extend(this.domElement.style, {
-      position: 'fixed',
-      display: 'none',
-      zIndex: '1001',
-      opacity: 0,
-      WebkitTransition: '-webkit-transform 0.2s ease-out, opacity 0.2s linear'
-    });
-
-
-    document.body.appendChild(this.backgroundElement);
-    document.body.appendChild(this.domElement);
-
-    var _this = this;
-    dom.bind(this.backgroundElement, 'click', function() {
-      _this.hide();
-    });
-
-
-  };
-
-  CenteredDiv.prototype.show = function() {
-
-    var _this = this;
-    
-
-
-    this.backgroundElement.style.display = 'block';
-
-    this.domElement.style.display = 'block';
-    this.domElement.style.opacity = 0;
-//    this.domElement.style.top = '52%';
-    this.domElement.style.webkitTransform = 'scale(1.1)';
-
-    this.layout();
-
-    common.defer(function() {
-      _this.backgroundElement.style.opacity = 1;
-      _this.domElement.style.opacity = 1;
-      _this.domElement.style.webkitTransform = 'scale(1)';
-    });
-
-  };
-
-  CenteredDiv.prototype.hide = function() {
-
-    var _this = this;
-
-    var hide = function() {
-
-      _this.domElement.style.display = 'none';
-      _this.backgroundElement.style.display = 'none';
-
-      dom.unbind(_this.domElement, 'webkitTransitionEnd', hide);
-      dom.unbind(_this.domElement, 'transitionend', hide);
-      dom.unbind(_this.domElement, 'oTransitionEnd', hide);
-
-    };
-
-    dom.bind(this.domElement, 'webkitTransitionEnd', hide);
-    dom.bind(this.domElement, 'transitionend', hide);
-    dom.bind(this.domElement, 'oTransitionEnd', hide);
-
-    this.backgroundElement.style.opacity = 0;
-//    this.domElement.style.top = '48%';
-    this.domElement.style.opacity = 0;
-    this.domElement.style.webkitTransform = 'scale(1.1)';
-
-  };
-
-  CenteredDiv.prototype.layout = function() {
-    this.domElement.style.left = window.innerWidth/2 - dom.getWidth(this.domElement) / 2 + 'px';
-    this.domElement.style.top = window.innerHeight/2 - dom.getHeight(this.domElement) / 2 + 'px';
-  };
-  
-  function lockScroll(e) {
-    console.log(e);
-  }
-
-  return CenteredDiv;
-
-})(dat.dom.dom,
-dat.utils.common),
-dat.dom.dom,
-dat.utils.common);
-
-/***/ }),
 /* 29 */
-/***/ (function(module, exports) {
-
-/**
- * dat-gui JavaScript Controller Library
- * http://code.google.com/p/dat-gui
- *
- * Copyright 2011 Data Arts Team, Google Creative Lab
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- */
-
-/** @namespace */
-var dat = module.exports = dat || {};
-
-/** @namespace */
-dat.color = dat.color || {};
-
-/** @namespace */
-dat.utils = dat.utils || {};
-
-dat.utils.common = (function () {
-  
-  var ARR_EACH = Array.prototype.forEach;
-  var ARR_SLICE = Array.prototype.slice;
-
-  /**
-   * Band-aid methods for things that should be a lot easier in JavaScript.
-   * Implementation and structure inspired by underscore.js
-   * http://documentcloud.github.com/underscore/
-   */
-
-  return { 
-    
-    BREAK: {},
-  
-    extend: function(target) {
-      
-      this.each(ARR_SLICE.call(arguments, 1), function(obj) {
-        
-        for (var key in obj)
-          if (!this.isUndefined(obj[key])) 
-            target[key] = obj[key];
-        
-      }, this);
-      
-      return target;
-      
-    },
-    
-    defaults: function(target) {
-      
-      this.each(ARR_SLICE.call(arguments, 1), function(obj) {
-        
-        for (var key in obj)
-          if (this.isUndefined(target[key])) 
-            target[key] = obj[key];
-        
-      }, this);
-      
-      return target;
-    
-    },
-    
-    compose: function() {
-      var toCall = ARR_SLICE.call(arguments);
-            return function() {
-              var args = ARR_SLICE.call(arguments);
-              for (var i = toCall.length -1; i >= 0; i--) {
-                args = [toCall[i].apply(this, args)];
-              }
-              return args[0];
-            }
-    },
-    
-    each: function(obj, itr, scope) {
-
-      
-      if (ARR_EACH && obj.forEach === ARR_EACH) { 
-        
-        obj.forEach(itr, scope);
-        
-      } else if (obj.length === obj.length + 0) { // Is number but not NaN
-        
-        for (var key = 0, l = obj.length; key < l; key++)
-          if (key in obj && itr.call(scope, obj[key], key) === this.BREAK) 
-            return;
-            
-      } else {
-
-        for (var key in obj) 
-          if (itr.call(scope, obj[key], key) === this.BREAK)
-            return;
-            
-      }
-            
-    },
-    
-    defer: function(fnc) {
-      setTimeout(fnc, 0);
-    },
-    
-    toArray: function(obj) {
-      if (obj.toArray) return obj.toArray();
-      return ARR_SLICE.call(obj);
-    },
-
-    isUndefined: function(obj) {
-      return obj === undefined;
-    },
-    
-    isNull: function(obj) {
-      return obj === null;
-    },
-    
-    isNaN: function(obj) {
-      return obj !== obj;
-    },
-    
-    isArray: Array.isArray || function(obj) {
-      return obj.constructor === Array;
-    },
-    
-    isObject: function(obj) {
-      return obj === Object(obj);
-    },
-    
-    isNumber: function(obj) {
-      return obj === obj+0;
-    },
-    
-    isString: function(obj) {
-      return obj === obj+'';
-    },
-    
-    isBoolean: function(obj) {
-      return obj === false || obj === true;
-    },
-    
-    isFunction: function(obj) {
-      return Object.prototype.toString.call(obj) === '[object Function]';
-    }
-  
-  };
-    
-})();
-
-
-dat.color.toString = (function (common) {
-
-  return function(color) {
-
-    if (color.a == 1 || common.isUndefined(color.a)) {
-
-      var s = color.hex.toString(16);
-      while (s.length < 6) {
-        s = '0' + s;
-      }
-
-      return '#' + s;
-
-    } else {
-
-      return 'rgba(' + Math.round(color.r) + ',' + Math.round(color.g) + ',' + Math.round(color.b) + ',' + color.a + ')';
-
-    }
-
-  }
-
-})(dat.utils.common);
-
-
-dat.Color = dat.color.Color = (function (interpret, math, toString, common) {
-
-  var Color = function() {
-
-    this.__state = interpret.apply(this, arguments);
-
-    if (this.__state === false) {
-      throw 'Failed to interpret color arguments';
-    }
-
-    this.__state.a = this.__state.a || 1;
-
-
-  };
-
-  Color.COMPONENTS = ['r','g','b','h','s','v','hex','a'];
-
-  common.extend(Color.prototype, {
-
-    toString: function() {
-      return toString(this);
-    },
-
-    toOriginal: function() {
-      return this.__state.conversion.write(this);
-    }
-
-  });
-
-  defineRGBComponent(Color.prototype, 'r', 2);
-  defineRGBComponent(Color.prototype, 'g', 1);
-  defineRGBComponent(Color.prototype, 'b', 0);
-
-  defineHSVComponent(Color.prototype, 'h');
-  defineHSVComponent(Color.prototype, 's');
-  defineHSVComponent(Color.prototype, 'v');
-
-  Object.defineProperty(Color.prototype, 'a', {
-
-    get: function() {
-      return this.__state.a;
-    },
-
-    set: function(v) {
-      this.__state.a = v;
-    }
-
-  });
-
-  Object.defineProperty(Color.prototype, 'hex', {
-
-    get: function() {
-
-      if (!this.__state.space !== 'HEX') {
-        this.__state.hex = math.rgb_to_hex(this.r, this.g, this.b);
-      }
-
-      return this.__state.hex;
-
-    },
-
-    set: function(v) {
-
-      this.__state.space = 'HEX';
-      this.__state.hex = v;
-
-    }
-
-  });
-
-  function defineRGBComponent(target, component, componentHexIndex) {
-
-    Object.defineProperty(target, component, {
-
-      get: function() {
-
-        if (this.__state.space === 'RGB') {
-          return this.__state[component];
-        }
-
-        recalculateRGB(this, component, componentHexIndex);
-
-        return this.__state[component];
-
-      },
-
-      set: function(v) {
-
-        if (this.__state.space !== 'RGB') {
-          recalculateRGB(this, component, componentHexIndex);
-          this.__state.space = 'RGB';
-        }
-
-        this.__state[component] = v;
-
-      }
-
-    });
-
-  }
-
-  function defineHSVComponent(target, component) {
-
-    Object.defineProperty(target, component, {
-
-      get: function() {
-
-        if (this.__state.space === 'HSV')
-          return this.__state[component];
-
-        recalculateHSV(this);
-
-        return this.__state[component];
-
-      },
-
-      set: function(v) {
-
-        if (this.__state.space !== 'HSV') {
-          recalculateHSV(this);
-          this.__state.space = 'HSV';
-        }
-
-        this.__state[component] = v;
-
-      }
-
-    });
-
-  }
-
-  function recalculateRGB(color, component, componentHexIndex) {
-
-    if (color.__state.space === 'HEX') {
-
-      color.__state[component] = math.component_from_hex(color.__state.hex, componentHexIndex);
-
-    } else if (color.__state.space === 'HSV') {
-
-      common.extend(color.__state, math.hsv_to_rgb(color.__state.h, color.__state.s, color.__state.v));
-
-    } else {
-
-      throw 'Corrupted color state';
-
-    }
-
-  }
-
-  function recalculateHSV(color) {
-
-    var result = math.rgb_to_hsv(color.r, color.g, color.b);
-
-    common.extend(color.__state,
-        {
-          s: result.s,
-          v: result.v
-        }
-    );
-
-    if (!common.isNaN(result.h)) {
-      color.__state.h = result.h;
-    } else if (common.isUndefined(color.__state.h)) {
-      color.__state.h = 0;
-    }
-
-  }
-
-  return Color;
-
-})(dat.color.interpret = (function (toString, common) {
-
-  var result, toReturn;
-
-  var interpret = function() {
-
-    toReturn = false;
-
-    var original = arguments.length > 1 ? common.toArray(arguments) : arguments[0];
-
-    common.each(INTERPRETATIONS, function(family) {
-
-      if (family.litmus(original)) {
-
-        common.each(family.conversions, function(conversion, conversionName) {
-
-          result = conversion.read(original);
-
-          if (toReturn === false && result !== false) {
-            toReturn = result;
-            result.conversionName = conversionName;
-            result.conversion = conversion;
-            return common.BREAK;
-
-          }
-
-        });
-
-        return common.BREAK;
-
-      }
-
-    });
-
-    return toReturn;
-
-  };
-
-  var INTERPRETATIONS = [
-
-    // Strings
-    {
-
-      litmus: common.isString,
-
-      conversions: {
-
-        THREE_CHAR_HEX: {
-
-          read: function(original) {
-
-            var test = original.match(/^#([A-F0-9])([A-F0-9])([A-F0-9])$/i);
-            if (test === null) return false;
-
-            return {
-              space: 'HEX',
-              hex: parseInt(
-                  '0x' +
-                      test[1].toString() + test[1].toString() +
-                      test[2].toString() + test[2].toString() +
-                      test[3].toString() + test[3].toString())
-            };
-
-          },
-
-          write: toString
-
-        },
-
-        SIX_CHAR_HEX: {
-
-          read: function(original) {
-
-            var test = original.match(/^#([A-F0-9]{6})$/i);
-            if (test === null) return false;
-
-            return {
-              space: 'HEX',
-              hex: parseInt('0x' + test[1].toString())
-            };
-
-          },
-
-          write: toString
-
-        },
-
-        CSS_RGB: {
-
-          read: function(original) {
-
-            var test = original.match(/^rgb\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\)/);
-            if (test === null) return false;
-
-            return {
-              space: 'RGB',
-              r: parseFloat(test[1]),
-              g: parseFloat(test[2]),
-              b: parseFloat(test[3])
-            };
-
-          },
-
-          write: toString
-
-        },
-
-        CSS_RGBA: {
-
-          read: function(original) {
-
-            var test = original.match(/^rgba\(\s*(.+)\s*,\s*(.+)\s*,\s*(.+)\s*\,\s*(.+)\s*\)/);
-            if (test === null) return false;
-
-            return {
-              space: 'RGB',
-              r: parseFloat(test[1]),
-              g: parseFloat(test[2]),
-              b: parseFloat(test[3]),
-              a: parseFloat(test[4])
-            };
-
-          },
-
-          write: toString
-
-        }
-
-      }
-
-    },
-
-    // Numbers
-    {
-
-      litmus: common.isNumber,
-
-      conversions: {
-
-        HEX: {
-          read: function(original) {
-            return {
-              space: 'HEX',
-              hex: original,
-              conversionName: 'HEX'
-            }
-          },
-
-          write: function(color) {
-            return color.hex;
-          }
-        }
-
-      }
-
-    },
-
-    // Arrays
-    {
-
-      litmus: common.isArray,
-
-      conversions: {
-
-        RGB_ARRAY: {
-          read: function(original) {
-            if (original.length != 3) return false;
-            return {
-              space: 'RGB',
-              r: original[0],
-              g: original[1],
-              b: original[2]
-            };
-          },
-
-          write: function(color) {
-            return [color.r, color.g, color.b];
-          }
-
-        },
-
-        RGBA_ARRAY: {
-          read: function(original) {
-            if (original.length != 4) return false;
-            return {
-              space: 'RGB',
-              r: original[0],
-              g: original[1],
-              b: original[2],
-              a: original[3]
-            };
-          },
-
-          write: function(color) {
-            return [color.r, color.g, color.b, color.a];
-          }
-
-        }
-
-      }
-
-    },
-
-    // Objects
-    {
-
-      litmus: common.isObject,
-
-      conversions: {
-
-        RGBA_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.r) &&
-                common.isNumber(original.g) &&
-                common.isNumber(original.b) &&
-                common.isNumber(original.a)) {
-              return {
-                space: 'RGB',
-                r: original.r,
-                g: original.g,
-                b: original.b,
-                a: original.a
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              r: color.r,
-              g: color.g,
-              b: color.b,
-              a: color.a
-            }
-          }
-        },
-
-        RGB_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.r) &&
-                common.isNumber(original.g) &&
-                common.isNumber(original.b)) {
-              return {
-                space: 'RGB',
-                r: original.r,
-                g: original.g,
-                b: original.b
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              r: color.r,
-              g: color.g,
-              b: color.b
-            }
-          }
-        },
-
-        HSVA_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.h) &&
-                common.isNumber(original.s) &&
-                common.isNumber(original.v) &&
-                common.isNumber(original.a)) {
-              return {
-                space: 'HSV',
-                h: original.h,
-                s: original.s,
-                v: original.v,
-                a: original.a
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              h: color.h,
-              s: color.s,
-              v: color.v,
-              a: color.a
-            }
-          }
-        },
-
-        HSV_OBJ: {
-          read: function(original) {
-            if (common.isNumber(original.h) &&
-                common.isNumber(original.s) &&
-                common.isNumber(original.v)) {
-              return {
-                space: 'HSV',
-                h: original.h,
-                s: original.s,
-                v: original.v
-              }
-            }
-            return false;
-          },
-
-          write: function(color) {
-            return {
-              h: color.h,
-              s: color.s,
-              v: color.v
-            }
-          }
-
-        }
-
-      }
-
-    }
-
-
-  ];
-
-  return interpret;
-
-
-})(dat.color.toString,
-dat.utils.common),
-dat.color.math = (function () {
-
-  var tmpComponent;
-
-  return {
-
-    hsv_to_rgb: function(h, s, v) {
-
-      var hi = Math.floor(h / 60) % 6;
-
-      var f = h / 60 - Math.floor(h / 60);
-      var p = v * (1.0 - s);
-      var q = v * (1.0 - (f * s));
-      var t = v * (1.0 - ((1.0 - f) * s));
-      var c = [
-        [v, t, p],
-        [q, v, p],
-        [p, v, t],
-        [p, q, v],
-        [t, p, v],
-        [v, p, q]
-      ][hi];
-
-      return {
-        r: c[0] * 255,
-        g: c[1] * 255,
-        b: c[2] * 255
-      };
-
-    },
-
-    rgb_to_hsv: function(r, g, b) {
-
-      var min = Math.min(r, g, b),
-          max = Math.max(r, g, b),
-          delta = max - min,
-          h, s;
-
-      if (max != 0) {
-        s = delta / max;
-      } else {
-        return {
-          h: NaN,
-          s: 0,
-          v: 0
-        };
-      }
-
-      if (r == max) {
-        h = (g - b) / delta;
-      } else if (g == max) {
-        h = 2 + (b - r) / delta;
-      } else {
-        h = 4 + (r - g) / delta;
-      }
-      h /= 6;
-      if (h < 0) {
-        h += 1;
-      }
-
-      return {
-        h: h * 360,
-        s: s,
-        v: max / 255
-      };
-    },
-
-    rgb_to_hex: function(r, g, b) {
-      var hex = this.hex_with_component(0, 2, r);
-      hex = this.hex_with_component(hex, 1, g);
-      hex = this.hex_with_component(hex, 0, b);
-      return hex;
-    },
-
-    component_from_hex: function(hex, componentIndex) {
-      return (hex >> (componentIndex * 8)) & 0xFF;
-    },
-
-    hex_with_component: function(hex, componentIndex, value) {
-      return value << (tmpComponent = componentIndex * 8) | (hex & ~ (0xFF << tmpComponent));
-    }
-
-  }
-
-})(),
-dat.color.toString,
-dat.utils.common);
-
-/***/ }),
-/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
 
@@ -13162,12 +9127,12 @@ class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /*
 
 
 /***/ }),
-/* 31 */
+/* 30 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
 
@@ -13214,6 +9179,7 @@ class Plane extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* 
         this.generateIdx();
         this.generatePos();
         this.generateNor();
+        this.numInstances = 1;
         this.count = this.indices.length;
         __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
         __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
@@ -13229,17 +9195,17 @@ class Plane extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* 
 
 
 /***/ }),
-/* 32 */
+/* 31 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
 
 
 
-class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
+class Cube extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
     constructor(center) {
         super(); // Call the constructor of the super class. This is required.
         this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
@@ -13281,33 +9247,35 @@ class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /*
         ]);
         this.positions = new Float32Array([
             -0.5, +0.5, -0.5, 1,
-            -0.5, +0.5, +0.5, 1,
             +0.5, +0.5, -0.5, 1,
             +0.5, +0.5, +0.5, 1,
+            -0.5, +0.5, +0.5, 1,
             -0.5, -0.5, -0.5, 1,
+            +0.5, -0.5, -0.5, 1,
+            +0.5, -0.5, +0.5, 1,
             -0.5, -0.5, +0.5, 1,
             +0.5, -0.5, -0.5, 1,
-            +0.5, -0.5, +0.5, 1,
-            +0.5, -0.5, -0.5, 1,
-            +0.5, -0.5, +0.5, 1,
             +0.5, +0.5, -0.5, 1,
             +0.5, +0.5, +0.5, 1,
-            -0.5, -0.5, -0.5, 1,
-            -0.5, -0.5, +0.5, 1,
-            -0.5, +0.5, -0.5, 1,
-            -0.5, +0.5, +0.5, 1,
-            -0.5, -0.5, +0.5, 1,
-            -0.5, +0.5, +0.5, 1,
             +0.5, -0.5, +0.5, 1,
-            +0.5, +0.5, +0.5, 1,
             -0.5, -0.5, -0.5, 1,
             -0.5, +0.5, -0.5, 1,
+            -0.5, +0.5, +0.5, 1,
+            -0.5, -0.5, +0.5, 1,
+            -0.5, -0.5, +0.5, 1,
+            +0.5, -0.5, +0.5, 1,
+            +0.5, +0.5, +0.5, 1,
+            -0.5, +0.5, +0.5, 1,
+            -0.5, -0.5, -0.5, 1,
             +0.5, -0.5, -0.5, 1,
             +0.5, +0.5, -0.5, 1,
+            -0.5, +0.5, -0.5, 1,
         ]);
         this.generateIdx();
         this.generatePos();
         this.generateNor();
+        this.generateEndpoints();
+        this.generateThickness();
         this.count = this.indices.length;
         __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
         __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
@@ -13317,9 +9285,108 @@ class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /*
         __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.positions, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
         console.log(`Created cube`);
     }
+    setRoadVBOs(endpoints, thickness) {
+        let endpointArray = [];
+        for (let v of endpoints) {
+            endpointArray = endpointArray.concat(v[0], v[1], v[2], v[3]);
+        }
+        this.endpoints = new Float32Array(endpointArray);
+        this.thickness = new Float32Array(thickness);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufEnd);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.endpoints, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufThic);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.thickness, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+    }
 }
 ;
-/* harmony default export */ __webpack_exports__["a"] = (Square);
+/* harmony default export */ __webpack_exports__["a"] = (Cube);
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__globals__ = __webpack_require__(2);
+
+
+
+class Prism extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /* default */] {
+    constructor(center, sides) {
+        super(); // Call the constructor of the super class. This is required.
+        if (sides < 3) {
+            sides = 3;
+        }
+        this.sides = sides;
+        this.center = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(center[0], center[1], center[2], 1);
+    }
+    create() {
+        let positions = [];
+        let normals = [];
+        let indices = [];
+        let curIdx = 0;
+        for (let i = 0; i < this.sides; i++) {
+            // First generate the radial caps
+            let angle1 = i * 2 * Math.PI / this.sides;
+            let angle2 = ((i + 1) % this.sides) * 2 * Math.PI / this.sides;
+            let x1 = Math.cos(angle1) / 2;
+            let x2 = Math.cos(angle2) / 2;
+            let z1 = Math.sin(angle1) / 2;
+            let z2 = Math.sin(angle2) / 2;
+            // Bottom Cap
+            positions.push(0, 0, 0, 1, x1, 0, z1, 1, x2, 0, z2, 1);
+            normals.push(0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0);
+            indices.push(curIdx + 0, curIdx + 1, curIdx + 2);
+            // Top Cap
+            positions.push(0, 1, 0, 1, x1, 1, z1, 1, x2, 1, z2, 1);
+            normals.push(0, 0, -1, 0, 0, 0, -1, 0, 0, 0, -1, 0);
+            indices.push(curIdx + 3, curIdx + 4, curIdx + 5);
+            // Now get all the sides
+            positions.push(x1, 0, z1, 1, x2, 0, z2, 1, x2, 1, z2, 1, x1, 1, z1, 1);
+            let normal = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues((x1 + x2) / 2, 0, (z1 + z2) / 2, 0);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].normalize(normal, normal);
+            normals.push(normal[0], normal[1], normal[2], normal[3], normal[0], normal[1], normal[2], normal[3], normal[0], normal[1], normal[2], normal[3], normal[0], normal[1], normal[2], normal[3]);
+            indices.push(curIdx + 6, curIdx + 7, curIdx + 8, curIdx + 6, curIdx + 8, curIdx + 9);
+            curIdx += 10;
+        }
+        this.positions = new Float32Array(positions);
+        this.normals = new Float32Array(normals);
+        this.indices = new Uint32Array(indices);
+        this.generateIdx();
+        this.generatePos();
+        this.generateNor();
+        this.generateOff();
+        this.generateHgt();
+        this.generateThickness();
+        this.count = this.indices.length;
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.bufIdx);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ELEMENT_ARRAY_BUFFER, this.indices, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufNor);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.normals, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufPos);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.positions, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        console.log(`Created ` + this.sides + ` Prism`);
+    }
+    setBuildingVBOs(offsets, heights, thicknesses) {
+        let offsetArray = [];
+        for (let off of offsets) {
+            offsetArray.push(off[0], off[1], off[2], off[3]);
+        }
+        this.offsets = new Float32Array(offsetArray);
+        this.heights = new Float32Array(heights);
+        this.thicknesses = new Float32Array(thicknesses);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufOff);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.offsets, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufHgt);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.heights, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bindBuffer(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.bufThic);
+        __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].bufferData(__WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].ARRAY_BUFFER, this.thicknesses, __WEBPACK_IMPORTED_MODULE_2__globals__["a" /* gl */].STATIC_DRAW);
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["a"] = (Prism);
 
 
 /***/ }),
@@ -13327,7 +9394,7 @@ class Square extends __WEBPACK_IMPORTED_MODULE_1__rendering_gl_Drawable__["a" /*
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
 
 
@@ -13354,6 +9421,7 @@ class OpenGLRenderer {
         __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].multiply(viewProj, camera.projectionMatrix, camera.viewMatrix);
         prog.setModelMatrix(model);
         prog.setViewProjMatrix(viewProj);
+        prog.setEyeRefUp(camera.controls.eye, camera.controls.center, camera.controls.up);
         for (let drawable of drawables) {
             prog.draw(drawable);
         }
@@ -13368,8 +9436,203 @@ class OpenGLRenderer {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-var CameraControls = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
+
+
+var activeProgram = null;
+class Shader {
+    constructor(type, source) {
+        this.shader = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].createShader(type);
+        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].shaderSource(this.shader, source);
+        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].compileShader(this.shader);
+        if (!__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getShaderParameter(this.shader, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].COMPILE_STATUS)) {
+            throw __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getShaderInfoLog(this.shader);
+        }
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Shader;
+
+;
+class ShaderProgram {
+    constructor(shaders) {
+        this.prog = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].createProgram();
+        for (let shader of shaders) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].attachShader(this.prog, shader.shader);
+        }
+        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].linkProgram(this.prog);
+        if (!__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getProgramParameter(this.prog, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].LINK_STATUS)) {
+            throw __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getProgramInfoLog(this.prog);
+        }
+        this.attrPos = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Pos");
+        this.attrNor = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Nor");
+        this.attrCol = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Col");
+        this.attrEnd = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Endpoints");
+        this.attrThic = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Thickness");
+        this.attrOff = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Offset");
+        this.attrHgt = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Height");
+        this.unifModel = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Model");
+        this.unifModelInvTr = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_ModelInvTr");
+        this.unifViewProj = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_ViewProj");
+        this.unifPlanePos = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_PlanePos");
+        this.unifTime = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Time");
+        this.unifLighting = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_UseLight");
+        this.unifRatio = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_LandRatio");
+        this.unifShowPop = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_ShowPop");
+        this.unifEye = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Eye");
+        this.unifRef = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Ref");
+        this.unifUp = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Up");
+        this.unifDimensions = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Dimensions");
+    }
+    use() {
+        if (activeProgram !== this.prog) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].useProgram(this.prog);
+            activeProgram = this.prog;
+        }
+    }
+    setEyeRefUp(eye, ref, up) {
+        this.use();
+        if (this.unifEye !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform3f(this.unifEye, eye[0], eye[1], eye[2]);
+        }
+        if (this.unifRef !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform3f(this.unifRef, ref[0], ref[1], ref[2]);
+        }
+        if (this.unifUp !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform3f(this.unifUp, up[0], up[1], up[2]);
+        }
+    }
+    setDimensions(width, height) {
+        this.use();
+        if (this.unifDimensions !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform2f(this.unifDimensions, width, height);
+        }
+    }
+    setModelMatrix(model) {
+        this.use();
+        if (this.unifModel !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniformMatrix4fv(this.unifModel, false, model);
+        }
+        if (this.unifModelInvTr !== -1) {
+            let modelinvtr = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].transpose(modelinvtr, model);
+            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].invert(modelinvtr, modelinvtr);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniformMatrix4fv(this.unifModelInvTr, false, modelinvtr);
+        }
+    }
+    setViewProjMatrix(vp) {
+        this.use();
+        if (this.unifViewProj !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniformMatrix4fv(this.unifViewProj, false, vp);
+        }
+    }
+    setPlanePos(pos) {
+        this.use();
+        if (this.unifPlanePos !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform2fv(this.unifPlanePos, pos);
+        }
+    }
+    setTime(time) {
+        this.use();
+        if (this.unifTime !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1i(this.unifTime, time);
+        }
+    }
+    setWaterRatio(ratio) {
+        this.use();
+        if (this.unifRatio !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifRatio, ratio);
+        }
+    }
+    setLightingOn(lighting) {
+        this.use();
+        let l = lighting ? 1 : 0;
+        if (this.unifLighting !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1i(this.unifLighting, l);
+        }
+    }
+    setShowPop(showPop) {
+        this.use();
+        if (this.unifLighting !== -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1i(this.unifShowPop, showPop ? 1 : 0);
+        }
+    }
+    draw(d) {
+        this.use();
+        if (this.attrPos != -1 && d.bindPos()) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrPos);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrPos, 4, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribDivisor(this.attrPos, 0);
+        }
+        if (this.attrNor != -1 && d.bindNor()) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrNor);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrNor, 4, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribDivisor(this.attrNor, 0);
+        }
+        if (this.attrEnd != -1 && d.bindEndpoints()) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrEnd);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrEnd, 4, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribDivisor(this.attrEnd, 1);
+        }
+        if (this.attrThic != -1 && d.bindThickness()) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrThic);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrThic, 1, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribDivisor(this.attrThic, 1);
+        }
+        if (this.attrOff != -1 && d.bindOff()) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrOff);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrOff, 4, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribDivisor(this.attrOff, 1);
+        }
+        if (this.attrHgt != -1 && d.bindHgt()) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrHgt);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrHgt, 1, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribDivisor(this.attrHgt, 1);
+        }
+        d.bindIdx();
+        if (d.numInstances > 0) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].drawElementsInstanced(d.drawMode(), d.elemCount(), __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].UNSIGNED_INT, 0, d.numInstances);
+        }
+        else {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].drawElements(d.drawMode(), d.elemCount(), __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].UNSIGNED_INT, 0);
+        }
+        if (this.attrPos != -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrPos);
+        }
+        ;
+        if (this.attrNor != -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrNor);
+        }
+        ;
+        if (this.attrEnd != -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrEnd);
+        }
+        ;
+        if (this.attrThic != -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrThic);
+        }
+        ;
+        if (this.attrOff != -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrOff);
+        }
+        ;
+        if (this.attrHgt != -1) {
+            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrHgt);
+        }
+        ;
+    }
+}
+;
+/* harmony default export */ __webpack_exports__["b"] = (ShaderProgram);
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+var CameraControls = __webpack_require__(36);
 
 class Camera {
     constructor(position, target) {
@@ -13407,7 +9670,7 @@ class Camera {
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13415,12 +9678,12 @@ class Camera {
 
 module.exports = createCamera
 
-var now         = __webpack_require__(36)
-var createView  = __webpack_require__(38)
-var mouseChange = __webpack_require__(61)
-var mouseWheel  = __webpack_require__(63)
-var mouseOffset = __webpack_require__(66)
-var hasPassive  = __webpack_require__(67)
+var now         = __webpack_require__(37)
+var createView  = __webpack_require__(39)
+var mouseChange = __webpack_require__(62)
+var mouseWheel  = __webpack_require__(64)
+var mouseOffset = __webpack_require__(67)
+var hasPassive  = __webpack_require__(68)
 
 function createCamera(element, options) {
   element = element || document.body
@@ -13650,7 +9913,7 @@ function createCamera(element, options) {
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {module.exports =
@@ -13661,10 +9924,10 @@ function createCamera(element, options) {
     return +new Date
   }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(38)))
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 var g;
@@ -13691,7 +9954,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13699,9 +9962,9 @@ module.exports = g;
 
 module.exports = createViewController
 
-var createTurntable = __webpack_require__(39)
-var createOrbit     = __webpack_require__(42)
-var createMatrix    = __webpack_require__(45)
+var createTurntable = __webpack_require__(40)
+var createOrbit     = __webpack_require__(43)
+var createMatrix    = __webpack_require__(46)
 
 function ViewController(controllers, mode) {
   this._controllerNames = Object.keys(controllers)
@@ -13819,7 +10082,7 @@ function createViewController(options) {
 }
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13827,12 +10090,12 @@ function createViewController(options) {
 
 module.exports = createTurntableController
 
-var filterVector = __webpack_require__(11)
-var invert44     = __webpack_require__(3)
-var rotateM      = __webpack_require__(41)
-var cross        = __webpack_require__(13)
+var filterVector = __webpack_require__(12)
+var invert44     = __webpack_require__(4)
+var rotateM      = __webpack_require__(42)
+var cross        = __webpack_require__(14)
 var normalize3   = __webpack_require__(5)
-var dot3         = __webpack_require__(14)
+var dot3         = __webpack_require__(15)
 
 function len3(x, y, z) {
   return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2) + Math.pow(z, 2))
@@ -14397,7 +10660,7 @@ function createTurntableController(options) {
 }
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14442,7 +10705,7 @@ module.exports = cubicHermite
 module.exports.derivative = dcubicHermite
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = rotate;
@@ -14511,7 +10774,7 @@ function rotate(out, a, rad, axis) {
 };
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14519,11 +10782,11 @@ function rotate(out, a, rad, axis) {
 
 module.exports = createOrbitController
 
-var filterVector  = __webpack_require__(11)
-var lookAt        = __webpack_require__(15)
-var mat4FromQuat  = __webpack_require__(43)
-var invert44      = __webpack_require__(3)
-var quatFromFrame = __webpack_require__(44)
+var filterVector  = __webpack_require__(12)
+var lookAt        = __webpack_require__(16)
+var mat4FromQuat  = __webpack_require__(44)
+var invert44      = __webpack_require__(4)
+var quatFromFrame = __webpack_require__(45)
 
 function len3(x,y,z) {
   return Math.sqrt(Math.pow(x,2) + Math.pow(y,2) + Math.pow(z,2))
@@ -14910,7 +11173,7 @@ function createOrbitController(options) {
 }
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = fromQuat;
@@ -14962,7 +11225,7 @@ function fromQuat(out, q) {
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15009,21 +11272,21 @@ function quatFromFrame(
 }
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var bsearch   = __webpack_require__(12)
-var m4interp  = __webpack_require__(46)
-var invert44  = __webpack_require__(3)
-var rotateX   = __webpack_require__(58)
-var rotateY   = __webpack_require__(59)
-var rotateZ   = __webpack_require__(60)
-var lookAt    = __webpack_require__(15)
-var translate = __webpack_require__(17)
-var scale     = __webpack_require__(19)
+var bsearch   = __webpack_require__(13)
+var m4interp  = __webpack_require__(47)
+var invert44  = __webpack_require__(4)
+var rotateX   = __webpack_require__(59)
+var rotateY   = __webpack_require__(60)
+var rotateZ   = __webpack_require__(61)
+var lookAt    = __webpack_require__(16)
+var translate = __webpack_require__(18)
+var scale     = __webpack_require__(20)
 var normalize = __webpack_require__(5)
 
 var DEFAULT_CENTER = [0,0,0]
@@ -15214,15 +11477,15 @@ function createMatrixCameraController(options) {
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var lerp = __webpack_require__(47)
+var lerp = __webpack_require__(48)
 
-var recompose = __webpack_require__(48)
-var decompose = __webpack_require__(51)
-var determinant = __webpack_require__(20)
-var slerp = __webpack_require__(56)
+var recompose = __webpack_require__(49)
+var decompose = __webpack_require__(52)
+var determinant = __webpack_require__(21)
+var slerp = __webpack_require__(57)
 
 var state0 = state()
 var state1 = state()
@@ -15271,7 +11534,7 @@ function vec4() {
 }
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports) {
 
 module.exports = lerp;
@@ -15296,7 +11559,7 @@ function lerp(out, a, b, t) {
 }
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -15311,12 +11574,12 @@ From: http://www.w3.org/TR/css3-transforms/#recomposing-to-a-3d-matrix
 */
 
 var mat4 = {
-    identity: __webpack_require__(16),
-    translate: __webpack_require__(17),
-    multiply: __webpack_require__(49),
-    create: __webpack_require__(18),
-    scale: __webpack_require__(19),
-    fromRotationTranslation: __webpack_require__(50)
+    identity: __webpack_require__(17),
+    translate: __webpack_require__(18),
+    multiply: __webpack_require__(50),
+    create: __webpack_require__(19),
+    scale: __webpack_require__(20),
+    fromRotationTranslation: __webpack_require__(51)
 }
 
 var rotationMatrix = mat4.create()
@@ -15361,7 +11624,7 @@ module.exports = function recomposeMat4(matrix, translation, scale, skew, perspe
 }
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports) {
 
 module.exports = multiply;
@@ -15408,7 +11671,7 @@ function multiply(out, a, b) {
 };
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports) {
 
 module.exports = fromRotationTranslation;
@@ -15466,7 +11729,7 @@ function fromRotationTranslation(out, q, v) {
 };
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*jshint unused:true*/
@@ -15486,18 +11749,18 @@ https://github.com/ChromiumWebApps/chromium/blob/master/ui/gfx/transform_util.cc
 http://www.w3.org/TR/css3-transforms/#decomposing-a-3d-matrix
 */
 
-var normalize = __webpack_require__(52)
+var normalize = __webpack_require__(53)
 
-var create = __webpack_require__(18)
-var clone = __webpack_require__(53)
-var determinant = __webpack_require__(20)
-var invert = __webpack_require__(3)
-var transpose = __webpack_require__(54)
+var create = __webpack_require__(19)
+var clone = __webpack_require__(54)
+var determinant = __webpack_require__(21)
+var invert = __webpack_require__(4)
+var transpose = __webpack_require__(55)
 var vec3 = {
-    length: __webpack_require__(55),
+    length: __webpack_require__(56),
     normalize: __webpack_require__(5),
-    dot: __webpack_require__(14),
-    cross: __webpack_require__(13)
+    dot: __webpack_require__(15),
+    cross: __webpack_require__(14)
 }
 
 var tmp = create()
@@ -15650,7 +11913,7 @@ function combine(out, a, b, scale1, scale2) {
 }
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = function normalize(out, mat) {
@@ -15665,7 +11928,7 @@ module.exports = function normalize(out, mat) {
 }
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = clone;
@@ -15698,7 +11961,7 @@ function clone(a) {
 };
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = transpose;
@@ -15752,7 +12015,7 @@ function transpose(out, a) {
 };
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = length;
@@ -15771,13 +12034,13 @@ function length(a) {
 }
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(57)
+module.exports = __webpack_require__(58)
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = slerp
@@ -15834,7 +12097,7 @@ function slerp (out, a, b, t) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports) {
 
 module.exports = rotateX;
@@ -15883,7 +12146,7 @@ function rotateX(out, a, rad) {
 };
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 module.exports = rotateY;
@@ -15932,7 +12195,7 @@ function rotateY(out, a, rad) {
 };
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 module.exports = rotateZ;
@@ -15981,7 +12244,7 @@ function rotateZ(out, a, rad) {
 };
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15989,7 +12252,7 @@ function rotateZ(out, a, rad) {
 
 module.exports = mouseListen
 
-var mouse = __webpack_require__(62)
+var mouse = __webpack_require__(63)
 
 function mouseListen (element, callback) {
   if (!callback) {
@@ -16193,7 +12456,7 @@ function mouseListen (element, callback) {
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16260,13 +12523,13 @@ exports.y = mouseRelativeY
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPX = __webpack_require__(64)
+var toPX = __webpack_require__(65)
 
 module.exports = mouseWheelListen
 
@@ -16307,13 +12570,13 @@ function mouseWheelListen(element, callback, noScroll) {
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var parseUnit = __webpack_require__(65)
+var parseUnit = __webpack_require__(66)
 
 module.exports = toPX
 
@@ -16388,7 +12651,7 @@ function toPX(str, element) {
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports) {
 
 module.exports = function parseUnit(str, out) {
@@ -16403,7 +12666,7 @@ module.exports = function parseUnit(str, out) {
 }
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports) {
 
 var rootPosition = { left: 0, top: 0 }
@@ -16434,13 +12697,13 @@ function getBoundingClientOffset (element) {
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isBrowser = __webpack_require__(68)
+var isBrowser = __webpack_require__(69)
 
 function detect() {
 	var supported = false
@@ -16465,149 +12728,720 @@ module.exports = isBrowser && detect()
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__globals__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
 
-
-var activeProgram = null;
-class Shader {
-    constructor(type, source) {
-        this.shader = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].createShader(type);
-        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].shaderSource(this.shader, source);
-        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].compileShader(this.shader);
-        if (!__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getShaderParameter(this.shader, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].COMPILE_STATUS)) {
-            throw __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getShaderInfoLog(this.shader);
+function fract(num) {
+    return num - Math.floor(num);
+}
+function smoothstep(x) {
+    let t = x < 0 ? 0 : x > 1 ? 1 : x;
+    return t * t * (3.0 - 2.0 * t);
+}
+function mix(x, y, a) {
+    return x * (1.0 - a) + y * a;
+}
+function random1(p, seed) {
+    return fract(Math.sin(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].dot(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].create(), p, seed), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(127.1, 311.7))) * 29.13);
+}
+function brownianNoise(p, seed) {
+    let boxPos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(Math.floor(p[0]), Math.floor(p[1]));
+    let corner0 = random1(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].create(), boxPos, __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0.0, 0.0)), seed);
+    let corner1 = random1(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].create(), boxPos, __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(1.0, 0.0)), seed);
+    let corner2 = random1(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].create(), boxPos, __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0.0, 1.0)), seed);
+    let corner3 = random1(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].create(), boxPos, __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(1.0, 1.0)), seed);
+    let tx = smoothstep(fract(p[0]));
+    let ty = smoothstep(fract(p[1]));
+    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);
+}
+function fbm(noisePos, numOctaves, startFrequency, seed) {
+    let totalNoise = 0.0;
+    let normalizer = 0.0;
+    const PERSISTENCE = 0.5;
+    let frequency = startFrequency;
+    let amplitude = PERSISTENCE;
+    for (let i = 0; i < numOctaves; i++) {
+        normalizer += amplitude;
+        totalNoise += brownianNoise(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].scale(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].create(), noisePos, frequency), seed) * amplitude;
+        frequency *= 2.0;
+        amplitude *= PERSISTENCE;
+    }
+    return totalNoise / normalizer;
+}
+class GeoData {
+    constructor(_terrainSeed, _populationSeed, _landRatio, _mapSize) {
+        this.terrainSeed = _terrainSeed;
+        this.populationSeed = _populationSeed;
+        this.landRatio = _landRatio;
+        this.mapSize = _mapSize;
+    }
+    setLandRatio(ratio) {
+        this.landRatio = ratio;
+    }
+    isLand(pos) {
+        let vec = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(pos[0], pos[1]);
+        let terrainNoise = fbm(vec, 3, 0.05, this.terrainSeed);
+        return terrainNoise < this.landRatio - 0.075;
+    }
+    getPopulationDensity(pos) {
+        if (!this.isLand(pos)) {
+            return -0.001;
         }
+        if (Math.abs(pos[0]) > this.mapSize + 50 || Math.abs(pos[1]) > this.mapSize + 50) {
+            return -0.003;
+        }
+        return Math.pow(fbm(pos, 2, 0.08, this.populationSeed), 2.0);
     }
 }
-/* harmony export (immutable) */ __webpack_exports__["a"] = Shader;
-
-;
-class ShaderProgram {
-    constructor(shaders) {
-        this.prog = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].createProgram();
-        for (let shader of shaders) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].attachShader(this.prog, shader.shader);
-        }
-        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].linkProgram(this.prog);
-        if (!__WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getProgramParameter(this.prog, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].LINK_STATUS)) {
-            throw __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getProgramInfoLog(this.prog);
-        }
-        this.attrPos = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Pos");
-        this.attrNor = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Nor");
-        this.attrCol = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getAttribLocation(this.prog, "vs_Col");
-        this.unifModel = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Model");
-        this.unifModelInvTr = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_ModelInvTr");
-        this.unifViewProj = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_ViewProj");
-        this.unifPlanePos = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_PlanePos");
-        this.unifTime = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_Time");
-        this.unifLighting = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_UseLight");
-        this.unifRatio = __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].getUniformLocation(this.prog, "u_LandRatio");
-    }
-    use() {
-        if (activeProgram !== this.prog) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].useProgram(this.prog);
-            activeProgram = this.prog;
-        }
-    }
-    setModelMatrix(model) {
-        this.use();
-        if (this.unifModel !== -1) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniformMatrix4fv(this.unifModel, false, model);
-        }
-        if (this.unifModelInvTr !== -1) {
-            let modelinvtr = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].create();
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].transpose(modelinvtr, model);
-            __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["a" /* mat4 */].invert(modelinvtr, modelinvtr);
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniformMatrix4fv(this.unifModelInvTr, false, modelinvtr);
-        }
-    }
-    setViewProjMatrix(vp) {
-        this.use();
-        if (this.unifViewProj !== -1) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniformMatrix4fv(this.unifViewProj, false, vp);
-        }
-    }
-    setPlanePos(pos) {
-        this.use();
-        if (this.unifPlanePos !== -1) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform2fv(this.unifPlanePos, pos);
-        }
-    }
-    setTime(time) {
-        this.use();
-        if (this.unifTime !== -1) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1i(this.unifTime, time);
-        }
-    }
-    setWaterRatio(ratio) {
-        this.use();
-        if (this.unifRatio !== -1) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1f(this.unifRatio, ratio);
-        }
-    }
-    setLightingOn(lighting) {
-        this.use();
-        let l = lighting ? 1 : 0;
-        if (this.unifLighting !== -1) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].uniform1i(this.unifLighting, l);
-        }
-    }
-    draw(d) {
-        this.use();
-        if (this.attrPos != -1 && d.bindPos()) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrPos);
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrPos, 4, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
-        }
-        if (this.attrNor != -1 && d.bindNor()) {
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].enableVertexAttribArray(this.attrNor);
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].vertexAttribPointer(this.attrNor, 4, __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].FLOAT, false, 0, 0);
-        }
-        d.bindIdx();
-        __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].drawElements(d.drawMode(), d.elemCount(), __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].UNSIGNED_INT, 0);
-        if (this.attrPos != -1)
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrPos);
-        if (this.attrNor != -1)
-            __WEBPACK_IMPORTED_MODULE_1__globals__["a" /* gl */].disableVertexAttribArray(this.attrNor);
-    }
-}
-;
-/* harmony default export */ __webpack_exports__["b"] = (ShaderProgram);
+/* harmony export (immutable) */ __webpack_exports__["a"] = GeoData;
 
 
-/***/ }),
-/* 70 */
-/***/ (function(module, exports) {
-
-module.exports = "#version 300 es\n\n\nuniform mat4 u_Model;\nuniform mat4 u_ModelInvTr;\nuniform mat4 u_ViewProj;\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform float u_LandRatio;\nuniform highp int u_UseLight;\nuniform highp int u_Time;\n\nin vec4 vs_Pos;\nin vec4 vs_Nor;\nin vec4 vs_Col;\n\nout vec3 fs_Pos;\nout vec4 fs_Nor;\nout vec4 fs_Col;\n\nconst vec2 SEED2 = vec2(0.1234, 0.5678);\n\nconst float PI = 3.1415926;\n\n/* ----------------------------------------------------------------------------------------- *\n *     Util Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat cubicFalloff(float t) {\n    return t * t * (3.0 - 2.0 * t);\n}\n\n/* ----------------------------------------------------------------------------------------- *\n *     Noise Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat random1(vec2 p, vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1(vec3 p, vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2(vec2 p, vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, seed) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\nvoid main() {\n    vec2 noisePos = vs_Pos.xz + u_PlanePos;\n\n    const float COAST_SIZE = 0.075;\n    float isLand = fbm(noisePos, 3, 0.05, SEED2);\n    float vertHeight =\n        isLand > u_LandRatio - 0.00000000 ? -0.5:\n        isLand > u_LandRatio - COAST_SIZE ? mix(-0.5, 0.5, cubicFalloff((u_LandRatio - isLand) / COAST_SIZE)):\n        0.5;\n\n    /*\n        isLand > u_LandRatio -0.5 : \n        isLand > u_LandRatio ? mix(-0.5, 0.5, cubicFalloff((isLand - u_LandRatio - COAST_SIZE) / COAST_SIZE)) :\n        0.5;*/\n\n    vec4 modelposition = vec4(vs_Pos.x, vertHeight, vs_Pos.z, 1);\n    fs_Pos = vec3(noisePos.x, vertHeight, noisePos.y);\n\n    modelposition = u_Model * modelposition;\n    gl_Position = u_ViewProj * modelposition;\n}\n"
 
 /***/ }),
 /* 71 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform highp int u_Time;\nuniform highp int u_UseLight;\n\nin vec3 fs_Pos;\nin vec4 fs_Nor;\nin vec4 fs_Col;\n\n\nout vec4 out_Col; // This is the final output color that you will see on your\n                  // screen for the pixel that is currently being processed.\n\nconst vec2 SEED1 = vec2(0.31415, 0.6456);\nconst vec2 SEED2 = vec2(0.41123, 0.9382);\n\nconst float PI = 3.1415926;\n\n/* ----------------------------------------------------------------------------------------- *\n *     Noise Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat random1(vec2 p, vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1(vec3 p, vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2(vec2 p, vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, seed) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\n\n\nvoid main() {\n\n    const vec3 WATER = vec3(0.2, 0.3, 1);\n    const vec3 TIDE  = vec3(0.6, 0.7, 1);\n    const vec3 SAND  = vec3(1, 1, 0.6);\n    const vec3 LAND  = vec3(0.0, 0.8, 0.0);\n\n    float height = fs_Pos.y;\n\n    vec3 terrainColor =\n        height < -0.49 ? WATER:\n        height < -0.25 ? mix(WATER, TIDE, smoothstep(0.0, 1.0, height * 4.0 + 2.0)):\n        height < +0.00 ? mix(TIDE, SAND, smoothstep(0.0, 1.0, height * 4.0 + 1.0)):\n        height < +0.49 ? mix(SAND, LAND, smoothstep(0.0, 1.0, height * 2.0)):\n        LAND;\n\n    float populationDensity = height < 0.4 ? 0.0 : pow(fbm(fs_Pos.xz, 2, 0.15, SEED2), 2.0);\n\n    const vec3 POP_COLOR = vec3(1, 0, 0);\n    vec3 color = mix(terrainColor, POP_COLOR, populationDensity);\n\n    out_Col = vec4(color, 1.0);\n}\n"
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Turtle__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__util__ = __webpack_require__(22);
+
+
+
+
+const ROAD_HIGHWAY = 0;
+const ROAD_STREET = 1;
+class RoadGenerator {
+    constructor(_geoData, _mapSize) {
+        this.geoData = _geoData;
+        this.roadNetwork = new __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__["b" /* default */]();
+        this.snapRadius = 3.0;
+        this.currentSeed = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0.46123, 0.93452);
+        this.mapSize = _mapSize;
+        // In order to efficiently find an arbitrary number of points to start a new road branch,
+        // I am dividing the map up into 10-unit tiles, and tracking each one. If it's an invalid tile
+        // or has already been used a starting point, it won't be selected
+        this.openTiles = [];
+        const incSize = Math.floor(_mapSize / 5);
+        for (let x = -_mapSize; x < _mapSize; x += incSize) {
+            for (let y = -_mapSize; y < _mapSize; y += incSize) {
+                if (this.geoData.isLand([x, y])) {
+                    const key = x + "|" + y;
+                    this.openTiles.push(key);
+                }
+            }
+        }
+    }
+    generateRandomNumber(min = 0, max = 1) {
+        let rng = Object(__WEBPACK_IMPORTED_MODULE_3__util__["a" /* fract */])(Math.sin(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].dot(this.currentSeed, __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(127.1, 311.7))) * 45249.14523);
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(this.currentSeed, this.currentSeed, __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(rng, 0));
+        rng === 1.0 ? 0.9999 : rng;
+        return min + (max - min) * rng;
+    }
+    getStartingPoint() {
+        if (this.openTiles.length === 0) {
+            return null;
+        }
+        const r1 = Math.floor(this.generateRandomNumber(0, this.openTiles.length));
+        let chosenTile = this.openTiles[r1];
+        let [x, y] = chosenTile.split("|").map(s => parseInt(s));
+        const idx = this.openTiles.indexOf(chosenTile);
+        if (idx > -1) {
+            //this.openTiles.splice(idx, 1);
+        }
+        const tileSize = Math.floor(this.mapSize / 5);
+        let position;
+        do {
+            position = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(x + this.generateRandomNumber(0, tileSize), y + this.generateRandomNumber(0, tileSize));
+        } while (this.geoData.getPopulationDensity(position) <= 0);
+        return position;
+    }
+    resetSeeds() {
+        this.currentSeed = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0.46123, 0.93452);
+    }
+    findBestAngle(turtle) {
+        // Non-highways always go straight (unless they branch)
+        if (turtle.type === ROAD_STREET) {
+            return 0;
+        }
+        const SPREAD_ANGLE = 60; // The max spread of angles at which we will sample
+        const ANGLE_SAMPLES = 7; // The total number of angles sampled
+        const SAMPLE_LENGTH = 50; // The distance traveled per angle
+        let curBestAngle = 0;
+        let highestDirectionWeight = -1000;
+        for (let i = 0; i < ANGLE_SAMPLES; i++) {
+            let angle = this.generateRandomNumber(-SPREAD_ANGLE / 2, SPREAD_ANGLE / 2);
+            let directionWeight = 0;
+            for (let distance = 1; distance <= SAMPLE_LENGTH; distance++) {
+                let samplePos = turtle.dryMove(angle, distance);
+                directionWeight += this.geoData.getPopulationDensity(samplePos) / distance;
+            }
+            if (directionWeight > highestDirectionWeight) {
+                curBestAngle = angle;
+                highestDirectionWeight = directionWeight;
+            }
+        }
+        return curBestAngle;
+    }
+    generateHighways(maxIterations) {
+        this.resetSeeds();
+        this.roadNetwork = new __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__["b" /* default */]();
+        let startingPoint = this.getStartingPoint();
+        let startingNode = new __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__["a" /* Node */](startingPoint, ROAD_HIGHWAY);
+        let highwayTurtles = [
+            __WEBPACK_IMPORTED_MODULE_2__Turtle__["a" /* default */].turtleFrom(startingNode, 0),
+            __WEBPACK_IMPORTED_MODULE_2__Turtle__["a" /* default */].turtleFrom(startingNode, 90),
+            __WEBPACK_IMPORTED_MODULE_2__Turtle__["a" /* default */].turtleFrom(startingNode, 180),
+            __WEBPACK_IMPORTED_MODULE_2__Turtle__["a" /* default */].turtleFrom(startingNode, 270)
+        ];
+        let streetTurtles = [];
+        this.roadNetwork.addNode(startingNode);
+        let numRoadsGenerated = 0;
+        const MAX_CORRECTION_ANGLE = 120;
+        const ROTATION_STEPS = 15;
+        const HIGHWAY_SEGMENT_LENGTH = 3;
+        const STREET_SEGMENT_LENGTH = 1;
+        const MIN_PRUNE_LENGTH = 1;
+        const HIGHWAY_BRANCH_PROBABILITY = 0.2;
+        const STREET_BRANCH_PROBABILITY = 0.4;
+        const STREET_FORMATION_PROBABILITY = 0.5;
+        const MAX_EXTENSION = 5;
+        const SNAP_RADIUS = 0.5;
+        let ITERATION_LIMIT = 100;
+        let numIterations = 0;
+        while (highwayTurtles.length > 0 || streetTurtles.length > 0) {
+            if (numIterations > maxIterations) {
+                break;
+            }
+            for (let turtle of (highwayTurtles.concat(streetTurtles))) {
+                numIterations++;
+                if (numIterations > maxIterations) {
+                    break;
+                }
+                // This is the node we're going to extend from
+                let lastNode = turtle.node;
+                // ------------------------------------------------------------------------------
+                // First, we want to get the direction of the next road segment
+                // ------------------------------------------------------------------------------
+                let proposedAngle = this.findBestAngle(turtle);
+                let proposedLength = HIGHWAY_SEGMENT_LENGTH;
+                // ------------------------------------------------------------------------------
+                // Now that we have the direction, we must rotate to ensure that the road does
+                // not end up in an illegal area
+                // ------------------------------------------------------------------------------
+                // We set a bunch of flags here to handle what this turtle is actually going to end
+                // up doing
+                let endBranch = false;
+                let makeNewNode = true;
+                let splitEdge = false;
+                let splitNode1 = null;
+                let splitNode2 = null;
+                let proposedPos = turtle.dryMove(proposedAngle, proposedLength);
+                let isIllegal = this.geoData.getPopulationDensity(proposedPos) < 0;
+                if (isIllegal) {
+                    // We don't even attempt to adjust the road unless it's a highway
+                    let foundCorrection = false;
+                    if (turtle.type === ROAD_HIGHWAY) {
+                        // First we try rotating the highway back into a good area
+                        let angleInc = MAX_CORRECTION_ANGLE / ROTATION_STEPS;
+                        for (let dAngle = 0; dAngle <= MAX_CORRECTION_ANGLE; dAngle += angleInc) {
+                            let samplePos1 = turtle.dryMove(proposedAngle + dAngle, proposedLength);
+                            if (this.geoData.getPopulationDensity(samplePos1) >= 0) {
+                                proposedAngle += dAngle;
+                                foundCorrection = true;
+                                break;
+                            }
+                            let samplePos2 = turtle.dryMove(proposedAngle - dAngle, proposedLength);
+                            if (this.geoData.getPopulationDensity(samplePos2) >= 0) {
+                                proposedAngle -= dAngle;
+                                foundCorrection = true;
+                                break;
+                            }
+                        }
+                        // If that doesn't work, we try extending it
+                        if (!foundCorrection) {
+                            let samplePos = turtle.dryMove(proposedAngle, proposedLength * 2.5);
+                            for (let ext = 1; ext < proposedLength * 2; ext++) {
+                                let samplePos = turtle.dryMove(proposedAngle, proposedLength + ext);
+                                if (this.geoData.getPopulationDensity(samplePos) >= 0) {
+                                    proposedLength += ext;
+                                    foundCorrection = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    if (!foundCorrection) {
+                        endBranch = true;
+                        makeNewNode = false;
+                    }
+                }
+                proposedPos = turtle.dryMove(proposedAngle, proposedLength);
+                // We won't actually use this node in the graph. Only for intersection testing purposes
+                // We give it a -1, since the type won't matter
+                let testNode = new __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__["a" /* Node */](proposedPos, -1);
+                // ------------------------------------------------------------------------------
+                // Now we check whether or not the new proposed segment intersects with any
+                // existing ones. If it does, we truncate it and end the growth. It doesn't
+                // matter which type we are
+                // ------------------------------------------------------------------------------   
+                if (!endBranch) {
+                    let checkRadius = Math.max(HIGHWAY_SEGMENT_LENGTH, STREET_SEGMENT_LENGTH);
+                    for (let node of this.roadNetwork.getNodesNear(testNode, checkRadius)) {
+                        for (let neighbor of this.roadNetwork.getAdjacentNodes(node)) {
+                            let edgeType = node.type === neighbor.type ? node.type : ROAD_HIGHWAY;
+                            let intersection = Object(__WEBPACK_IMPORTED_MODULE_3__util__["b" /* getIntersection */])(lastNode.position, proposedPos, node.position, neighbor.position);
+                            if (intersection && (turtle.type === ROAD_STREET || edgeType === ROAD_HIGHWAY)) {
+                                let distance = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].distance(lastNode.position, intersection);
+                                if (distance < proposedLength) {
+                                    proposedLength = distance;
+                                    endBranch = true;
+                                    splitEdge = true;
+                                    splitNode1 = node;
+                                    splitNode2 = neighbor;
+                                }
+                            }
+                        }
+                    }
+                }
+                // ------------------------------------------------------------------------------
+                // If the proposed node is really close to another node, we can just merge it
+                // with that one instead. Again, doesn't matter which type we're using
+                // ------------------------------------------------------------------------------
+                if (!endBranch) {
+                    let shortestDistance = 10000000;
+                    let closestNode = null;
+                    for (let node of this.roadNetwork.getNodesNear(new __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__["a" /* Node */](proposedPos, -1), SNAP_RADIUS)) {
+                        if (turtle.type === ROAD_STREET || node.type === ROAD_HIGHWAY) {
+                            let distance = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].distance(proposedPos, node.position);
+                            if (distance < shortestDistance) {
+                                shortestDistance = distance;
+                                closestNode = node;
+                                endBranch = true;
+                                makeNewNode = false;
+                            }
+                        }
+                    }
+                    if (closestNode) {
+                        this.roadNetwork.connect(lastNode, closestNode);
+                        numRoadsGenerated++;
+                    }
+                }
+                // ------------------------------------------------------------------------------
+                // Now we check if the road almost intersects with another road, and if it does,
+                // we extend it
+                // ------------------------------------------------------------------------------
+                if (!endBranch) {
+                    let adjustedPos = turtle.dryMove(proposedAngle, proposedLength + MAX_EXTENSION);
+                    let adjustedLength = MAX_EXTENSION;
+                    for (let node of this.roadNetwork.getNodesNear(testNode, HIGHWAY_SEGMENT_LENGTH)) {
+                        for (let neighbor of this.roadNetwork.getAdjacentNodes(node)) {
+                            let edgeType = node.type === neighbor.type ? node.type : ROAD_HIGHWAY;
+                            let intersection = Object(__WEBPACK_IMPORTED_MODULE_3__util__["b" /* getIntersection */])(lastNode.position, adjustedPos, node.position, neighbor.position);
+                            if (intersection && (turtle.type === ROAD_STREET || edgeType === ROAD_HIGHWAY)) {
+                                let distance = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].distance(lastNode.position, intersection);
+                                if (distance < adjustedLength) {
+                                    adjustedLength = distance;
+                                    endBranch = true;
+                                    splitEdge = true;
+                                    splitNode1 = node;
+                                    splitNode2 = neighbor;
+                                }
+                            }
+                        }
+                    }
+                    if (endBranch) {
+                        proposedLength = adjustedLength;
+                    }
+                }
+                // ------------------------------------------------------------------------------
+                // Unless we flagged this iteration to avoid making a new node, make the new
+                // node
+                // ------------------------------------------------------------------------------
+                if (makeNewNode) {
+                    turtle.rotate(proposedAngle);
+                    turtle.moveForward(proposedLength);
+                    let newNode = turtle.makeNode();
+                    this.roadNetwork.connect(lastNode, newNode);
+                    if (splitEdge) {
+                        this.roadNetwork.splitEdge(splitNode1, splitNode2, newNode);
+                    }
+                    numRoadsGenerated++;
+                }
+                // ------------------------------------------------------------------------------
+                // If the current road has stopped growing, start making a new one. This can
+                // either mean starting a new road altogether, or branching off of an existing
+                // node
+                // ------------------------------------------------------------------------------
+                if (endBranch) {
+                    if (turtle.type === ROAD_HIGHWAY) {
+                        let idx = highwayTurtles.indexOf(turtle);
+                        if (idx >= 0) {
+                            highwayTurtles.splice(idx, 1);
+                        }
+                    }
+                    else if (turtle.type === ROAD_STREET) {
+                        let idx = streetTurtles.indexOf(turtle);
+                        if (idx >= 0) {
+                            streetTurtles.splice(idx, 1);
+                        }
+                    }
+                }
+                else {
+                    // With a certain probablility, branch the road at a 90 deg angle
+                    let random = this.generateRandomNumber();
+                    if (turtle.type === ROAD_HIGHWAY && random < HIGHWAY_BRANCH_PROBABILITY) {
+                        let branchTurtle = turtle.duplicate();
+                        branchTurtle.rotate(90);
+                        if (random < HIGHWAY_BRANCH_PROBABILITY * STREET_FORMATION_PROBABILITY) {
+                            branchTurtle.type = ROAD_STREET;
+                            streetTurtles.push(branchTurtle);
+                        }
+                        else {
+                            highwayTurtles.push(branchTurtle);
+                        }
+                    }
+                    else if (turtle.type === ROAD_STREET && random < STREET_BRANCH_PROBABILITY) {
+                        let branchTurtle = turtle.duplicate();
+                        branchTurtle.rotate(90);
+                        streetTurtles.push(branchTurtle);
+                    }
+                }
+            }
+        }
+    }
+    drawRoadNetwork(road, highwayThickness) {
+        let seenEdges = new Set();
+        let numRoads = 0;
+        let numStreets = 0;
+        let endpoints = [];
+        let roadThicknesses = [];
+        let streetThickness = highwayThickness / 3.0;
+        for (let node of this.roadNetwork.getNodeIterator()) {
+            for (let neighbor of this.roadNetwork.getAdjacentNodes(node)) {
+                if (!seenEdges.has([node.x, node.y, neighbor.x, neighbor.y].toString())) {
+                    seenEdges.add([node.x, node.y, neighbor.x, neighbor.y].toString());
+                    seenEdges.add([neighbor.x, neighbor.y, node.x, node.y].toString());
+                    endpoints = endpoints.concat(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(node.x, node.y, neighbor.x, neighbor.y));
+                    numRoads++;
+                    let roadType = node.type === neighbor.type ? node.type : ROAD_STREET;
+                    roadThicknesses.push(roadType === ROAD_HIGHWAY ? highwayThickness : streetThickness);
+                }
+            }
+        }
+        road.setRoadVBOs(endpoints, roadThicknesses);
+        road.setNumInstances(numRoads);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = RoadGenerator;
+
+
 
 /***/ }),
 /* 72 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\n\nvoid main() {\n  gl_Position = vs_Pos;\n}\n"
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__ = __webpack_require__(6);
+
+
+const ROAD_HIGHWAY = 0;
+const ROAD_STREET = 1;
+class Turtle {
+    constructor(_type) {
+        this.position = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(0, 0);
+        this.angle = 0;
+        this.node = null;
+        this.type = _type;
+    }
+    static turtleFrom(node, angle) {
+        let turtle = new Turtle(node.type);
+        turtle.setAngle(angle);
+        turtle.setNode(node);
+        turtle.setPosition(node.position);
+        return turtle;
+    }
+    setPosition(pos) {
+        this.position = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(pos[0], pos[1]);
+    }
+    setAngle(angle) {
+        this.angle = angle;
+    }
+    setNode(node) {
+        this.node = node;
+    }
+    duplicate() {
+        let copy = new Turtle(this.type);
+        copy.position = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].clone(this.position);
+        copy.angle = this.angle;
+        copy.node = this.node;
+        return copy;
+    }
+    rotate(amount) {
+        this.angle = (this.angle + amount) % 360;
+    }
+    moveForward(amount) {
+        let radians = this.angle * Math.PI / 180.0;
+        let delta = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(amount * Math.cos(radians), amount * Math.sin(radians));
+        __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(this.position, this.position, delta);
+    }
+    dryMove(angle, amount) {
+        let radians = (this.angle + angle) * Math.PI / 180.0;
+        let delta = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(amount * Math.cos(radians), amount * Math.sin(radians));
+        return __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].add(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].create(), this.position, delta);
+    }
+    makeNode() {
+        let newNode = new __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__["a" /* Node */](this.position, this.type);
+        this.node = newNode;
+        return this.node;
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = Turtle;
+
+
 
 /***/ }),
 /* 73 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_gl_matrix__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util__ = __webpack_require__(22);
+
+
+
+const CELL_UNAVAILABLE = 0;
+const CELL_AVAILABLE = 1;
+const CELL_EMPTY = 2;
+class BuildingGenerator {
+    constructor(_roadGen, _geoData, mapRadius, _quad, _pent, _hex, _oct) {
+        this.quad = _quad;
+        this.pent = _pent;
+        this.hex = _hex;
+        this.oct = _oct;
+        let markSurroundingCells = (i, j) => {
+            if (i < this.buildingGrid.length - 1 && this.buildingGrid[i + 1][j] === CELL_EMPTY) {
+                this.buildingGrid[i + 1][j] = CELL_AVAILABLE;
+            }
+            if (j < this.buildingGrid[i].length - 1 && this.buildingGrid[i][j + 1] === CELL_EMPTY) {
+                this.buildingGrid[i][j + 1] = CELL_AVAILABLE;
+            }
+            if (i > 0 && this.buildingGrid[i - 1][j] === CELL_EMPTY) {
+                this.buildingGrid[i - 1][j] = CELL_AVAILABLE;
+            }
+            if (j > 0 && this.buildingGrid[i][j - 1] === CELL_EMPTY) {
+                this.buildingGrid[i][j - 1] = CELL_AVAILABLE;
+            }
+        };
+        this.roadGen = _roadGen;
+        this.roadNetwork = _roadGen.roadNetwork;
+        this.geoData = _geoData;
+        this.availableCells = [];
+        this.buildingGrid = [];
+        for (let i = 0; i < 2 * Math.floor(mapRadius); i++) {
+            this.buildingGrid[i] = [];
+            for (let j = 0; j < 2 * Math.floor(mapRadius); j++) {
+                let pos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(i - mapRadius, j - mapRadius);
+                if (this.geoData.getPopulationDensity(pos) < 0) {
+                    this.buildingGrid[i][j] = CELL_UNAVAILABLE;
+                    this.buildingGrid[i > 0 ? i - 1 : 0][j] = CELL_UNAVAILABLE;
+                    this.buildingGrid[i][j > 0 ? j - 1 : 0] = CELL_UNAVAILABLE;
+                    this.buildingGrid[i > 0 ? i - 1 : 0][j > 0 ? j - 1 : 0] = CELL_UNAVAILABLE;
+                }
+                else {
+                    this.buildingGrid[i][j] = CELL_EMPTY;
+                }
+            }
+        }
+        for (let i = 0; i < 2 * Math.floor(mapRadius); i++) {
+            for (let j = 0; j < 2 * Math.floor(mapRadius); j++) {
+                let pos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(i - mapRadius, j - mapRadius);
+                let testNode = new __WEBPACK_IMPORTED_MODULE_1__SpatialGraph__["a" /* Node */](pos, -1);
+                let checkRadius = 3;
+                for (let node of this.roadNetwork.getNodesNear(testNode, checkRadius)) {
+                    for (let neighbor of this.roadNetwork.getAdjacentNodes(node)) {
+                        let intersection1 = Object(__WEBPACK_IMPORTED_MODULE_2__util__["b" /* getIntersection */])(pos, [pos[0] + 1, pos[1]], node.position, neighbor.position);
+                        if (intersection1) {
+                            this.buildingGrid[i][j] = CELL_UNAVAILABLE;
+                            markSurroundingCells(i, j);
+                            if (j > 0) {
+                                this.buildingGrid[i][j - 1] = CELL_UNAVAILABLE;
+                                markSurroundingCells(i, j - 1);
+                            }
+                        }
+                        let intersection2 = Object(__WEBPACK_IMPORTED_MODULE_2__util__["b" /* getIntersection */])(pos, [pos[0], pos[1] + 1], node.position, neighbor.position);
+                        if (intersection2) {
+                            this.buildingGrid[i][j] = CELL_UNAVAILABLE;
+                            markSurroundingCells(i, j);
+                            if (i > 0) {
+                                this.buildingGrid[i - 1][j] = CELL_UNAVAILABLE;
+                                markSurroundingCells(i - 1, j);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        for (let i = 0; i < this.buildingGrid.length; i++) {
+            for (let j = 0; j < this.buildingGrid[i].length; j++) {
+                if (this.buildingGrid[i][j] === CELL_AVAILABLE) {
+                    this.availableCells.push([i, j]);
+                }
+            }
+        }
+    }
+    createBuilding(pos) {
+        let populationDensity = this.geoData.getPopulationDensity(pos);
+        if (populationDensity > 0.7 && this.roadGen.generateRandomNumber() < 0.5) {
+            this.quadHeights.push(0.75, 3, 6, 6.2, 6.4, 8);
+            this.quadOffsets.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(pos[0], 0, pos[1], 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(pos[0], 0, pos[1], 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(pos[0], 0, pos[1], 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(pos[0], 0, pos[1], 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(pos[0], 0, pos[1], 0), __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(pos[0], 0, pos[1], 0));
+            this.quadSize.push(1.5, 1.2, 1.1, 1, 0.9, 0.2);
+            return;
+        }
+        let numLayers = Math.floor(this.roadGen.generateRandomNumber(1, 0.5 + populationDensity * 4.0));
+        let heights = new Array(numLayers).fill(0);
+        let offsets = new Array(numLayers).fill(0);
+        for (let i = 0; i < numLayers; i++) {
+            heights[i] = this.roadGen.generateRandomNumber(1, 1 + populationDensity * 4);
+            if (i > 0) {
+                heights[i] = heights[i] + heights[i - 1];
+            }
+        }
+        let baseSize = this.roadGen.generateRandomNumber(0.8, 1.4);
+        if (populationDensity > 0.7) {
+            baseSize = 1.5;
+        }
+        for (let i = 0; i < numLayers; i++) {
+            let size = baseSize * Math.pow(0.8, i);
+            let idx = Math.floor(this.roadGen.generateRandomNumber(0, 4));
+            if (numLayers == 1) {
+                idx = 0;
+            }
+            let offset = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(this.roadGen.generateRandomNumber(-(1.5 - size), (1.5 - size)), this.roadGen.generateRandomNumber(-(1.5 - size), (1.5 - size)));
+            let totalPos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(pos[0] + offset[0], 0, pos[1] + offset[1], 0);
+            if (idx === 0) {
+                this.quadOffsets.push(totalPos);
+                this.quadHeights.push(heights[i]);
+                this.quadSize.push(size);
+            }
+            else if (idx === 1) {
+                this.pentOffsets.push(totalPos);
+                this.pentHeights.push(heights[i]);
+                this.pentSize.push(size);
+            }
+            else if (idx === 2) {
+                this.hexOffsets.push(totalPos);
+                this.hexHeights.push(heights[i]);
+                this.hexSize.push(size);
+            }
+            else if (idx === 3) {
+                this.octOffsets.push(totalPos);
+                this.octHeights.push(heights[i]);
+                this.octSize.push(size);
+            }
+        }
+    }
+    placeBuildings(max) {
+        this.quadOffsets = [];
+        this.quadHeights = [];
+        this.quadSize = [];
+        this.pentOffsets = [];
+        this.pentHeights = [];
+        this.pentSize = [];
+        this.hexOffsets = [];
+        this.hexHeights = [];
+        this.hexSize = [];
+        this.octOffsets = [];
+        this.octHeights = [];
+        this.octSize = [];
+        for (let i = 0; i < max; i++) {
+            if (this.availableCells.length === 0) {
+                break;
+            }
+            let idx = Math.floor(this.roadGen.generateRandomNumber(0, this.availableCells.length));
+            let cell = this.availableCells[idx];
+            this.buildingGrid[cell[0]][cell[1]] = CELL_UNAVAILABLE;
+            this.availableCells.splice(idx, 1);
+            let mapRadius = this.buildingGrid.length / 2;
+            let buildingPos = __WEBPACK_IMPORTED_MODULE_0_gl_matrix__["b" /* vec2 */].fromValues(cell[0] - mapRadius + 0.5, cell[1] - mapRadius + 0.5);
+            this.createBuilding(buildingPos);
+            this.quadOffsets.push(__WEBPACK_IMPORTED_MODULE_0_gl_matrix__["d" /* vec4 */].fromValues(buildingPos[0], 0, buildingPos[1], 0));
+            this.quadHeights.push(2);
+            this.quadSize.push(0.5);
+        }
+        this.quad.setBuildingVBOs(this.quadOffsets, this.quadHeights, this.quadSize);
+        this.quad.setNumInstances(this.quadHeights.length);
+        this.pent.setBuildingVBOs(this.pentOffsets, this.pentHeights, this.pentSize);
+        this.pent.setNumInstances(this.pentHeights.length);
+        this.hex.setBuildingVBOs(this.hexOffsets, this.hexHeights, this.hexSize);
+        this.hex.setNumInstances(this.hexHeights.length);
+        this.oct.setBuildingVBOs(this.octOffsets, this.octHeights, this.octSize);
+        this.oct.setNumInstances(this.octHeights.length);
+    }
+}
+/* harmony export (immutable) */ __webpack_exports__["a"] = BuildingGenerator;
+
+
+
+/***/ }),
+/* 74 */
 /***/ (function(module, exports) {
 
-module.exports = "#version 300 es\nprecision highp float;\nuniform int u_Time;\n\n// The fragment shader used to render the background of the scene\n// Modify this to make your background more interesting\n\nout vec4 out_Col;\n\n\nvoid main() {\n    vec3 color = vec3(0.5, 0.6, 1.0);\n    out_Col = vec4(color, 1.0);\n}\n"
+module.exports = "#version 300 es\n\nuniform mat4 u_Model;\nuniform mat4 u_ModelInvTr;\nuniform mat4 u_ViewProj;\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform float u_LandRatio;\nuniform highp int u_UseLight;\nuniform highp int u_Time;\n\nin vec4 vs_Pos;\nin vec4 vs_Nor;\nin vec4 vs_Col;\n\nout vec3 fs_Pos;\nout vec3 fs_Nor;\nout vec4 fs_Col;\n\nconst vec2 SEED2 = vec2(0.1234, 0.5678);\n\nconst float PI = 3.1415926;\n\n/* ----------------------------------------------------------------------------------------- *\n *     Util Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat cubicFalloff(float t) {\n    return t * t * (3.0 - 2.0 * t);\n}\n\n/* ----------------------------------------------------------------------------------------- *\n *     Noise Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat random1(vec2 p, vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 29.13);\n}\n\nfloat random1(vec3 p, vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2(vec2 p, vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, seed) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\nfloat getHeight(vec2 pos) { \n    const float COAST_SIZE = 0.075;\n    float isLand = fbm(pos, 3, 0.05, SEED2);\n    float vertHeight =\n        isLand > u_LandRatio - 0.00000000 ? -0.5:\n        isLand > u_LandRatio - COAST_SIZE ? mix(-0.5, 0.5, cubicFalloff((u_LandRatio - isLand) / COAST_SIZE)):\n        0.5;\n    return vertHeight;\n}\n\nvoid main() {\n    vec2 noisePos = vs_Pos.xz + u_PlanePos;\n    float vertHeight = getHeight(noisePos);\n    vec4 modelposition = vec4(vs_Pos.x, vertHeight, vs_Pos.z, 1);\n    fs_Pos = vec3(vs_Pos.x, vertHeight, vs_Pos.z);\n\n    modelposition = u_Model * modelposition;\n    gl_Position = u_ViewProj * modelposition;\n}\n"
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform vec2 u_PlanePos; // Our location in the virtual world displayed by the plane\nuniform highp int u_Time;\nuniform highp int u_UseLight;\nuniform highp int u_ShowPop;\nuniform vec3 u_Eye, u_Ref, u_Up;\n\nin vec3 fs_Pos;\nin vec3 fs_Nor;\nin vec4 fs_Col;\n\nout vec4 out_Col; // This is the final output color that you will see on your\n                  // screen for the pixel that is currently being processed.\n\nconst vec2 SEED1 = vec2(0.3141, 0.6456);\nconst vec2 SEED2 = vec2(0.4112, 0.9382);\n\nconst float PI = 3.1415926;\n\nconst vec4 lights[3] = vec4[3](\n    vec4(0, -0.2588190451, -0.96592582628, 0.5),\n    vec4(0, -1, 0, 0.1),\n    vec4(1, 0, 0, 0)\n);\n\nconst vec3 lightColors[3] = vec3[3](\n    vec3(0.2, 0.2, 0),\n    vec3(0.8, 0.8, 1),\n    vec3(1, 1, 0)\n);\n\n/* ----------------------------------------------------------------------------------------- *\n *     Noise Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat random1(vec2 p, vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1(vec3 p, vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2(vec2 p, vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat cubicFalloff(float t) {\n    return t * t * (3.0 - 2.0 * t);\n}\n\nfloat worley(vec2 noisePos, float frequency) {\n    vec2 point = noisePos * frequency;\n    vec2 cell = floor(point);\n\n    // Check the neighboring cells for the closest cell point\n    float closestDistance = 2.0;\n    for (int i = 0; i < 9; i++) {\n        vec2 curCell = cell + vec2(i % 3 - 1, floor(float(i / 3) - 1.0));\n        vec2 cellPoint = vec2(curCell) + random2(vec2(curCell), SEED2);\n        closestDistance = min(closestDistance, distance(cellPoint, point));\n    }\n    return clamp(0.0, 1.0, closestDistance);\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, seed) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\nvec3 calculateLambert(vec3 baseColor) {\n    vec3 newColor = vec3(0);\n    for (int i = 0; i < 3; i++) {\n        vec4 curLight = lights[i];\n        vec3 lightColor = lightColors[i];\n        newColor += dot(fs_Nor, curLight.xyz) * lightColor * baseColor * curLight.w;\n    }\n\n    return clamp(newColor, vec3(0), vec3(1));\n}\n\nfloat calculateSpecular() {\n    vec3 halfDir = normalize(lights[0].xyz - fs_Pos + u_Eye);\n    float specAngle = max(dot(halfDir, vec3(0, 1, 0)), 0.0);\n    float specular = pow(specAngle, 4.0);\n    return specular;\n}\n\nvoid main() {\n    vec2 noisePos = fs_Pos.xz + u_PlanePos;\n\n    vec3 WATER = vec3(0, 0, 0.3);\n    WATER = WATER + calculateSpecular() * vec3(lightColors[0]);\n    const vec3 TIDE  = vec3(0.1, 0.2, 0.5);\n    const vec3 SAND  = vec3(0.3, 0.3, 0.5);\n    const vec3 LAND  = vec3(0.05, 0.1, 0.075);\n    const vec3 SKY   = vec3(0, 0, 0.05);//vec3(0.64, 0.91, 1.0);\n\n    float height = fs_Pos.y;\n\n    vec3 terrainColor =\n        height < -0.49 ? WATER:\n        height < -0.25 ? mix(WATER, TIDE, smoothstep(0.0, 1.0, height * 4.0 + 2.0)):\n        height < +0.00 ? mix(TIDE, SAND, smoothstep(0.0, 1.0, height * 4.0 + 1.0)):\n        height < +0.49 ? mix(SAND, LAND, smoothstep(0.0, 1.0, height * 2.0)):\n        LAND;\n\n    float populationDensity = height < 0.4 ? 0.0 : pow(fbm(noisePos, 2, 0.08, SEED2), 2.0);\n\n    const vec3 POP_COLOR = vec3(1, 0, 0);\n    vec3 color = u_ShowPop == 0 ? terrainColor : mix(terrainColor, POP_COLOR, populationDensity);\n\n    color = mix(color, SKY, smoothstep(0.0, 1.0, clamp((length(fs_Pos.xz) - 45.0) / 5.0, 0.0, 1.0)));\n\n    out_Col = vec4(color, 1.0);\n}\n"
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\n// The vertex shader used to render the background of the scene\n\nin vec4 vs_Pos;\nout vec3 fs_Pos;\n\nvoid main() {\n    fs_Pos = vs_Pos.xyz;\n    gl_Position = vs_Pos;\n}\n"
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\nuniform int u_Time;\nuniform vec3 u_Eye, u_Ref, u_Up;\nuniform vec2 u_Dimensions;\n\nconst float FOV = 45.1;\n\nconst vec2 SEED1 = vec2(0.3141, 0.6456);\nconst vec2 SEED2 = vec2(0.4112, 0.9382);\n\nconst float PI = 3.1415926;\n\n/* ----------------------------------------------------------------------------------------- *\n *     Noise Functions\n * ----------------------------------------------------------------------------------------- */\n\nfloat random1(vec2 p, vec2 seed) {\n    return fract(sin(dot(p + seed, vec2(127.1, 311.7))) * 43758.5453);\n}\n\nfloat random1(vec3 p, vec3 seed) {\n    return fract(sin(dot(p + seed, vec3(987.654, 123.456, 531.975))) * 85734.3545);\n}\n\nvec2 random2(vec2 p, vec2 seed) {\n    return fract(sin(vec2(dot(p + seed, vec2(311.7, 127.1)), dot(p + seed, vec2(269.5, 183.3)))) * 85734.3545);\n}\n\nfloat cubicFalloff(float t) {\n    return t * t * (3.0 - 2.0 * t);\n}\n\nfloat worley(vec2 noisePos, float frequency) {\n    vec2 point = noisePos * frequency;\n    vec2 cell = floor(point);\n\n    // Check the neighboring cells for the closest cell point\n    float closestDistance = 2.0;\n    for (int i = 0; i < 9; i++) {\n        vec2 curCell = cell + vec2(i % 3 - 1, floor(float(i / 3) - 1.0));\n        vec2 cellPoint = vec2(curCell) + random2(vec2(curCell), SEED2);\n        closestDistance = min(closestDistance, distance(cellPoint, point));\n    }\n    return clamp(0.0, 1.0, closestDistance);\n}\n\nfloat brownianNoise(vec2 noisePos, vec2 seed) {\n    vec2 boxPos = vec2(floor(noisePos.x), floor(noisePos.y));\n\n    // Get the noise at the corners of the cells\n    float corner0 = random1(boxPos + vec2(0.0, 0.0), seed);\n    float corner1 = random1(boxPos + vec2(1.0, 0.0), seed);\n    float corner2 = random1(boxPos + vec2(0.0, 1.0), seed);\n    float corner3 = random1(boxPos + vec2(1.0, 1.0), seed);\n\n    // Get cubic interpolation factors\n    float tx = smoothstep(0.0, 1.0, fract(noisePos.x));\n    float ty = smoothstep(0.0, 1.0, fract(noisePos.y));\n\n    // Perform bicubic interpolation\n    return mix(mix(corner0, corner1, tx), mix(corner2, corner3, tx), ty);\n}\n\nfloat fbm(vec2 noisePos, int numOctaves, float startFrequency, vec2 seed) {\n    float totalNoise = 0.0;\n    float normalizer = 0.0;\n    const float PERSISTENCE = 0.5;\n\n    float frequency = startFrequency;\n    float amplitude = PERSISTENCE;\n\n    for (int i = 0; i < numOctaves; i++) {\n        normalizer += amplitude;\n        totalNoise += brownianNoise(noisePos * frequency, seed) * amplitude;\n        frequency *= 2.0;\n        amplitude *= PERSISTENCE;\n    }\n    return totalNoise / normalizer;\n}\n\n// The fragment shader used to render the background of the scene\n// Modify this to make your background more interesting\n\nin vec3 fs_Pos;\nout vec4 out_Col;\n\nvoid main() {\n    vec3 forward = normalize(u_Ref - u_Eye);\n    vec3 right = normalize(cross(forward, u_Up));\n    float refDist = length(u_Ref - u_Eye);\n    float verticalAngle = tan(FOV / 2.0);\n    float aspectRatio = u_Dimensions.x / u_Dimensions.y;\n    vec3 V = u_Up * refDist * verticalAngle;\n    vec3 H = right * refDist * aspectRatio * verticalAngle;\n    vec3 worldPoint = u_Ref + H * fs_Pos.x + V * fs_Pos.y;\n    vec3 rayDir = normalize(worldPoint - u_Eye);\n\n    vec3 moon = mix(vec3(1.0, 1.0, 0.9), vec3(0.7, 0.7, 0.6), fbm(rayDir.xy, 2, 15.0, SEED2));\n\n    float theta = acos(rayDir.z);\n    float phi = atan(rayDir.y, rayDir.x);\n\n    float starNoise = worley(vec2(theta, phi), 5.0);\n    vec3 color = starNoise < 0.008 ? vec3(1.0, 1.0, 0.7) : vec3(0, 0, 0.05);\n\n    color =\n        distance(rayDir, vec3(0, 0, -1)) < 0.29 ? moon :\n        distance(rayDir, vec3(0, 0, -1)) < 0.3 ? mix(moon, color, (distance(rayDir, vec3(0, 0, -1)) - 0.29) / 0.01) :\n        color;\n    out_Col = vec4(color, 1.0);\n}\n"
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform mat4 u_Model;\nuniform mat4 u_ModelInvTr;\nuniform mat4 u_ViewProj;\nuniform vec2 u_PlanePos;\nuniform float u_LandRatio;\n\nin vec4 vs_Pos;\nin vec4 vs_Nor;\nin vec4 vs_Col;\n\nin vec4 vs_Endpoints;\nin float vs_Thickness;\n\nout vec3 fs_Pos;\nout vec4 fs_Nor;\nout vec4 fs_Col;\n\nvoid main() {\n    vec2 end1 = vec2(vs_Endpoints.x, vs_Endpoints.y);\n    vec2 end2 = vec2(vs_Endpoints.z, vs_Endpoints.w);\n    vec2 direction = normalize(end2 - end1);\n    float angle = atan(direction.y, direction.x);\n    float length = distance(end1, end2);\n    mat2 rotation = mat2(\n        vec2(cos(angle), sin(angle)),\n        vec2(-sin(angle), cos(angle))\n    );\n\n    vec2 pos = vs_Pos.xz;\n    pos = vec2(pos.x * length, pos.y * vs_Thickness);\n    pos = rotation * pos;\n    pos += (end1 + end2) / 2.0;\n\n    vec4 modifiedPos = vec4(pos.x, vs_Pos.y * 0.05 + 0.5, pos.y, 1.0) - vec4(u_PlanePos.x, 0, u_PlanePos.y, 0);\n    fs_Pos = modifiedPos.xyz;\n    vec4 modelposition = u_Model * modifiedPos;\n    gl_Position = u_ViewProj * modelposition;\n}"
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform highp int u_Time;\nuniform vec2 u_PlanePos;\n\nin vec3 fs_Pos;\nin vec4 fs_Nor;\nin vec4 fs_Col;\n\nout vec4 out_Col;\n\nvoid main() {\n    const vec3 SKY   = vec3(0, 0, 0.05);\n    \n    vec3 color = vec3(0.3, 0.3, 0.4);\n    color = mix(color, SKY, smoothstep(0.0, 1.0, clamp((length(fs_Pos.xz) - 45.0) / 5.0, 0.0, 1.0)));\n    out_Col = vec4(color, 1.0);\n}"
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform mat4 u_Model;\nuniform mat4 u_ModelInvTr;\nuniform mat4 u_ViewProj;\nuniform vec2 u_PlanePos;\nuniform float u_LandRatio;\n\nin vec4 vs_Pos;\nin vec4 vs_Nor;\nin vec4 vs_Offset;\nin float vs_Height;\nin float vs_Thickness;\n\nout vec3 fs_Pos;\nout vec4 fs_Nor;\n\nvoid main() {\n    vec4 actualPos = vec4(vs_Pos.x * vs_Thickness, vs_Pos.y * vs_Height, vs_Pos.z * vs_Thickness, 1);\n    actualPos += (vs_Offset - vec4(u_PlanePos.x, 0, u_PlanePos.y, 0));\n    vec4 modelposition = u_Model * actualPos;\n    fs_Pos = modelposition.xyz;\n    fs_Nor = vs_Nor;\n\n    gl_Position = u_ViewProj * modelposition;\n}"
+
+/***/ }),
+/* 81 */
+/***/ (function(module, exports) {
+
+module.exports = "#version 300 es\nprecision highp float;\n\nuniform highp int u_Time;\nuniform vec2 u_PlanePos;\nuniform vec3 u_Eye, u_Ref, u_Up;\n\nin vec3 fs_Pos;\nin vec4 fs_Nor;\nin vec4 fs_Col;\n\nout vec4 out_Col;\n\nconst vec4 lights[3] = vec4[3](\n    vec4(0, -0.2588190451, -0.96592582628, 0.5),\n    vec4(0, -1, 0, 0.3),\n    vec4(0, 0.2588190451, 0.96592582628, 1.0)\n);\n\nconst vec3 lightColors[3] = vec3[3](\n    vec3(1, 1, 0.7),\n    vec3(0.8, 0.8, 1),\n    vec3(0, 0, 1)\n);\n\nvec3 calculateLambert(vec3 baseColor) {\n    vec3 newColor = vec3(0);\n    for (int i = 0; i < 3; i++) {\n        vec4 curLight = lights[i];\n        vec3 lightColor = lightColors[i];\n        vec3 nor = fs_Nor.xyz;\n        float d = max(0.0, dot(nor, curLight.xyz));\n        newColor += d * lightColor * baseColor * curLight.w;\n    }\n\n    return clamp(newColor, vec3(0), vec3(1));\n}\n\nfloat calculateSpecular() {\n    vec3 halfDir = normalize(lights[0].xyz - fs_Pos + u_Eye);\n    float specAngle = max(dot(halfDir, vec3(0, 1, 0)), 0.0);\n    float specular = pow(specAngle, 4.0);\n    return specular;\n}\n\nvoid main() {\n    const vec3 SKY = vec3(0, 0, 0.05);\n    \n    vec3 color = vec3(0.9);\n\n    vec3 lightDir = normalize(vec3(0.3, -1, -0.9));\n    color = color * dot(lightDir, fs_Nor.xyz);\n    color = calculateLambert(color);\n\n    color = mix(color, SKY, smoothstep(0.0, 1.0, clamp((length(fs_Pos.xz) - 45.0) / 5.0, 0.0, 1.0)));\n    out_Col = vec4(color, 1.0);\n}"
 
 /***/ })
 /******/ ]);
