@@ -19,3 +19,4 @@ As expected, I used the paper provided for this assignment, as well as the one f
 More importantly though, I found a presentation online explaining a possible implementation of the paper for homework 5. (https://phiresky.github.io/procedural-cities/). I had a very hard time implementing the last assignment, so this was extremely helpful
 
 ## Demo Link
+https://sgalban.github.io/hw06-city-generation/
