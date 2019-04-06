@@ -1,45 +1,21 @@
 # Homework 6: City Generation
 
-For this assignment, you will generate a collection of 3D buildings within the road networks you created for the previous assignment.
+## Overview
+My project is a simple city in a nightime environment. The buildings end environment themselves are unfortunately pretty simple, as I ran out of time to do anything too interesting with them. However, because I found my end result of homework 5 to be unsatisfying, I spent much of my time reworking the road generation, to the point where I essentially just rewrote the entire thing. The final highway and grid patterns are much more interesting than they were in my previous assignment.
 
-For this assignment, you will generate a network of roads to form the basis of a city using a modified version of L-systems. As in homework 4, you will be using instanced rendering to draw your road networks.
+![](city.png)
 
-## Provided Resources
-You can use any base code for this assignment, so we haven't provided
-anything specific for you. We have included the paper [Real-time Procedural Generation of 'Pseudo Infinite' Cities](procedural_infinite_cities.pdf) for your reference. For visual inspiration, you might refer to Emily's [City Forgery](http://www.emilyhvo.com/city-forgery/) project.
+## Road Generation
+As mentioned, my road generation system was completely reworked. Instead of using a single, branching turtle, I now use a collection of turtles, one for each branch still being grown. This way, the turtles can create roads in parallel. The actual backroad generation is not done by the turtles; each turtle has a type (highway or street), and highways have a chance of branching at a 90 degree angle and becoming streets, at which point they can only move in 90 degree increments. By giving the turtles types themselves, highways and roads can determine which types of roads they intersect, and adjust accordingly. Moreoever, the noise functions I used for population and terrain generation have been simplified, so the maps are more or less synced between the GPU and CPU.
 
-## Assignment Requirements
-- __(5 points)__ Based on the code you wrote for the previous assignment, create a 3D model of your terrain. You might consider using the subdivided plane we provided with homework 1. Since the road generation assignment was entirely 2D, your terrain need not have changes in elevation, since that would alter the placement of roads and buildings. The only elevation changes we require are having the water exist at a lower elevation than the land, with a small slope between the two.
+## Building Placement
+As specified in the writeup, I created a grid spanning the entire scene, and then "rasterized" the road network to determine where not to place buildings. To accomplish this, I simply took all the line segments that made up the grid, and used the same intersection testing function I wrote for the road generation. Each cell can be in one of 3 states: empty, meaning there's nothing in the cell, but we won't spawn a building there, unavailable, meaning a building can't be spawned in that cell for whatever reason, and available, meaning the cell is available to the pool of cells that will be considered when placing a new building. All cells start out as empty, and the ones in the water are immediately marked unavailable. Any cell with a road running through it is also marked unavailable, but all empty (not unavailable) adjacent cells are then marked available. This ensures that all the buildings we place are right next to a street or highway, and that we don't get a building in the middle of nowhere.
 
-- __(5 points)__ Using whatever visual representation you wish, draw your roads on top of your terrain model. For the simplest representation, use instanced rendering to draw rectangular prisms slightly above the ground.
-- __(10 points)__ On the CPU, create a high-resolution 2D grid that spans your entire scene. "Rasterize" every road in this grid with an adjustable line thickness to demarcate areas where buildings cannot be placed. Do the same with any water in your terrain. This grid will be used in the next section to determine valid locations for buildings.
-- __(10 points)__ Generate a collection of randomly scattered 2D points in your building placement validity grid, removing any points that fall within cells already occupied by roads or water. At each of these points, you will place a building generated based on the specifications in the next section.
-- __(20 points)__ To create building geometry, you will follow the method illustrated in figure 3 of [Real-time Procedural Generation of 'Pseudo Infinite' Cities](procedural_infinite_cities.pdf). Beginning at a predetermined top height, generate some n-sided polygon and extrude it downward a certain distance. After creating this first layer, create an additional layer beneath it that has the form of two polygons combined together and extruded downward. Repeat until your building has reached the ground. You will be creating the structure of these buildings as VBO data on the CPU.
-- __(25 points)__ Once you have the basics of building generation working, you will need to refine your algorithm to create art-directed procedural buildings. Your city should contain buildings that follow these guidelines:
-  - Buildings in your city should not be uniform in appearance. The higher the city's population density, the more the buildings should resemble skyscrapers. In areas of lower density, the buildings should be shorter and look more residential. Think office buildings versus row homes. Areas of medium population should contain buildings that are of medium height and which look more like multi-story offices or shops. Don't feel constrained by the building generation algorithm from the previous section; add slanted roofs and other features to your buildings if you wish.
-  - The texturing of your buildings should be procedurally generated within a shader. Use all of the techniques you practiced in the first three homework assignments to polish your buildings' appearances. The overall aesthetic of your city is up to you (e.g. cyberpunk versus modern versus renaissance) but the procedural texturing should look intentional. Include windows, doors, lights, and other details you deem necessary to make your buildings look natural.
-- __(10 points)__ Make use of artistic lighting as we discussed during the environmental setpiece assignment. You should include several directional lights, as discussed in [IQ's article on artistic lighting](http://iquilezles.org/www/articles/outdoorslighting/outdoorslighting.htm), to ensure your scene has adequate illumination. There should never be any purely black shadows in your scene.
-- __(5 points)__ Your scene should include a procedural sky background as so many of your other assignments have. Make sure it is congruent with your lighting setup and the aesthetics of your city.
-- __(10 points)__ Following the specifications listed
-[here](https://github.com/pjcozzi/Articles/blob/master/CIS565/GitHubRepo/README.md),
-create your own README.md, renaming the file you are presently reading to
-INSTRUCTIONS.md. Don't worry about discussing runtime optimization for this
-project. Make sure your README contains the following information:
-    - Your name and PennKey
-    - Citation of any external resources you found helpful when implementing this
-    assignment.
-    - A link to your live github.io demo (refer to the pinned Piazza post on
-      how to make a live demo through github.io)
-    - An explanation of the techniques you used to generate your L-System features.
-    Please be as detailed as you can; not only will this help you explain your work
-    to recruiters, but it helps us understand your project when we grade it!
+## Building Generation
+To create the buildings, I created a regular prism drawable, and created 4 instances: a regangular, pentagonal, hexogonal, and octogonal prism. These instances then form the buildings more or less in the manner specified in the project requirements: up to 4 layers are extruded downward, each layer being one of the 4 available shapes (acheived through instanced geometry). The shapes used, number of layers, height of each layer, and lateral layer offset can vary between buildings, creating some variation, though the number of layers and layer heights generally incrase with population. I wanted to manually create more complex buildings (or perhaps just building layers that could be stitched together procedurally) using Blender, but these were a busy past couple of weeks, so unfortunately, the buildings still look rather bland up close. However, I was able to create a hard-coded skyscraper-like building just using rectangular prisms that has a small chance of spawning instead of a procedural building in areas of high population.
 
+## References
+As expected, I used the paper provided for this assignment, as well as the one from the previous assignment. I also referenced past homework assignments heavily, particularly homework 1.
+More importantly though, I found a presentation online explaining a possible implementation of the paper for homework 5. (https://phiresky.github.io/procedural-cities/). I had a very hard time implementing the last assignment, so this was extremely helpful
 
-## Extra Credit (Up to 20 points)
-- If you did not do so for the previous assignment, implement additional road layouts as described in Procedural Modeling of Cities
-  - Radial road networking: The main roads follow radial tracks around some predefined centerpoint
-  - Elevation road networking: Roads follow paths of least elevation change
-- Use shape grammars to further refine the structure of your buildings
-- Create fully 3D terrain and adjust the placement of your buildings and roads based on the slope of your terrain.
-- In the vein of Emily's procedural city, use the BioCrowds algorithm to create agents that seek some goal point by navigating the terrain covered by roads. 
-- Add any polish features you'd like to make your visual output more interesting
+## Demo Link
